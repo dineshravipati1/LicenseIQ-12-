@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Software Services Agreement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-size: 10pt; 
+                line-height: 1.3;
+            }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            h1, h2 { page-break-after: avoid; }
+            table { page-break-inside: avoid; }
+            .doc-table { font-size: 8pt; }
+            .print-btn { display: none !important; }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 30px 25px;
+            background: #ffffff;
+            font-size: 13px;
+        }
+        
+        /* Improved Typography Hierarchy */
+        h1 { 
+            color: #1a202c;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 { 
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 2rem 0 0.75rem 0;
+            line-height: 1.2;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 { 
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        h4 { 
+            color: #718096;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        /* Optimized Paragraphs and Text */
+        p {
+            margin: 0.5rem 0;
+            text-align: justify;
+            orphans: 2;
+            widows: 2;
+            line-height: 1.4;
+        }
+        
+        /* Compact Code Styling */
+        code { 
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            color: #e53e3e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        pre { 
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.3;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-size: 0.8rem;
+        }
+        
+        /* Compact Enhanced Tables */
+        .doc-table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #ffffff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .doc-table th { 
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        
+        .doc-table td { 
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            line-height: 1.3;
+            font-size: 0.9rem;
+        }
+        
+        .doc-table tr:nth-child(even) {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        }
+        
+        /* Compact Enhanced Lists */
+        ul, ol { 
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        li { 
+            margin: 0.25rem 0;
+            line-height: 1.4;
+        }
+        
+        li.checked {
+            color: #38a169;
+            font-weight: 500;
+        }
+        
+        li.unchecked {
+            color: #a0aec0;
+        }
+        
+        /* Links */
+        a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            color: #2c5282;
+            border-bottom-color: #3182ce;
+        }
+        
+        /* Compact Blockquotes */
+        blockquote { 
+            border-left: 3px solid #4299e1;
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-style: italic;
+            position: relative;
+            line-height: 1.4;
+        }
+        
+        /* Compact Document Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .doc-header h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            line-height: 1.1;
+        }
+        
+        .doc-header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .doc-header .date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.75rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        /* Compact Document Footer */
+        .doc-footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0.5rem;
+            color: #718096;
+            line-height: 1.3;
+        }
+        
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Special Elements */
+        .highlight {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Status indicators */
+        .status-complete::before { content: "✅ "; }
+        .status-progress::before { content: "🔄 "; }
+        .status-planned::before { content: "📋 "; }
+        
+        /* Compact spacing for specific elements */
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body { 
+                padding: 15px 10px; 
+                font-size: 12px;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            .doc-table { font-size: 0.7rem; }
+            .doc-table th, .doc-table td { padding: 0.5rem 0.75rem; }
+            .print-btn { 
+                bottom: 25px; 
+                top: auto; 
+                right: 15px; 
+            }
+        }</style>
+</head>
+<body>
+
+<div class="contract-header">
+    <h1>SOFTWARE SERVICES AGREEMENT</h1>
+    <div class="contract-info">
+        <strong>Agreement Number:</strong> SSA-2024-001<br>
+        <strong>Effective Date:</strong> January 15, 2024<br>
+        <strong>Parties:</strong> TechCorp Solutions LLC and DataFlow Systems Inc.
+    </div>
+</div>
+
+<h2>1. PARTIES AND RECITALS</h2>
+
+<p><strong>Service Provider:</strong> TechCorp Solutions LLC<br>
+Address: 1250 Innovation Drive, Suite 400, San Francisco, CA 94107<br>
+Contact: Jennifer Martinez, Chief Technology Officer<br>
+Email: j.martinez@techcorp-solutions.com<br>
+Phone: (415) 555-0123</p>
+
+<p><strong>Client:</strong> DataFlow Systems Inc.<br>
+Address: 890 Enterprise Boulevard, Austin, TX 78701<br>
+Contact: Michael Chen, VP of Operations<br>
+Email: m.chen@dataflow-systems.com<br>
+Phone: (512) 555-0456</p>
+
+<p><strong>WHEREAS,</strong> TechCorp Solutions LLC is a software development company specializing in cloud-based enterprise solutions and data analytics platforms;</p>
+
+<p><strong>WHEREAS,</strong> DataFlow Systems Inc. requires custom software development services for their next-generation customer relationship management system;</p>
+
+<p><strong>NOW, THEREFORE,</strong> in consideration of the mutual covenants and agreements contained herein, the parties agree as follows:</p>
+
+<hr>
+
+<h2>2. SCOPE OF SERVICES</h2>
+
+<h3>2.1 Development Services</h3>
+<p>TechCorp Solutions shall provide the following services ("Services"):</p>
+
+<ol type="a">
+    <li><strong>Custom CRM Development:</strong> Design and develop a cloud-based customer relationship management system with the following features:
+        <ul>
+            <li>Customer data management and analytics</li>
+            <li>Sales pipeline tracking and forecasting</li>
+            <li>Integration with existing DataFlow systems</li>
+            <li>Mobile application for iOS and Android platforms</li>
+            <li>Advanced reporting and dashboard functionality</li>
+        </ul>
+    </li>
+    <li><strong>Data Migration Services:</strong> Migrate existing customer data from DataFlow's legacy systems to the new CRM platform, ensuring data integrity and minimal downtime.</li>
+    <li><strong>Integration Services:</strong> Develop APIs and connectors to integrate the new CRM with DataFlow's existing ERP, accounting, and marketing automation systems.</li>
+    <li><strong>Testing and Quality Assurance:</strong> Comprehensive testing including unit testing, integration testing, user acceptance testing, and security penetration testing.</li>
+</ol>
+
+<h3>2.2 Project Timeline</h3>
+<div class="risk-highlight">
+    <p>The project shall be completed in four phases over <strong>18 months</strong>:</p>
+    <ul>
+        <li><strong>Phase 1</strong> (Months 1-4): Requirements analysis, system design, and architecture planning</li>
+        <li><strong>Phase 2</strong> (Months 5-10): Core CRM development and initial integrations</li>
+        <li><strong>Phase 3</strong> (Months 11-15): Mobile app development, advanced features, and data migration</li>
+        <li><strong>Phase 4</strong> (Months 16-18): Testing, deployment, and go-live support</li>
+    </ul>
+</div>
+
+<h3>2.3 Deliverables</h3>
+<p>TechCorp Solutions shall deliver:</p>
+<ul>
+    <li>Complete source code with documentation</li>
+    <li>User manuals and training materials</li>
+    <li>System administration guides</li>
+    <li>90 days of post-launch support and bug fixes</li>
+</ul>
+
+<hr>
+
+<h2>3. FINANCIAL TERMS</h2>
+
+<h3>3.1 Contract Value</h3>
+<div class="risk-highlight">
+    <p>The total contract value is <strong>$2,850,000</strong> (Two Million Eight Hundred Fifty Thousand Dollars), payable according to the following schedule:</p>
+    <ul>
+        <li>Phase 1 Completion: $475,000 (16.7%)</li>
+        <li>Phase 2 Completion: $1,140,000 (40.0%)</li>
+        <li>Phase 3 Completion: $855,000 (30.0%)</li>
+        <li>Phase 4 Completion: $380,000 (13.3%)</li>
+    </ul>
+</div>
+
+<h3>3.2 Payment Terms</h3>
+<ul>
+    <li>Invoices shall be submitted within 10 days of phase completion</li>
+    <li><strong>Payment is due within 45 days</strong> of invoice receipt</li>
+    <li>Late payments shall incur a <strong>1.5% monthly service charge</strong></li>
+    <li>All payments shall be made in US Dollars via wire transfer</li>
+</ul>
+
+<h3>3.3 Additional Costs</h3>
+<p>Client shall be responsible for:</p>
+<ul>
+    <li>Third-party software licenses and cloud infrastructure costs</li>
+    <li>Travel expenses for on-site work (if required)</li>
+    <li>Additional features beyond the original scope (charged at <strong>$185/hour</strong>)</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>4. INTELLECTUAL PROPERTY</h2>
+
+<h3>4.1 Ownership Rights</h3>
+<p>Upon full payment of all fees, DataFlow Systems shall own all rights, title, and interest in the custom software developed specifically for this project, including source code, documentation, and related materials.</p>
+
+<h3>4.2 Pre-Existing Technology</h3>
+<div class="risk-highlight">
+    <p>TechCorp Solutions retains ownership of all pre-existing intellectual property, frameworks, libraries, and methodologies used in the development process. DataFlow Systems receives a <strong>perpetual, non-exclusive license</strong> to use such pre-existing technology solely in connection with the delivered software.</p>
+</div>
+
+<h3>4.3 Open Source Components</h3>
+<p>Any open source software components incorporated into the deliverables shall remain subject to their respective open source licenses. TechCorp Solutions shall provide a complete list of all open source components and their license terms.</p>
+
+<hr>
+
+<h2>5. CONFIDENTIALITY AND DATA PROTECTION</h2>
+
+<h3>5.1 Confidential Information</h3>
+<p>Both parties acknowledge they may have access to confidential information including business strategies, customer data, technical specifications, and proprietary methodologies. Each party agrees to:</p>
+<ul>
+    <li>Maintain strict confidentiality of all proprietary information</li>
+    <li>Use confidential information solely for the purposes of this agreement</li>
+    <li>Return or destroy all confidential materials upon contract termination</li>
+</ul>
+
+<h3>5.2 Data Security Requirements</h3>
+<p>TechCorp Solutions shall implement industry-standard security measures including:</p>
+<ul>
+    <li>Encryption of all data in transit and at rest (AES-256 minimum)</li>
+    <li>Multi-factor authentication for all system access</li>
+    <li>Regular security audits and penetration testing</li>
+    <li>Compliance with SOC 2 Type II standards</li>
+    <li>GDPR and CCPA compliance for customer data handling</li>
+</ul>
+
+<h3>5.3 Data Breach Notification</h3>
+<div class="risk-highlight">
+    <p>In the event of a security breach affecting DataFlow's data, TechCorp Solutions shall:</p>
+    <ul>
+        <li>Notify DataFlow within <strong>24 hours</strong> of discovery</li>
+        <li>Provide detailed incident report within <strong>72 hours</strong></li>
+        <li>Cooperate fully in breach investigation and remediation</li>
+        <li>Bear all costs related to breach notification and credit monitoring services</li>
+    </ul>
+</div>
+
+<hr>
+
+<h2>6. WARRANTIES AND LIABILITIES</h2>
+
+<h3>6.1 Performance Warranties</h3>
+<p>TechCorp Solutions warrants that:</p>
+<ul>
+    <li>Services will be performed in a professional manner consistent with industry standards</li>
+    <li>Delivered software will be free from material defects for <strong>12 months</strong> post-delivery</li>
+    <li>All work will comply with specified functional requirements</li>
+    <li>No third-party intellectual property rights will be infringed</li>
+</ul>
+
+<h3>6.2 Limitation of Liability</h3>
+<div class="liability-clause">
+    <p><strong>EXCEPT FOR GROSS NEGLIGENCE, WILLFUL MISCONDUCT, OR BREACH OF CONFIDENTIALITY, NEITHER PARTY SHALL BE LIABLE FOR INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS OR BUSINESS INTERRUPTION.</strong></p>
+</div>
+
+<div class="risk-highlight">
+    <p>The total liability of TechCorp Solutions under this agreement shall not exceed the total amount paid by DataFlow Systems under this contract, except for:</p>
+    <ul>
+        <li>Intellectual property infringement claims (<strong>unlimited liability</strong>)</li>
+        <li>Data breach incidents resulting from TechCorp's negligence (up to <strong>$5,000,000</strong>)</li>
+        <li>Violations of confidentiality obligations (up to <strong>$2,000,000</strong>)</li>
+    </ul>
+</div>
+
+<h3>6.3 Indemnification</h3>
+<p>TechCorp Solutions shall indemnify and hold harmless DataFlow Systems against any third-party claims arising from:</p>
+<ul>
+    <li>Infringement of intellectual property rights by the delivered software</li>
+    <li>TechCorp's breach of this agreement</li>
+    <li>Negligent acts or omissions by TechCorp personnel</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>7. TERMINATION AND DISPUTE RESOLUTION</h2>
+
+<h3>7.1 Termination for Cause</h3>
+<div class="risk-highlight">
+    <p>Either party may terminate this agreement immediately upon written notice if:</p>
+    <ul>
+        <li>The other party materially breaches the agreement and fails to cure within <strong>30 days</strong></li>
+        <li>The other party becomes insolvent or files for bankruptcy</li>
+        <li>The other party assigns the agreement without proper consent</li>
+    </ul>
+</div>
+
+<h3>7.2 Termination for Convenience</h3>
+<p>DataFlow Systems may terminate this agreement for convenience with <strong>60 days written notice</strong>. In such cases:</p>
+<ul>
+    <li>TechCorp Solutions shall be paid for all work completed to the termination date</li>
+    <li>DataFlow Systems shall receive all work product completed as of termination</li>
+    <li>Both parties shall return confidential information within 30 days</li>
+</ul>
+
+<h3>7.3 Dispute Resolution</h3>
+<p>All disputes shall be resolved through:</p>
+<ol>
+    <li><strong>Good Faith Negotiation:</strong> 30-day period for direct negotiation between senior executives</li>
+    <li><strong>Mediation:</strong> Binding mediation through the American Arbitration Association</li>
+    <li><strong>Arbitration:</strong> Final arbitration in San Francisco, California, governed by California law</li>
+    <li><strong>Governing Law:</strong> This agreement shall be governed by California state law</li>
+</ol>
+
+<hr>
+
+<h2>8. FORCE MAJEURE AND ADDITIONAL PROVISIONS</h2>
+
+<h3>8.1 Force Majeure</h3>
+<p>Neither party shall be liable for delays or failures in performance due to circumstances beyond their reasonable control, including natural disasters, government actions, labor strikes, or cyber attacks. The affected party must provide written notice within <strong>10 days</strong> and use reasonable efforts to mitigate the impact.</p>
+
+<h3>8.2 Change Management</h3>
+<div class="risk-highlight">
+    <p>Any changes to the project scope must be documented in writing and signed by both parties. Change orders shall specify:</p>
+    <ul>
+        <li>Detailed description of modifications</li>
+        <li>Impact on timeline and budget</li>
+        <li>Revised delivery dates</li>
+        <li>Additional costs or credits</li>
+    </ul>
+</div>
+
+<h3>8.3 Key Personnel</h3>
+<p>The following individuals are considered key personnel and may not be removed from the project without mutual consent:</p>
+<ul>
+    <li><strong>TechCorp:</strong> Sarah Williams (Lead Developer), David Rodriguez (Project Manager)</li>
+    <li><strong>DataFlow:</strong> Michael Chen (Project Sponsor), Lisa Thompson (Technical Lead)</li>
+</ul>
+
+<h3>8.4 Insurance Requirements</h3>
+<p>TechCorp Solutions shall maintain the following insurance coverage throughout the contract term:</p>
+<ul>
+    <li>Professional liability insurance: <strong>$2,000,000</strong> per occurrence</li>
+    <li>General liability insurance: <strong>$1,000,000</strong> per occurrence</li>
+    <li>Cyber liability insurance: <strong>$5,000,000</strong> per occurrence</li>
+    <li>Workers' compensation as required by law</li>
+</ul>
+
+<hr>
+
+<h2>9. SIGNATURE AND EXECUTION</h2>
+
+<p>This agreement shall be effective as of the date first written above and shall remain in effect until all obligations are fulfilled or the agreement is terminated in accordance with its terms.</p>
+
+<p><strong>IN WITNESS WHEREOF,</strong> the parties have executed this Agreement as of the date first written above.</p>
+
+<div class="signature-section">
+    <div class="signature-block">
+        <p><strong>TECHCORP SOLUTIONS LLC</strong></p>
+        <br><br>
+        <p>By: _________________________________<br>
+        Name: Jennifer Martinez<br>
+        Title: Chief Technology Officer<br>
+        Date: January 15, 2024</p>
+    </div>
+
+    <div class="signature-block">
+        <p><strong>DATAFLOW SYSTEMS INC.</strong></p>
+        <br><br>
+        <p>By: _________________________________<br>
+        Name: Michael Chen<br>
+        Title: VP of Operations<br>
+        Date: January 15, 2024</p>
+    </div>
+</div>
+
+<hr>
+
+<h3>EXHIBITS:</h3>
+<ul>
+    <li><strong>Exhibit A:</strong> Detailed Technical Specifications (15 pages)</li>
+    <li><strong>Exhibit B:</strong> Data Migration Plan and Timeline (8 pages)</li>
+    <li><strong>Exhibit C:</strong> Security and Compliance Requirements (12 pages)</li>
+    <li><strong>Exhibit D:</strong> Service Level Agreements and Performance Metrics (6 pages)</li>
+</ul>
+
+<p style="text-align: center; font-style: italic; margin-top: 30px;">
+    <em>This agreement contains confidential and proprietary information. Unauthorized distribution is prohibited.</em>
+</p>
+
+<hr>
+
+<div style="text-align: center; font-size: 10px; margin-top: 20px;">
+    <strong>Document Control:</strong><br>
+    Version: 2.1 | Last Modified: January 15, 2024 | Page Count: 3+ of 3+ | Classification: Confidential
+</div>
+
+</body>
+</html>

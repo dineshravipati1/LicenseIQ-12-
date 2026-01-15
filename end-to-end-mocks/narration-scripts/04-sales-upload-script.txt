@@ -1,0 +1,20 @@
+SCREEN 4: SALES DATA UPLOAD
+Duration: ~30 seconds
+
+[INTRO]
+Next, we need sales data to calculate royalties.
+
+[STEP 1]
+Upload your sales data in CSV or Excel format. The system accepts common sales report formats.
+
+[STEP 2]
+For this demo, I'm uploading a quarterly sales report with product names, quantities, amounts, and territories.
+
+[STEP 3]
+The file is uploading... Notice the preview showing 156 sales transactions across different product categories.
+
+[STEP 4]
+Here's the powerful part: you don't need to manually match sales to contracts. Our AI will do that automatically.
+
+[TRANSITION]
+Let's watch the AI match these sales to the contract rules we just extracted.

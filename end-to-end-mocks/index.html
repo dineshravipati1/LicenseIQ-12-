@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License IQ - End-to-End Demo Navigation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .step-card {
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="flex items-center justify-center mb-4">
+                <img src="cimpleit-logo.png" alt="CimpleIT" class="h-20 mr-4">
+                <div class="text-left">
+                    <h1 class="text-5xl font-bold text-gray-900">License IQ</h1>
+                    <p class="text-sm text-gray-600">Research Platform</p>
+                </div>
+            </div>
+            <p class="text-2xl text-gray-700 mb-2">End-to-End Process Flow Demo</p>
+            <p class="text-gray-600">Professional mock screens for video presentation</p>
+            <div class="mt-6 inline-flex items-center px-6 py-3 bg-white rounded-full shadow-lg">
+                <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-gray-900 font-semibold">8 Steps • Real App Design</span>
+            </div>
+        </div>
+
+        <!-- Navigation Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Step 1 -->
+            <a href="01-contract-upload.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">01</span>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Contract Upload</h3>
+                <p class="text-sm text-gray-600">Upload PDF contract files with drag & drop interface</p>
+            </a>
+
+            <!-- Step 2 -->
+            <a href="02-ai-analysis-processing.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">02</span>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">AI Analysis</h3>
+                <p class="text-sm text-gray-600">Groq LLaMA analyzes contract and extracts key terms</p>
+            </a>
+
+            <!-- Step 3 -->
+            <a href="03-analysis-results.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">03</span>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Analysis Results</h3>
+                <p class="text-sm text-gray-600">View extracted terms, rules, risks, and insights</p>
+            </a>
+
+            <!-- Step 4 -->
+            <a href="04-sales-upload.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">04</span>
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Sales Upload</h3>
+                <p class="text-sm text-gray-600">Upload CSV/Excel sales data for royalty calculation</p>
+            </a>
+
+            <!-- Step 5 -->
+            <a href="05-ai-matching-progress.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">05</span>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">AI Matching</h3>
+                <p class="text-sm text-gray-600">Semantic matching of sales to contracts using AI</p>
+            </a>
+
+            <!-- Step 6 -->
+            <a href="06-royalty-dashboard.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">06</span>
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Royalty Dashboard</h3>
+                <p class="text-sm text-gray-600">Calculate royalties with formula preview and charts</p>
+            </a>
+
+            <!-- Step 7 -->
+            <a href="07-invoice-generation.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">07</span>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Invoice Generation</h3>
+                <p class="text-sm text-gray-600">Download detailed and summary PDF invoices</p>
+            </a>
+
+            <!-- Step 8 -->
+            <a href="08-rag-qna.html" class="step-card bg-white rounded-xl shadow-lg p-6 cursor-pointer block">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-gray-300">08</span>
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">RAG Q&A</h3>
+                <p class="text-sm text-gray-600">Ask questions about contracts with AI assistant</p>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 text-center text-gray-600">
+            <p class="mb-2">License IQ Research Platform</p>
+            <p class="text-sm">AI-Powered Contract Intelligence • Professional Royalty Calculation</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>replit</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-size: 10pt; 
+                line-height: 1.3;
+            }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            h1, h2 { page-break-after: avoid; }
+            table { page-break-inside: avoid; }
+            .doc-table { font-size: 8pt; }
+            .print-btn { display: none !important; }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 30px 25px;
+            background: #ffffff;
+            font-size: 13px;
+        }
+        
+        /* Improved Typography Hierarchy */
+        h1 { 
+            color: #1a202c;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 { 
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 2rem 0 0.75rem 0;
+            line-height: 1.2;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 { 
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        h4 { 
+            color: #718096;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        /* Optimized Paragraphs and Text */
+        p {
+            margin: 0.5rem 0;
+            text-align: justify;
+            orphans: 2;
+            widows: 2;
+            line-height: 1.4;
+        }
+        
+        /* Compact Code Styling */
+        code { 
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            color: #e53e3e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        pre { 
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.3;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-size: 0.8rem;
+        }
+        
+        /* Compact Enhanced Tables */
+        .doc-table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #ffffff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .doc-table th { 
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        
+        .doc-table td { 
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            line-height: 1.3;
+            font-size: 0.9rem;
+        }
+        
+        .doc-table tr:nth-child(even) {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        }
+        
+        /* Compact Enhanced Lists */
+        ul, ol { 
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        li { 
+            margin: 0.25rem 0;
+            line-height: 1.4;
+        }
+        
+        li.checked {
+            color: #38a169;
+            font-weight: 500;
+        }
+        
+        li.unchecked {
+            color: #a0aec0;
+        }
+        
+        /* Links */
+        a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            color: #2c5282;
+            border-bottom-color: #3182ce;
+        }
+        
+        /* Compact Blockquotes */
+        blockquote { 
+            border-left: 3px solid #4299e1;
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-style: italic;
+            position: relative;
+            line-height: 1.4;
+        }
+        
+        /* Compact Document Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .doc-header h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            line-height: 1.1;
+        }
+        
+        .doc-header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .doc-header .date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.75rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        /* Compact Document Footer */
+        .doc-footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0.5rem;
+            color: #718096;
+            line-height: 1.3;
+        }
+        
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Special Elements */
+        .highlight {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Status indicators */
+        .status-complete::before { content: "✅ "; }
+        .status-progress::before { content: "🔄 "; }
+        .status-planned::before { content: "📋 "; }
+        
+        /* Compact spacing for specific elements */
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body { 
+                padding: 15px 10px; 
+                font-size: 12px;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            .doc-table { font-size: 0.7rem; }
+            .doc-table th, .doc-table td { padding: 0.5rem 0.75rem; }
+            .print-btn { 
+                bottom: 25px; 
+                top: auto; 
+                right: 15px; 
+            }
+        }</style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 Print to PDF</button>
+    
+    <div class="doc-header">
+        <h1>replit</h1>
+        <div class="subtitle">Licence IQ Research Platform Documentation</div>
+        <div class="date">Generated on September 7, 2025</div>
+    </div>
+    
+    <div class="content">
+        <h1>Overview</h1><p>Licence IQ Research Platform is a SaaS web application built for intelligent contract management and analysis. The platform enables users to upload, process, and analyze legal contracts using AI-powered document processing, OCR, and semantic search capabilities. It provides a comprehensive dashboard for contract portfolio management with role-based access control and audit trails.</p><h1>User Preferences</h1><p>Preferred communication style: Simple, everyday language.</p><h1>System Architecture</h1><h2>Frontend Architecture</h2><br><ul><li><strong>React + TypeScript</strong>: Modern component-based frontend with strict type safety</li></ul><br><ul><li><strong>Vite</strong>: Fast build tool and development server with hot module replacement</li></ul><br><ul><li><strong>TailwindCSS + shadcn/ui</strong>: Utility-first CSS framework with pre-built component library for consistent UI</li></ul><br><ul><li><strong>React Router (wouter)</strong>: Lightweight client-side routing</li></ul><br><ul><li><strong>TanStack Query</strong>: Server state management with caching and synchronization</li></ul><br><ul><li><strong>React Hook Form</strong>: Form state management with validation</li></ul><h2>Backend Architecture</h2><br><ul><li><strong>Express.js + TypeScript</strong>: RESTful API server with modular route structure</li></ul><br><ul><li><strong>Session-based Authentication</strong>: Replit OAuth integration with secure session storage</li></ul><br><ul><li><strong>Layered Service Architecture</strong>: Separation of concerns with dedicated services for file handling, AI processing, and data access</li></ul><br><ul><li><strong>Middleware Pipeline</strong>: Request logging, authentication, and error handling</li></ul><h2>Database Layer</h2><br><ul><li><strong>PostgreSQL with Drizzle ORM</strong>: Type-safe database operations with schema-first approach</li></ul><br><ul><li><strong>Neon Database</strong>: Serverless PostgreSQL deployment</li></ul><br><ul><li><strong>Connection Pooling</strong>: Efficient database connection management</li></ul><br><ul><li><strong>Migration System</strong>: Version-controlled database schema changes</li></ul><h2>File Management</h2><br><ul><li><strong>Local File Storage</strong>: Contract files stored on server filesystem</li></ul><br><ul><li><strong>Multer</strong>: Multipart form data handling for file uploads</li></ul><br><ul><li><strong>File Validation</strong>: Type checking, size limits, and security scanning</li></ul><br><ul><li><strong>Structured Storage</strong>: Organized file paths with metadata tracking</li></ul><h2>AI Integration Services</h2><br><ul><li><strong>Groq API</strong>: LLaMA model integration for contract analysis and NLP tasks</li></ul><br><ul><li><strong>OCR Pipeline</strong>: Planned Tesseract integration for scanned document processing</li></ul><br><ul><li><strong>Contract Analysis</strong>: Automated extraction of key terms, risk assessment, and insights generation</li></ul><br><ul><li><strong>Confidence Scoring</strong>: AI model confidence levels for extracted information</li></ul><h2>Security & Access Control</h2><br><ul><li><strong>Role-Based Access Control (RBAC)</strong>: Five-tier permission system (owner, admin, editor, viewer, auditor)</li></ul><br><ul><li><strong>Session Management</strong>: Secure session storage in PostgreSQL</li></ul><br><ul><li><strong>Audit Logging</strong>: Comprehensive activity tracking for compliance</li></ul><br><ul><li><strong>Input Validation</strong>: Zod schema validation across all data inputs</li></ul><h2>Data Models</h2><br>Core entities include Users, Contracts, Contract Analysis, and Audit Trails with full relational mapping and type safety through Drizzle schemas.</p><h1>External Dependencies</h1><h2>Authentication Services</h2><br><ul><li><strong>Replit OAuth</strong>: Primary authentication provider with OpenID Connect</li></ul><br><ul><li><strong>Session Storage</strong>: PostgreSQL-backed session management with connect-pg-simple</li></ul><h2>AI & ML Services</h2><br><ul><li><strong>Groq API</strong>: LLaMA model access for natural language processing and contract analysis</li></ul><br><ul><li><strong>Planned Integrations</strong>: Tesseract OCR for document processing, sentence-transformers for embeddings</li></ul><h2>Database Services</h2><br><ul><li><strong>Neon Database</strong>: Serverless PostgreSQL with pgvector extension support for semantic search</li></ul><br><ul><li><strong>Connection Pooling</strong>: @neondatabase/serverless for efficient database connections</li></ul><h2>UI Component Libraries</h2><br><ul><li><strong>Radix UI</strong>: Accessible, unstyled component primitives</li></ul><br><ul><li><strong>Lucide Icons</strong>: Consistent icon system</li></ul><br><ul><li><strong>TailwindCSS</strong>: Utility-first styling framework</li></ul><h2>Development Tools</h2><br><ul><li><strong>TypeScript</strong>: Static type checking across the entire stack</li></ul><br><ul><li><strong>Vite</strong>: Modern build tooling with development server</li></ul><br><ul><li><strong>ESBuild</strong>: Fast production bundling for server code</li></ul>
+    </div>
+    
+    <div class="doc-footer no-print">
+        <p><strong>Licence IQ Research Platform</strong><br>
+        Professional Document Management & AI Analysis Solution<br>
+        <em>This document was automatically generated from Markdown source</em></p>
+    </div>
+</body>
+</html>

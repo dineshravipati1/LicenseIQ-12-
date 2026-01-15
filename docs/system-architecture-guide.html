@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ System Architecture Guide</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #0ea5e9, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .nav a {
+            background: rgba(30, 41, 59, 0.8);
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: rgba(99, 102, 241, 0.3);
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section h2 .icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #6366f1, #0ea5e9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: #0ea5e9;
+        }
+
+        .section h4 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: #10b981;
+        }
+
+        .section p {
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        /* Hierarchy Diagram */
+        .hierarchy-diagram {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .hierarchy-level {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .hierarchy-box {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .hierarchy-box.company {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            font-size: 1.25rem;
+        }
+
+        .hierarchy-box.bu {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+
+        .hierarchy-box.location {
+            background: linear-gradient(135deg, #10b981, #059669);
+            font-size: 0.9rem;
+        }
+
+        .hierarchy-connector {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, #6366f1, #0ea5e9);
+        }
+
+        .hierarchy-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        th {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(14, 165, 233, 0.3));
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #f8fafc;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.875rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+        }
+
+        tr:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-yes {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-no {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-role {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-icon.viewer { background: linear-gradient(135deg, #64748b, #475569); }
+        .card-icon.editor { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+        .card-icon.analyst { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .card-icon.auditor { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .card-icon.manager { background: linear-gradient(135deg, #10b981, #059669); }
+        .card-icon.admin { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .card-icon.owner { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+
+        .card h4 {
+            color: #f8fafc;
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .card-body {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .flow-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .flow-content {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid #6366f1;
+        }
+
+        .flow-content h5 {
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-content p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            left: 19px;
+            top: 45px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: linear-gradient(to bottom, #6366f1, #0ea5e9);
+        }
+
+        /* Visibility Matrix */
+        .matrix {
+            margin: 2rem 0;
+        }
+
+        .matrix-row {
+            display: grid;
+            grid-template-columns: 200px repeat(4, 1fr);
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .matrix-cell {
+            padding: 1rem;
+            text-align: center;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .matrix-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(14, 165, 233, 0.3));
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .matrix-label {
+            text-align: left;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        .matrix-yes {
+            color: #10b981;
+            font-size: 1.25rem;
+        }
+
+        .matrix-no {
+            color: #ef4444;
+            font-size: 1.25rem;
+        }
+
+        /* Test Scenarios */
+        .scenario {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #6366f1;
+        }
+
+        .scenario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .scenario-tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .matrix-row {
+                grid-template-columns: 150px repeat(4, 1fr);
+            }
+
+            .matrix-cell {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .section {
+                break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>LicenseIQ</h1>
+            <p class="subtitle">System Architecture & Context Hierarchy Guide</p>
+            <span class="version">Version 2.0 | December 2024</span>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#hierarchy">Company Hierarchy</a>
+            <a href="#roles">Role System</a>
+            <a href="#permissions">Permission System</a>
+            <a href="#visibility">Data Visibility</a>
+            <a href="#navigation">Navigation Items</a>
+            <a href="#testing">Testing Scenarios</a>
+        </nav>
+
+        <!-- Section 1: Company Hierarchy -->
+        <section id="hierarchy" class="section">
+            <h2><span class="icon">🏢</span> Company Hierarchy</h2>
+            
+            <p>LicenseIQ uses a mandatory 3-level organizational hierarchy. Every piece of data belongs to a specific place in this structure.</p>
+
+            <div class="hierarchy-diagram">
+                <div class="hierarchy-level">
+                    <div class="hierarchy-box company">
+                        LEVEL 1: COMPANY<br>
+                        <small>Top-Level Entity</small>
+                    </div>
+                    <div class="hierarchy-connector"></div>
+                </div>
+                
+                <div class="hierarchy-level">
+                    <div class="hierarchy-row">
+                        <div class="hierarchy-box bu">
+                            LEVEL 2: BUSINESS UNIT<br>
+                            <small>Division/Department</small>
+                        </div>
+                    </div>
+                    <div class="hierarchy-connector"></div>
+                </div>
+
+                <div class="hierarchy-level">
+                    <div class="hierarchy-row">
+                        <div class="hierarchy-box location">LEVEL 3: LOCATION<br><small>Physical Site</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Sample Organization Structure</h3>
+            <div class="hierarchy-diagram">
+                <div class="hierarchy-level">
+                    <div class="hierarchy-box company">MONROVIA NURSERY COMPANY</div>
+                    <div class="hierarchy-connector"></div>
+                </div>
+                
+                <div class="hierarchy-level">
+                    <div class="hierarchy-row">
+                        <div>
+                            <div class="hierarchy-box bu">Monrovia Branded Division</div>
+                            <div style="display: flex; justify-content: center;"><div class="hierarchy-connector"></div></div>
+                            <div class="hierarchy-row" style="margin-top: 0.5rem;">
+                                <div class="hierarchy-box location">Dayton, OR (HQ)</div>
+                                <div class="hierarchy-box location">Visalia, CA</div>
+                                <div class="hierarchy-box location">Cairo, GA</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="hierarchy-box bu">Wight/Berryhill Non-Branded</div>
+                            <div style="display: flex; justify-content: center;"><div class="hierarchy-connector"></div></div>
+                            <div class="hierarchy-row" style="margin-top: 0.5rem;">
+                                <div class="hierarchy-box location">North Carolina</div>
+                                <div class="hierarchy-box location">Ohio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Role System -->
+        <section id="roles" class="section">
+            <h2><span class="icon">👥</span> Role System</h2>
+            
+            <p>LicenseIQ has 7 user roles with different permission levels, plus a special System Admin designation.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon viewer">👁</div>
+                        <div>
+                            <h4>Viewer</h4>
+                            <p>Level 1 - Most Restricted</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Read-only access to contracts and basic data. Cannot create, edit, or delete anything.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon editor">✏️</div>
+                        <div>
+                            <h4>Editor</h4>
+                            <p>Level 2</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Can create and edit contracts, upload documents, and modify data within their context.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon analyst">📊</div>
+                        <div>
+                            <h4>Analyst</h4>
+                            <p>Level 3</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Financial analysis, calculations, sales data management, and reporting capabilities.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon auditor">🔍</div>
+                        <div>
+                            <h4>Auditor</h4>
+                            <p>Level 4</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Compliance review, audit trail access, and verification of calculations and processes.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon manager">👔</div>
+                        <div>
+                            <h4>Manager</h4>
+                            <p>Level 5</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Team oversight, approvals, contract uploads, and operational management.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon admin">⚙️</div>
+                        <div>
+                            <h4>Admin</h4>
+                            <p>Level 6</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Full administrative control within their company. User management, configuration, and system settings.</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon owner">👑</div>
+                        <div>
+                            <h4>Owner</h4>
+                            <p>Level 7 - Highest</p>
+                        </div>
+                    </div>
+                    <div class="card-body">Complete control including navigation manager, all admin features, and system-wide settings.</div>
+                </div>
+            </div>
+
+            <h3>Two-Tier Admin System</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Admin Type</th>
+                            <th>Flag</th>
+                            <th>Access Scope</th>
+                            <th>Can See</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-role">System Admin</span></td>
+                            <td>isSystemAdmin = true</td>
+                            <td>ALL companies, ALL data</td>
+                            <td>Everything in the entire system</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-role">Company Admin</span></td>
+                            <td>role = admin/owner</td>
+                            <td>Their company only</td>
+                            <td>All data within their company + legacy data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Permission System -->
+        <section id="permissions" class="section">
+            <h2><span class="icon">🔐</span> Navigation Permission System</h2>
+            
+            <p>Menu visibility is determined by a 3-tier priority system. The system checks in order until it finds a match.</p>
+
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <h5>User Override (Highest Priority)</h5>
+                        <p>Individual user-specific setting. If exists, use this and stop checking.</p>
+                    </div>
+                    <div class="flow-arrow"></div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <h5>Enabled Toggle (Role Permission)</h5>
+                        <p>Role-based setting from Configuration page. ON = Show, OFF = Hide.</p>
+                    </div>
+                    <div class="flow-arrow"></div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <h5>Default Access (Baseline)</h5>
+                        <p>Uses defaultRoles from seed data if no explicit permission was set.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Permission Decision Example</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Menu Item</th>
+                            <th>Default Access</th>
+                            <th>Enabled Toggle</th>
+                            <th>User Sees Menu?</th>
+                            <th>Why?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dashboard</td>
+                            <td><span class="badge badge-yes">ON</span></td>
+                            <td><em>Not Set</em></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                            <td>Uses Default Access</td>
+                        </tr>
+                        <tr>
+                            <td>Contracts</td>
+                            <td><span class="badge badge-yes">ON</span></td>
+                            <td><span class="badge badge-no">OFF</span></td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td>Enabled Toggle overrides</td>
+                        </tr>
+                        <tr>
+                            <td>Calculations</td>
+                            <td><span class="badge badge-no">OFF</span></td>
+                            <td><span class="badge badge-yes">ON</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                            <td>Enabled Toggle overrides</td>
+                        </tr>
+                        <tr>
+                            <td>User Management</td>
+                            <td><span class="badge badge-no">OFF</span></td>
+                            <td><em>Not Set</em></td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td>Uses Default Access</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Data Visibility -->
+        <section id="visibility" class="section">
+            <h2><span class="icon">📊</span> Data Visibility Rules</h2>
+            
+            <p>Based on where a user is assigned in the hierarchy, they see different data. This applies to Contracts, Sales Data, and Calculations.</p>
+
+            <div class="matrix">
+                <div class="matrix-row">
+                    <div class="matrix-cell matrix-header">User Level</div>
+                    <div class="matrix-cell matrix-header">Own Location</div>
+                    <div class="matrix-cell matrix-header">Other Locations in BU</div>
+                    <div class="matrix-cell matrix-header">Other BUs</div>
+                    <div class="matrix-cell matrix-header">Legacy Data</div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell matrix-label">Location User</div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-no">✗</span></div>
+                    <div class="matrix-cell"><span class="matrix-no">✗</span></div>
+                    <div class="matrix-cell"><span class="matrix-no">✗</span></div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell matrix-label">BU User</div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-no">✗</span></div>
+                    <div class="matrix-cell"><span class="matrix-no">✗</span></div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell matrix-label">Company Admin</div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell matrix-label">System Admin</div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                    <div class="matrix-cell"><span class="matrix-yes">✓</span></div>
+                </div>
+            </div>
+
+            <h3>Practical Example: Contract Visibility</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contract</th>
+                            <th>Location</th>
+                            <th>Visalia User Sees?</th>
+                            <th>Branded BU User Sees?</th>
+                            <th>Company Admin Sees?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contract A</td>
+                            <td>Dayton, OR</td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contract B</td>
+                            <td>Visalia, CA</td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contract C</td>
+                            <td>North Carolina</td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                        </tr>
+                        <tr>
+                            <td>Legacy Contract</td>
+                            <td>(NULL)</td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td><span class="badge badge-no">NO</span></td>
+                            <td><span class="badge badge-yes">YES</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: Navigation Items -->
+        <section id="navigation" class="section">
+            <h2><span class="icon">📋</span> Navigation Items (22 Total)</h2>
+            
+            <h3>Role Access Matrix</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Menu Item</th>
+                            <th>Category</th>
+                            <th>viewer</th>
+                            <th>editor</th>
+                            <th>analyst</th>
+                            <th>auditor</th>
+                            <th>manager</th>
+                            <th>admin</th>
+                            <th>owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dashboard</td>
+                            <td>Main</td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contracts</td>
+                            <td>Contracts</td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Upload Contract</td>
+                            <td>Contracts</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>License Fee Rules</td>
+                            <td>Contracts</td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Review Queue</td>
+                            <td>Contracts</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Royalty Calculator</td>
+                            <td>Finance</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Calculations</td>
+                            <td>Finance</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sales Data</td>
+                            <td>Finance</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>ERP Mapping</td>
+                            <td>Data</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>ERP Catalog</td>
+                            <td>Data</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>LicenseIQ Schema</td>
+                            <td>Data</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Master Data</td>
+                            <td>Data</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>liQ AI</td>
+                            <td>AI & Analytics</td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Knowledge Base</td>
+                            <td>AI & Analytics</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>RAG Dashboard</td>
+                            <td>AI & Analytics</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Analytics</td>
+                            <td>AI & Analytics</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Reports</td>
+                            <td>AI & Analytics</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>User Management</td>
+                            <td>Administration</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Lead Management</td>
+                            <td>Administration</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Audit Trail</td>
+                            <td>Administration</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Configuration</td>
+                            <td>Administration</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Navigation Manager</td>
+                            <td>Administration</td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-no">✗</span></td>
+                            <td><span class="matrix-yes">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 6: Testing Scenarios -->
+        <section id="testing" class="section">
+            <h2><span class="icon">🧪</span> Testing Scenarios</h2>
+
+            <h3>Test Users to Create</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Company</th>
+                            <th>Business Unit</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>admin</td>
+                            <td>Admin@123!</td>
+                            <td><span class="badge badge-role">System Admin</span></td>
+                            <td>ALL</td>
+                            <td>ALL</td>
+                            <td>ALL</td>
+                        </tr>
+                        <tr>
+                            <td>viewer.dayton</td>
+                            <td>Test@123!</td>
+                            <td><span class="badge badge-role">viewer</span></td>
+                            <td>Monrovia</td>
+                            <td>Branded</td>
+                            <td>Dayton, OR</td>
+                        </tr>
+                        <tr>
+                            <td>editor.visalia</td>
+                            <td>Test@123!</td>
+                            <td><span class="badge badge-role">editor</span></td>
+                            <td>Monrovia</td>
+                            <td>Branded</td>
+                            <td>Visalia, CA</td>
+                        </tr>
+                        <tr>
+                            <td>analyst.branded</td>
+                            <td>Test@123!</td>
+                            <td><span class="badge badge-role">analyst</span></td>
+                            <td>Monrovia</td>
+                            <td>Branded</td>
+                            <td><em>(BU Level)</em></td>
+                        </tr>
+                        <tr>
+                            <td>admin.monrovia</td>
+                            <td>Test@123!</td>
+                            <td><span class="badge badge-role">admin</span></td>
+                            <td>Monrovia</td>
+                            <td><em>(Company Level)</em></td>
+                            <td><em>(Company Level)</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Key Test Scenarios</h3>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-title">Scenario 1: Location User Data Isolation</span>
+                    <span class="scenario-tag">Contracts Page</span>
+                </div>
+                <ol style="color: #cbd5e1; padding-left: 1.5rem;">
+                    <li>Login as <code>viewer.dayton</code> (Location: Dayton, OR)</li>
+                    <li>Go to Contracts page</li>
+                    <li>Expected: Only Dayton contracts visible</li>
+                    <li>Contracts from Visalia, Cairo, NC, Ohio should NOT be visible</li>
+                </ol>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-title">Scenario 2: BU User Sees All BU Locations</span>
+                    <span class="scenario-tag">Contracts Page</span>
+                </div>
+                <ol style="color: #cbd5e1; padding-left: 1.5rem;">
+                    <li>Login as <code>analyst.branded</code> (BU: Branded Division)</li>
+                    <li>Go to Contracts page</li>
+                    <li>Expected: Dayton + Visalia + Cairo contracts visible</li>
+                    <li>NC and Ohio contracts should NOT be visible (different BU)</li>
+                </ol>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-title">Scenario 3: Company Admin Sees Everything</span>
+                    <span class="scenario-tag">All Pages</span>
+                </div>
+                <ol style="color: #cbd5e1; padding-left: 1.5rem;">
+                    <li>Login as <code>admin.monrovia</code> (Company Level)</li>
+                    <li>Go to Contracts page</li>
+                    <li>Expected: ALL 5 locations' contracts visible</li>
+                    <li>Legacy contracts (NULL context) also visible</li>
+                </ol>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-title">Scenario 4: Editor Upload Inherits Context</span>
+                    <span class="scenario-tag">Upload Contract</span>
+                </div>
+                <ol style="color: #cbd5e1; padding-left: 1.5rem;">
+                    <li>Login as <code>editor.visalia</code></li>
+                    <li>Upload a new contract</li>
+                    <li>Expected: Contract saved with Visalia context</li>
+                    <li>Login as <code>viewer.dayton</code> - should NOT see the new contract</li>
+                </ol>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-title">Scenario 5: Role-Based Menu Visibility</span>
+                    <span class="scenario-tag">Navigation</span>
+                </div>
+                <ol style="color: #cbd5e1; padding-left: 1.5rem;">
+                    <li>Login as <code>viewer.dayton</code></li>
+                    <li>Check sidebar - "Upload Contract" should NOT be visible</li>
+                    <li>Login as <code>editor.visalia</code></li>
+                    <li>Check sidebar - "Upload Contract" SHOULD be visible</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">LicenseIQ</div>
+            <p>System Architecture Guide | Version 2.0 | December 2024</p>
+            <p style="margin-top: 0.5rem;">AI-Powered Contract Intelligence Platform</p>
+        </footer>
+    </div>
+</body>
+</html>

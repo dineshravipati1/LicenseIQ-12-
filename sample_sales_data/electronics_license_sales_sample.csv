@@ -1,0 +1,21 @@
+Transaction ID,Date,Product Name,Product Category,Component Type,Units Sold,Unit Price,Territory,Customer Name,Sales Amount
+ELC-2024-001,2024-03-15,ARM Processor A72,Smartphone Components,ARM-Compatible Processors,1200000,3.25,United States,TechMobile Inc,3900000
+ELC-2024-002,2024-03-20,Power Management IC PM500,Smartphone Components,Power Management ICs,2500000,1.75,United States,SmartPhone Corp,4375000
+ELC-2024-003,2024-04-05,Memory Controller MC850,Smartphone Components,Memory Controllers,1800000,2.15,United States,Mobile Devices Ltd,3870000
+ELC-2024-004,2024-04-12,WiFi Chipset WF6E,Smartphone Components,Wireless Chipsets,600000,4.50,United States,ConnectTech LLC,2700000
+ELC-2024-005,2024-04-18,AI Accelerator APU-X1,Smartphone Components,AI Acceleration Units,300000,6.75,United States,AI Mobile Systems,2025000
+ELC-2024-006,2024-05-02,Premium Tablet T10,Consumer Electronics,Tablets and E-Readers,50000,450.00,European Union,EuroTech Distribution,22500000
+ELC-2024-007,2024-05-10,Ultrabook Pro 15,Consumer Electronics,Laptops and Ultrabooks,30000,1200.00,United States,Laptop Direct Inc,36000000
+ELC-2024-008,2024-05-22,Smart Home Hub SH200,Consumer Electronics,Smart Home Devices,80000,125.00,United States,HomeAutomation Plus,10000000
+ELC-2024-009,2024-06-01,Fitness Tracker FT500,Consumer Electronics,Wearable Electronics,120000,180.00,United States,WearableTech Co,21600000
+ELC-2024-010,2024-06-15,Auto Infotainment AI800,Specialized Applications,Automotive Electronics,25000,850.00,United States,AutoElectronics Inc,21250000
+ELC-2024-011,2024-06-28,Medical Monitor MM300,Specialized Applications,Medical Device Electronics,15000,1200.00,United States,MedTech Solutions,18000000
+ELC-2024-012,2024-07-05,Industrial Controller IC750,Specialized Applications,Industrial Automation,40000,550.00,United States,IndustrialTech Ltd,22000000
+ELC-2024-013,2024-07-18,Server Processor SP2000,Specialized Applications,Server and Data Center,8000,2500.00,United States,DataCenter Systems,20000000
+ELC-2024-014,2024-08-01,ARM Processor A72,Smartphone Components,ARM-Compatible Processors,850000,2.85,Japan,Asia Mobile Tech,2422500
+ELC-2024-015,2024-08-12,Power Management IC PM500,Smartphone Components,Power Management ICs,1800000,1.45,European Union,Euro Mobile Distributors,2610000
+ELC-2024-016,2024-08-25,Premium Tablet T10,Consumer Electronics,Tablets and E-Readers,35000,480.00,Japan,Tokyo Electronics,16800000
+ELC-2024-017,2024-09-05,Smart Home Hub SH200,Consumer Electronics,Smart Home Devices,95000,135.00,European Union,Smart Living EU,12825000
+ELC-2024-018,2024-09-18,Fitness Tracker FT500,Consumer Electronics,Wearable Electronics,140000,190.00,South Korea,Seoul Wearables,26600000
+ELC-2024-019,2024-09-28,Auto Infotainment AI800,Specialized Applications,Automotive Electronics,18000,977.50,European Union,European Auto Systems,17595000
+ELC-2024-020,2024-10-10,Medical Monitor MM300,Specialized Applications,Medical Device Electronics,12000,1500.00,Japan,Japan MedTech,18000000

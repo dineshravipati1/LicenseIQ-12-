@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #6b7280; }
+      .button-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: white; }
+      .metric-number { font-family: 'Segoe UI', Arial, sans-serif; font-size: 18px; font-weight: bold; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .card { fill: white; stroke: #e5e7eb; }
+      .primary-btn { fill: #3b82f6; }
+      .success { fill: #10b981; }
+      .warning { fill: #f59e0b; }
+      .secondary-btn { fill: #e5e7eb; stroke: #d1d5db; }
+      .ai-rules { fill: #f0f9ff; stroke: #3b82f6; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">AI-Powered Royalty Calculations</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">Dynamic Rule Generation &amp; Automated Royalty Processing</text>
+
+  <!-- Calculation Dashboard -->
+  <g transform="translate(50, 80)">
+    <rect class="screen" width="700" height="320" rx="12"/>
+    
+    <!-- Header -->
+    <text x="30" y="25" class="header-text">💰 Royalty Analysis: Music_Publishing_Agreement.pdf</text>
+    <text x="30" y="40" class="body-text">AI has extracted and processed royalty calculation rules from uploaded contract</text>
+    
+    <!-- AI-Generated Rules Section -->
+    <rect x="20" y="55" width="310" height="115" class="ai-rules" rx="6"/>
+    <text x="30" y="75" class="header-text">🤖 AI-Extracted Rules</text>
+    <text x="30" y="90" class="small-text">Automatically identified from contract document:</text>
+    
+    <!-- Rule 1 -->
+    <rect x="35" y="98" width="8" height="8" class="success" rx="4"/>
+    <text x="50" y="105" class="body-text" font-weight="600">Streaming Revenue:</text>
+    <text x="50" y="116" class="small-text">15% of net streaming revenue</text>
+    
+    <!-- Rule 2 -->
+    <rect x="35" y="123" width="8" height="8" class="success" rx="4"/>
+    <text x="50" y="130" class="body-text" font-weight="600">Physical Sales:</text>
+    <text x="50" y="141" class="small-text">12% of wholesale price after returns</text>
+    
+    <!-- Rule 3 -->
+    <rect x="35" y="148" width="8" height="8" class="warning" rx="4"/>
+    <text x="50" y="155" class="body-text" font-weight="600">Synchronization:</text>
+    <text x="50" y="166" class="small-text">50% split on sync licensing fees</text>
+    
+    <!-- Confidence Score -->
+    <rect x="240" y="70" width="70" height="18" class="success" rx="9"/>
+    <text x="275" y="81" text-anchor="middle" class="button-text">92% Confident</text>
+    
+    <!-- Live Calculations Section -->
+    <rect x="350" y="55" width="330" height="115" class="card" rx="6"/>
+    <text x="360" y="75" class="header-text">📊 Real-Time Calculations</text>
+    <text x="360" y="90" class="small-text">Based on current Q4 2024 revenue data:</text>
+    
+    <!-- Calculation Results -->
+    <rect x="365" y="100" width="300" height="16" fill="#f0fdf4" stroke="#10b981" rx="3"/>
+    <text x="375" y="110" class="body-text">Q4 Streaming Royalty:</text>
+    <text x="645" y="110" text-anchor="end" class="metric-number" fill="#10b981">$18,450</text>
+    
+    <rect x="365" y="120" width="300" height="16" fill="#f0f9ff" stroke="#3b82f6" rx="3"/>
+    <text x="375" y="130" class="body-text">Physical Sales Royalty:</text>
+    <text x="645" y="130" text-anchor="end" class="metric-number" fill="#3b82f6">$7,230</text>
+    
+    <rect x="365" y="140" width="300" height="16" fill="#fef3c7" stroke="#f59e0b" rx="3"/>
+    <text x="375" y="150" class="body-text">Sync License Revenue:</text>
+    <text x="645" y="150" text-anchor="end" class="metric-number" fill="#f59e0b">$12,500</text>
+    
+    <rect x="365" y="160" width="300" height="14" fill="#1e40af" rx="3"/>
+    <text x="375" y="170" class="body-text" fill="white">Total Quarterly Royalty:</text>
+    <text x="645" y="170" text-anchor="end" class="metric-number" fill="white">$38,180</text>
+    
+    <!-- Dynamic Rule Processing -->
+    <rect x="20" y="185" width="660" height="110" class="card" rx="6"/>
+    <text x="30" y="205" class="header-text">⚡ Dynamic Processing Engine</text>
+    
+    <!-- Processing Steps -->
+    <rect x="35" y="220" width="190" height="65" fill="#f8fafc" stroke="#e5e7eb" rx="4"/>
+    <text x="45" y="235" class="body-text" font-weight="600">1. Document Analysis</text>
+    <text x="45" y="248" class="small-text">• Extract royalty clauses</text>
+    <text x="45" y="260" class="small-text">• Identify calculation methods</text>
+    <text x="45" y="272" class="small-text">• Parse percentage rates</text>
+    
+    <rect x="245" y="220" width="190" height="65" fill="#f8fafc" stroke="#e5e7eb" rx="4"/>
+    <text x="255" y="235" class="body-text" font-weight="600">2. Rule Generation</text>
+    <text x="255" y="248" class="small-text">• Create calculation formulas</text>
+    <text x="255" y="260" class="small-text">• Set up triggers &amp; conditions</text>
+    <text x="255" y="272" class="small-text">• Validate against patterns</text>
+    
+    <rect x="455" y="220" width="190" height="65" fill="#f8fafc" stroke="#e5e7eb" rx="4"/>
+    <text x="465" y="235" class="body-text" font-weight="600">3. Auto Calculations</text>
+    <text x="465" y="248" class="small-text">• Apply rules to revenue data</text>
+    <text x="465" y="260" class="small-text">• Generate real-time totals</text>
+    <text x="465" y="272" class="small-text">• Update automatically</text>
+  </g>
+
+  <!-- Benefits and Features -->
+  <g transform="translate(50, 420)">
+    <text x="350" y="20" text-anchor="middle" class="header-text">Automated Royalty System Benefits</text>
+    
+    <rect x="50" y="30" width="150" height="50" fill="#f0fdf4" stroke="#10b981" rx="6"/>
+    <text x="125" y="48" text-anchor="middle" class="body-text" fill="#10b981">🔄 Auto-Generated Rules</text>
+    <text x="125" y="62" text-anchor="middle" class="small-text">From contract documents</text>
+    <text x="125" y="75" text-anchor="middle" class="small-text">Dynamic rule creation</text>
+    
+    <rect x="220" y="30" width="150" height="50" fill="#f0f9ff" stroke="#3b82f6" rx="6"/>
+    <text x="295" y="48" text-anchor="middle" class="body-text" fill="#3b82f6">⚡ Real-Time Processing</text>
+    <text x="295" y="62" text-anchor="middle" class="small-text">Dynamic calculations</text>
+    <text x="295" y="75" text-anchor="middle" class="small-text">Instant updates</text>
+    
+    <rect x="390" y="30" width="150" height="50" fill="#fef3c7" stroke="#f59e0b" rx="6"/>
+    <text x="465" y="48" text-anchor="middle" class="body-text" fill="#f59e0b">📈 Revenue Tracking</text>
+    <text x="465" y="62" text-anchor="middle" class="small-text">Multi-source integration</text>
+    <text x="465" y="75" text-anchor="middle" class="small-text">Comprehensive analytics</text>
+    
+    <rect x="560" y="30" width="150" height="50" fill="#fdf2f8" stroke="#ec4899" rx="6"/>
+    <text x="635" y="48" text-anchor="middle" class="body-text" fill="#ec4899">🎯 95% Accuracy</text>
+    <text x="635" y="62" text-anchor="middle" class="small-text">AI-validated results</text>
+    <text x="635" y="75" text-anchor="middle" class="small-text">Human verification</text>
+  </g>
+
+  <!-- Performance Summary -->
+  <g transform="translate(100, 500)">
+    <rect x="0" y="0" width="600" height="35" fill="#f0f9ff" stroke="#3b82f6" rx="18"/>
+    <text x="300" y="20" text-anchor="middle" class="body-text" fill="#3b82f6">💰 Royalty Intelligence: $2.4M+ processed annually | 15,000+ calculations | Zero manual errors</text>
+  </g>
+
+  <!-- Innovation Badge -->
+  <g transform="translate(200, 550)">
+    <rect x="0" y="0" width="400" height="30" fill="#f0fdf4" stroke="#10b981" rx="15"/>
+    <text x="200" y="18" text-anchor="middle" class="body-text" fill="#10b981">🚀 Industry First: AI-Generated Royalty Rules from Contract Documents</text>
+  </g>
+</svg>

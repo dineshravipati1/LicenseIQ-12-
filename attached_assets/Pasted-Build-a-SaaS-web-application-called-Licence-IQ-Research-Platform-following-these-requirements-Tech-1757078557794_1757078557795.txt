@@ -1,0 +1,103 @@
+Build a SaaS web application called Licence IQ Research Platform following these requirements:
+
+Tech Stack
+
+Frontend: React + TypeScript (with TailwindCSS for UI, WebSocket support for real-time progress updates).
+
+Backend: FastAPI (Python) for APIs, modular services, JWT-based auth, and WebSocket endpoints.
+
+Database: PostgreSQL with pgvector extension for semantic search and embeddings.
+
+Containerization: Docker setup for frontend, backend, and DB, with docker-compose to orchestrate locally.
+
+Deployment: Code should be cloud-ready (AWS/Azure/GCP) with configs for scaling (Kubernetes manifests optional).
+
+AI Models: Integrate open-source AI models (LLaMA for NLP, Tesseract OCR for scanned docs). Code should expose pluggable interfaces for model services.
+
+Functional Modules (per FRS)
+
+Contract Upload & Processing
+
+Drag-and-drop + API-based upload.
+
+Real-time WebSocket upload progress.
+
+Virus scan + file type validation.
+
+OCR pipeline (Tesseract + preprocessing).
+
+Confidence scores on extracted terms.
+
+File Storage & Security
+
+Store files with versioning and rollback.
+
+RBAC for access control.
+
+Secure presigned URLs for downloads.
+
+Lifecycle rules (archive inactive files).
+
+Vector Similarity Search
+
+Generate embeddings using sentence-transformers.
+
+Store embeddings in PostgreSQL (pgvector).
+
+Enable semantic clause search and similarity scoring.
+
+Rule Engine
+
+Extract contract terms → executable rules.
+
+Support royalty calculations (percentage, tiered, minimum guarantees, multi-currency).
+
+Conflict detection/resolution.
+
+Audit Trail
+
+Track all user actions with timestamps, before/after values, reasons.
+
+Generate immutable compliance logs.
+
+Reporting & Insights
+
+Natural language query support (basic prototype).
+
+Real-time dashboards with predictive analytics.
+
+Export reports as PDF, Excel, CSV.
+
+User Roles & Access
+
+Implement RBAC with roles: Owner, Admin, Editor, Viewer, Auditor.
+
+Multi-tenant isolation for SaaS setup.
+
+Non-Functional Requirements
+
+Max upload size: 1 GB.
+
+WebSocket latency ≤ 1s.
+
+OCR accuracy ≥ 95% for structured docs.
+
+Vector search < 2s.
+
+TLS 1.3 for all transport, AES-256 at rest.
+
+Scalability: 10K+ contracts per tenant.
+
+Compliance: GDPR + SOX readiness.
+
+Deliverables Ghostwriter should generate
+
+A fullstack scaffold (React + FastAPI + PostgreSQL + Docker).
+
+Sample API endpoints and React pages for contract upload → processing → results display.
+
+Integration hooks for OCR (Tesseract) and vector search (pgvector).
+
+Role-based authentication system (JWT).
+
+Docker Compose for local dev and a README.md with setup steps. for these I need groq for Summarization and AI Analysis this is a POC for the real project  and include authentcation module too

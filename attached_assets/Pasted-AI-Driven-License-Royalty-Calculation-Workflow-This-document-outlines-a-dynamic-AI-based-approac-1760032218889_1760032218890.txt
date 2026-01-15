@@ -1,0 +1,37 @@
+AI-Driven License & Royalty Calculation Workflow
+ This document outlines a dynamic AI-based approach to automatically map sales data to licensing
+ contracts and calculate royalties. The system leverages LLMs (e.g., LLaMA3) and vector databases
+ for semantic search, minimizing dependency on static database rules.
+ 1. Contract Ingestion & Rule Extraction
+ • LLM parses contracts and extracts structured rules (product, thresholds, territory, validity). • Rules
+ are saved as JSON and indexed in a vector database for semantic search.
+ 2. Embedding Generation
+ • For each contract, embeddings are generated for product descriptions, customers, and territories.
+ • Enables fuzzy matching with sales data.
+ 3. Sales Data Processing
+ • Sales data (product, customer, region, date, quantity) is converted into embeddings. • Candidate
+ contracts are retrieved dynamically from the vector DB.
+ 4. Dynamic Contract Matching
+ • AI compares sales embeddings against contract embeddings. • Top N candidate contracts are
+ shortlisted. • LLM reasons over rules (date validity, thresholds, territory) to select the correct one.
+ 5. Royalty & Rule Application
+ • Once contract is identified, LLM applies extracted rules (discounts, thresholds, royalty rates). •
+ Calculates royalty/fees dynamically. • Generates explanations for transparency.
+ 6. Feedback & Continuous Learning
+ • Low-confidence matches are flagged for human review. • User corrections are fed back to improve
+ future mappings.
+ Minimal Master Data Required
+ Master Data
+ Purpose
+ Product Master (SKU, Category)
+ Customer Master (ID, Type, Region)
+ Contract Metadata (ID, Dates, Licensee)
+ Map sales items to contracts
+ Identify applicable contracts
+ Validate active contract periods
+ Territory / Region Mapping
+ Apply territory-specific rules
+ Dynamic royalty calculation is feasible using an AI-first approach. Contracts are transformed into
+ structured rules via LLMs, sales data is mapped using embeddings, and royalties are applied
+automatically. This reduces manual effort and ensures accuracy even when the licensee is
+ unknown at the time of processing.

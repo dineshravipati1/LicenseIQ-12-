@@ -1,0 +1,37 @@
+SCREEN 6: ROYALTY CALCULATION DASHBOARD
+Duration: ~50 seconds
+
+[INTRO]
+Welcome to the Royalty Dashboard - where calculations happen automatically.
+
+[STEP 1 - FORMULA PREVIEW]
+Before calculating, check the formula preview:
+- See which products match which rules
+- Pacific Sunset Rose uses the standard rate
+- Cascade Blue Hydrangea has tiered pricing: 2.25 dollars, then 1.95, then 1.70 per unit
+- All formulas are displayed clearly
+
+[STEP 2 - METRICS]
+Look at the key metrics:
+- 156 total sales transactions
+- 142 thousand dollars in total sales
+- 11 active royalty rules ready to apply
+
+[STEP 3 - CALCULATE]
+Now I'll click "Calculate Royalties" with a date range of Q1 2025.
+
+[STEP 4 - RESULTS]
+Instantly, we see results:
+- Total royalty calculated: 8,547 dollars
+- Detailed breakdown by product category
+- Visual charts showing the distribution
+
+[STEP 5 - BREAKDOWN]
+Each line item shows:
+- Product name and quantity
+- Which rule was applied
+- The exact calculation
+- Confidence score
+
+[TRANSITION]
+These calculations are ready to be exported as professional invoices.

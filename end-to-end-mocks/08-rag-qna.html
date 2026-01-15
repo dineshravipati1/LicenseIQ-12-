@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 8: RAG Document Q&A - License IQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(217, 91%, 60%)',
+                        background: 'hsl(210, 40%, 96%)',
+                        card: 'hsl(0, 0%, 100%)',
+                        border: 'hsl(210, 40%, 87%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-border flex-shrink-0">
+            <div class="p-6 border-b border-border">
+                <img src="cimpleit-logo.png" alt="CimpleIT" class="h-12 mb-1">
+                <p class="text-xs text-gray-600">License IQ Research Platform</p>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    Upload
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Contracts
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    AI Analysis
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Royalty Calc
+                </a>
+                <a href="#" class="text-white bg-blue-600 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    Ask Contract
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex h-screen">
+            <!-- Chat Area -->
+            <div class="flex-1 flex flex-col">
+                <!-- Header -->
+                <header class="bg-white border-b border-border px-8 py-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Contract Q&A Assistant</h1>
+                            <p class="text-gray-600 mt-1">Ask questions about your contracts using AI-powered RAG</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                                24 Contracts Available
+                            </span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Chat Messages -->
+                <div class="flex-1 overflow-y-auto p-8 space-y-6">
+                    <!-- Welcome Message -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Welcome to Contract Q&A!</h3>
+                                <p class="text-gray-700 mb-4">Ask me anything about your contracts. I use RAG (Retrieval-Augmented Generation) to find relevant information and provide accurate answers with source citations.</p>
+                                <p class="text-sm text-gray-600"><strong>Powered by:</strong> Hugging Face Embeddings + Groq LLaMA (100% FREE)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Question 1 -->
+                    <div class="flex justify-end">
+                        <div class="bg-blue-600 text-white rounded-lg rounded-tr-none p-4 max-w-2xl">
+                            <p>What are the royalty rates for organic products in the ABC Corp agreement?</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Response 1 -->
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="bg-white rounded-lg rounded-tl-none border border-border p-4 max-w-4xl">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm font-medium text-gray-600">AI Assistant</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">92% Confidence</span>
+                                </div>
+                                <p class="text-gray-900 mb-4">Based on the ABC Corp License Agreement 2024, the royalty rates for organic products are structured using volume-based tiers:</p>
+                                <ul class="list-disc list-inside space-y-2 text-gray-800 mb-4">
+                                    <li><strong>0 - 4,999 gallons:</strong> 1.25% royalty rate</li>
+                                    <li><strong>5,000+ gallons:</strong> 1.10% royalty rate</li>
+                                </ul>
+                                <p class="text-gray-900 mb-4">Additionally, these rates may be subject to seasonal adjustments and territory premiums:</p>
+                                <ul class="list-disc list-inside space-y-2 text-gray-800 mb-4">
+                                    <li><strong>Spring (March-May):</strong> 1.10x multiplier</li>
+                                    <li><strong>Summer (June-August):</strong> 1.15x multiplier</li>
+                                    <li><strong>Secondary Territory:</strong> Additional 1.10x premium</li>
+                                </ul>
+                                
+                                <!-- Sources -->
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm font-semibold text-gray-700 mb-2">Sources:</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center text-sm">
+                                            <svg class="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                            <span class="text-gray-700">ABC Corp License Agreement 2024 - Section 4.2 (Royalty Structure)</span>
+                                        </div>
+                                        <div class="flex items-center text-sm">
+                                            <svg class="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                            <span class="text-gray-700">ABC Corp License Agreement 2024 - Appendix A (Rate Tables)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Question 2 -->
+                    <div class="flex justify-end">
+                        <div class="bg-blue-600 text-white rounded-lg rounded-tr-none p-4 max-w-2xl">
+                            <p>What territories are covered by this agreement?</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Response 2 -->
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="bg-white rounded-lg rounded-tl-none border border-border p-4 max-w-4xl">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm font-medium text-gray-600">AI Assistant</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">88% Confidence</span>
+                                </div>
+                                <p class="text-gray-900 mb-4">The ABC Corp License Agreement 2024 covers two distinct territories:</p>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-800 mb-4">
+                                    <li><strong>Primary Territory:</strong> The main distribution region with standard royalty rates</li>
+                                    <li><strong>Secondary Territory:</strong> Expanded coverage areas with a 1.10x premium multiplier on royalty calculations</li>
+                                </ol>
+                                <p class="text-gray-900">Sales in the Secondary Territory receive preferential treatment with higher multipliers to account for expanded market reach and distribution costs.</p>
+                                
+                                <!-- Sources -->
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm font-semibold text-gray-700 mb-2">Sources:</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center text-sm">
+                                            <svg class="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                            <span class="text-gray-700">ABC Corp License Agreement 2024 - Section 2.1 (Territory Definitions)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="bg-white border-t border-border p-6">
+                    <div class="flex items-end space-x-3">
+                        <div class="flex-1">
+                            <textarea rows="3" placeholder="Ask a question about your contracts..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none">What are the payment terms and reporting requirements?</textarea>
+                        </div>
+                        <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold flex items-center flex-shrink-0">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            Ask Question
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Sidebar -->
+            <aside class="w-80 bg-white border-l border-border overflow-y-auto">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Example Questions</h3>
+                    <div class="space-y-3">
+                        <button class="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <p class="text-sm text-gray-900 font-medium mb-1">What are the payment terms?</p>
+                            <p class="text-xs text-gray-600">Financial terms and schedules</p>
+                        </button>
+                        
+                        <button class="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <p class="text-sm text-gray-900 font-medium mb-1">What products are covered?</p>
+                            <p class="text-xs text-gray-600">Product scope and categories</p>
+                        </button>
+                        
+                        <button class="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <p class="text-sm text-gray-900 font-medium mb-1">What are the termination clauses?</p>
+                            <p class="text-xs text-gray-600">Contract end conditions</p>
+                        </button>
+                        
+                        <button class="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <p class="text-sm text-gray-900 font-medium mb-1">Are there any compliance requirements?</p>
+                            <p class="text-xs text-gray-600">Legal and regulatory obligations</p>
+                        </button>
+                        
+                        <button class="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <p class="text-sm text-gray-900 font-medium mb-1">What are the reporting requirements?</p>
+                            <p class="text-xs text-gray-600">Documentation and reporting</p>
+                        </button>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Filter Contracts</h3>
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>All Contracts (24)</option>
+                            <option>ABC Corp Agreement</option>
+                            <option>XYZ License Agreement</option>
+                            <option>GlobalTech Partnership</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h4 class="font-semibold text-gray-900 text-sm">How it works</h4>
+                        </div>
+                        <ul class="text-xs text-gray-700 space-y-1">
+                            <li>• Semantic search finds relevant sections</li>
+                            <li>• AI generates answers from contract context</li>
+                            <li>• Source citations for verification</li>
+                            <li>• 100% FREE (Hugging Face + Groq)</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

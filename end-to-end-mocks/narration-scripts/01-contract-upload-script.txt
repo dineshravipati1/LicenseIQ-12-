@@ -1,0 +1,17 @@
+SCREEN 1: CONTRACT UPLOAD
+Duration: ~30 seconds
+
+[INTRO]
+Welcome to License IQ - your intelligent contract management platform.
+
+[STEP 1]
+Let's start by uploading a licensing contract. Simply click the upload area or drag and drop your PDF contract file.
+
+[STEP 2]
+Our system accepts PDF documents up to 10 megabytes. For this demo, I'm uploading a plant licensing agreement.
+
+[STEP 3]
+The file is now uploading... and we're ready to analyze it with AI.
+
+[TRANSITION]
+Let's move to the next step where our AI processes this contract.

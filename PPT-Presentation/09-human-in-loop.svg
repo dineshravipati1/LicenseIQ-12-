@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #6b7280; }
+      .button-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: white; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .card { fill: white; stroke: #e5e7eb; }
+      .primary-btn { fill: #3b82f6; }
+      .success { fill: #10b981; }
+      .warning { fill: #f59e0b; }
+      .secondary-btn { fill: #e5e7eb; stroke: #d1d5db; }
+      .human-review { fill: #fef3c7; stroke: #f59e0b; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">Human-in-the-Loop Review</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">AI Analysis with Human Expert Validation</text>
+
+  <!-- Review Screen -->
+  <g transform="translate(75, 80)">
+    <rect class="screen" width="650" height="350" rx="12"/>
+    
+    <!-- Header -->
+    <text x="30" y="25" class="header-text">📋 Contract Analysis Review Required</text>
+    <text x="30" y="40" class="body-text">AI has completed initial analysis - Human expert review requested for complex terms</text>
+    
+    <!-- AI Analysis Summary -->
+    <rect x="20" y="55" width="290" height="110" class="card" rx="6"/>
+    <text x="30" y="75" class="header-text">🤖 AI Analysis Summary</text>
+    <text x="30" y="90" class="body-text">Contract: Software_License_Agreement.pdf</text>
+    <text x="30" y="105" class="small-text">• Total Value: $125,000 (High confidence: 96%)</text>
+    <text x="30" y="118" class="small-text">• Term Length: 36 months (High confidence: 94%)</text>
+    <text x="30" y="131" class="small-text">• Risk Level: Medium (Requires expert review)</text>
+    <text x="30" y="144" class="small-text">• Key Terms: 15 extracted (2 flagged for validation)</text>
+    <text x="30" y="157" class="small-text">• Processing time: 2.1 minutes</text>
+    <rect x="220" y="70" width="75" height="20" class="warning" rx="10"/>
+    <text x="257" y="82" text-anchor="middle" class="button-text">Review Needed</text>
+    
+    <!-- Human Review Panel -->
+    <rect x="330" y="55" width="300" height="110" class="human-review" rx="6"/>
+    <text x="340" y="75" class="header-text">👤 Expert Review Required</text>
+    <text x="340" y="90" class="body-text">AI identified ambiguous clauses requiring validation:</text>
+    
+    <!-- Flagged Items -->
+    <rect x="350" y="100" width="8" height="8" class="warning" rx="4"/>
+    <text x="365" y="107" class="small-text">Penalty clause interpretation (85% confidence)</text>
+    <text x="365" y="119" class="small-text">"Material breach may result in immediate termination..."</text>
+    
+    <rect x="350" y="125" width="8" height="8" class="warning" rx="4"/>
+    <text x="365" y="132" class="small-text">Termination notice period (78% confidence)</text>
+    <text x="365" y="144" class="small-text">"90-day written notice unless breach occurs..."</text>
+    
+    <rect x="350" y="150" width="8" height="8" class="success" rx="4"/>
+    <text x="365" y="157" class="small-text">Payment terms validated (96% confidence) ✓</text>
+    
+    <rect x="550" y="155" width="65" height="12" class="primary-btn" rx="3"/>
+    <text x="582" y="163" text-anchor="middle" class="button-text">Start Review</text>
+    
+    <!-- Review Interface -->
+    <rect x="20" y="180" width="610" height="150" class="card" rx="6"/>
+    <text x="30" y="200" class="header-text">📝 Interactive Review Interface</text>
+    
+    <!-- Clause Review -->
+    <rect x="30" y="215" width="280" height="105" fill="#f8fafc" stroke="#e5e7eb" rx="4"/>
+    <text x="40" y="232" class="body-text" font-weight="600">Clause Under Review:</text>
+    <text x="40" y="247" class="small-text">"Party A shall provide 90-day written notice for</text>
+    <text x="40" y="259" class="small-text">termination, unless material breach occurs which</text>
+    <text x="40" y="271" class="small-text">allows immediate termination without notice..."</text>
+    
+    <text x="40" y="295" class="body-text" font-weight="600">AI Interpretation:</text>
+    <text x="40" y="310" class="small-text">90-day termination notice required (standard case)</text>
+    
+    <!-- Expert Input -->
+    <rect x="330" y="215" width="280" height="105" fill="#f0f9ff" stroke="#3b82f6" rx="4"/>
+    <text x="340" y="232" class="body-text" font-weight="600">Expert Validation Panel:</text>
+    
+    <rect x="340" y="245" width="60" height="20" class="success" rx="4"/>
+    <text x="370" y="257" text-anchor="middle" class="button-text">✓ Confirm</text>
+    
+    <rect x="410" y="245" width="60" height="20" class="warning" rx="4"/>
+    <text x="440" y="257" text-anchor="middle" class="button-text">⚠ Modify</text>
+    
+    <rect x="480" y="245" width="60" height="20" class="secondary-btn" rx="4"/>
+    <text x="510" y="257" text-anchor="middle" class="small-text">🔍 Research</text>
+    
+    <rect x="550" y="245" width="50" height="20" fill="#ef4444" rx="4"/>
+    <text x="575" y="257" text-anchor="middle" class="button-text" fill="white">⚠ Flag</text>
+    
+    <!-- Comments Box -->
+    <rect x="340" y="275" width="260" height="35" fill="white" stroke="#d1d5db" rx="3"/>
+    <text x="350" y="288" class="small-text">Expert Comments:</text>
+    <text x="350" y="302" class="small-text">Clause is ambiguous - recommend clarification on "material breach" definition...</text>
+  </g>
+
+  <!-- Workflow Benefits -->
+  <g transform="translate(50, 450)">
+    <text x="350" y="20" text-anchor="middle" class="header-text">Human-in-the-Loop Benefits</text>
+    
+    <rect x="50" y="30" width="150" height="55" fill="#f0fdf4" stroke="#10b981" rx="6"/>
+    <text x="125" y="48" text-anchor="middle" class="body-text" fill="#10b981">🎯 Enhanced Accuracy</text>
+    <text x="125" y="62" text-anchor="middle" class="small-text">Expert validation of</text>
+    <text x="125" y="75" text-anchor="middle" class="small-text">complex legal terms</text>
+    
+    <rect x="220" y="30" width="150" height="55" fill="#f0f9ff" stroke="#3b82f6" rx="6"/>
+    <text x="295" y="48" text-anchor="middle" class="body-text" fill="#3b82f6">⚡ Smart Routing</text>
+    <text x="295" y="62" text-anchor="middle" class="small-text">Auto-escalation for</text>
+    <text x="295" y="75" text-anchor="middle" class="small-text">low-confidence items</text>
+    
+    <rect x="390" y="30" width="150" height="55" fill="#fef3c7" stroke="#f59e0b" rx="6"/>
+    <text x="465" y="48" text-anchor="middle" class="body-text" fill="#f59e0b">📚 Continuous Learning</text>
+    <text x="465" y="62" text-anchor="middle" class="small-text">AI improves from</text>
+    <text x="465" y="75" text-anchor="middle" class="small-text">expert feedback</text>
+    
+    <rect x="560" y="30" width="150" height="55" fill="#fdf2f8" stroke="#ec4899" rx="6"/>
+    <text x="635" y="48" text-anchor="middle" class="body-text" fill="#ec4899">🔐 Risk Mitigation</text>
+    <text x="635" y="62" text-anchor="middle" class="small-text">Expert oversight for</text>
+    <text x="635" y="75" text-anchor="middle" class="small-text">critical decisions</text>
+  </g>
+
+  <!-- Performance Stats -->
+  <g transform="translate(100, 520)">
+    <rect x="0" y="0" width="600" height="35" fill="#f0f9ff" stroke="#3b82f6" rx="18"/>
+    <text x="300" y="20" text-anchor="middle" class="body-text" fill="#3b82f6">🧠 Human-AI Collaboration: 98.7% Final Accuracy | 15% of contracts require expert review</text>
+  </g>
+
+  <!-- Innovation Badge -->
+  <g transform="translate(200, 570)">
+    <rect x="0" y="0" width="400" height="25" fill="#fef3c7" stroke="#f59e0b" rx="12"/>
+    <text x="200" y="15" text-anchor="middle" class="small-text" fill="#f59e0b">🚀 Advanced Feature: AI-Human Hybrid Intelligence for Legal Document Analysis</text>
+  </g>
+</svg>

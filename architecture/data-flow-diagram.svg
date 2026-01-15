@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clientGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="serverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="databaseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="externalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <rect x="50" y="20" width="1100" height="60" rx="15" fill="url(#headerGradient)" filter="url(#shadow)"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">
+    Data Flow Architecture - Licence IQ Research Platform
+  </text>
+  
+  <!-- Client Side (React Frontend) -->
+  <rect x="80" y="120" width="300" height="200" rx="15" fill="url(#clientGradient)" filter="url(#shadow)"/>
+  <text x="230" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Client Side</text>
+  <text x="230" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">React + TypeScript</text>
+  
+  <!-- Client Components -->
+  <rect x="100" y="185" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="155" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Dashboard</text>
+  <text x="155" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">Analytics View</text>
+  
+  <rect x="220" y="185" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="275" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Upload</text>
+  <text x="275" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">File Interface</text>
+  
+  <rect x="100" y="235" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="155" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Analysis</text>
+  <text x="155" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">Results View</text>
+  
+  <rect x="220" y="235" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="275" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">User Mgmt</text>
+  <text x="275" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">RBAC Interface</text>
+  
+  <!-- API Layer -->
+  <rect x="450" y="120" width="300" height="200" rx="15" fill="url(#serverGradient)" filter="url(#shadow)"/>
+  <text x="600" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">API Layer</text>
+  <text x="600" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Express.js + TypeScript</text>
+  
+  <!-- API Endpoints -->
+  <rect x="470" y="185" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="530" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">POST /api/contracts</text>
+  <text x="530" y="212" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Upload contract</text>
+  
+  <rect x="600" y="185" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="660" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">GET /api/contracts</text>
+  <text x="660" y="212" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">List contracts</text>
+  
+  <rect x="470" y="225" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="530" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">GET /api/analysis/:id</text>
+  <text x="530" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Get analysis</text>
+  
+  <rect x="600" y="225" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="660" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">GET /api/analytics</text>
+  <text x="660" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Dashboard data</text>
+  
+  <rect x="470" y="265" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="530" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">POST /api/auth/login</text>
+  <text x="530" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Authentication</text>
+  
+  <rect x="600" y="265" width="120" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="660" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">GET /api/audit</text>
+  <text x="660" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Audit trails</text>
+  
+  <!-- Business Logic Layer -->
+  <rect x="820" y="120" width="300" height="200" rx="15" fill="#64748b" filter="url(#shadow)"/>
+  <text x="970" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Business Logic</text>
+  <text x="970" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Service Layer</text>
+  
+  <!-- Business Services -->
+  <rect x="840" y="185" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="895" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Auth Service</text>
+  <text x="895" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">RBAC Logic</text>
+  
+  <rect x="960" y="185" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="1015" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">File Service</text>
+  <text x="1015" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">Upload/Storage</text>
+  
+  <rect x="840" y="235" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="895" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Analysis Service</text>
+  <text x="895" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">AI Processing</text>
+  
+  <rect x="960" y="235" width="110" height="40" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="1015" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e293b">Audit Service</text>
+  <text x="1015" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">Activity Tracking</text>
+  
+  <!-- Database Layer -->
+  <rect x="200" y="380" width="400" height="140" rx="15" fill="url(#databaseGradient)" filter="url(#shadow)"/>
+  <text x="400" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Database Layer</text>
+  <text x="400" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">PostgreSQL + Drizzle ORM</text>
+  
+  <!-- Database Tables -->
+  <rect x="220" y="445" width="80" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="260" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">users</text>
+  <text x="260" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Auth data</text>
+  
+  <rect x="310" y="445" width="80" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="350" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">contracts</text>
+  <text x="350" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">File metadata</text>
+  
+  <rect x="400" y="445" width="90" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="445" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">contract_analysis</text>
+  <text x="445" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">AI results</text>
+  
+  <rect x="500" y="445" width="80" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="540" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">audit_trail</text>
+  <text x="540" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">Activity logs</text>
+  
+  <rect x="310" y="485" width="80" height="30" rx="6" fill="rgba(255,255,255,0.9)"/>
+  <text x="350" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e293b">sessions</text>
+  <text x="350" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1e293b">User sessions</text>
+  
+  <!-- External Services -->
+  <rect x="700" y="380" width="400" height="140" rx="15" fill="url(#externalGradient)" filter="url(#shadow)"/>
+  <text x="900" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">External Services</text>
+  
+  <!-- External Service Components -->
+  <rect x="720" y="430" width="160" height="80" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="800" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Groq AI API</text>
+  <text x="800" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e293b">LLaMA 3.1 8B Instant</text>
+  <text x="800" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• Contract Analysis</text>
+  <text x="800" y="492" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• Risk Assessment</text>
+  <text x="800" y="504" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• Key Terms Extraction</text>
+  
+  <rect x="900" y="430" width="160" height="80" rx="8" fill="rgba(255,255,255,0.9)"/>
+  <text x="980" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e293b">File Storage</text>
+  <text x="980" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e293b">Local Filesystem</text>
+  <text x="980" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• PDF Documents</text>
+  <text x="980" y="492" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• DOCX Files</text>
+  <text x="980" y="504" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e293b">• Processed Text</text>
+  
+  <!-- Data Flow Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+     refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4b5563" />
+    </marker>
+    <marker id="redArrow" markerWidth="10" markerHeight="7" 
+     refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626" />
+    </marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="7" 
+     refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a" />
+    </marker>
+  </defs>
+  
+  <!-- Client to API -->
+  <path d="M 380 220 L 450 220" stroke="#4b5563" stroke-width="3" marker-end="url(#arrowhead)" fill="none"/>
+  <text x="415" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4b5563">HTTP Requests</text>
+  
+  <!-- API to Business Logic -->
+  <path d="M 750 220 L 820 220" stroke="#4b5563" stroke-width="3" marker-end="url(#arrowhead)" fill="none"/>
+  <text x="785" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4b5563">Service Calls</text>
+  
+  <!-- Business Logic to Database -->
+  <path d="M 900 320 L 450 380" stroke="#dc2626" stroke-width="3" marker-end="url(#redArrow)" fill="none"/>
+  <text x="675" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dc2626">Data Persistence</text>
+  
+  <!-- Business Logic to External Services -->
+  <path d="M 970 320 L 900 380" stroke="#16a34a" stroke-width="3" marker-end="url(#greenArrow)" fill="none"/>
+  <text x="935" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">AI Analysis</text>
+  
+  <!-- Return paths -->
+  <path d="M 450 450 L 900 320" stroke="#dc2626" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#redArrow)" fill="none"/>
+  <text x="675" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dc2626">Query Results</text>
+  
+  <path d="M 900 430 L 970 320" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#greenArrow)" fill="none"/>
+  <text x="935" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">AI Response</text>
+  
+  <!-- Data Flow Legend -->
+  <rect x="80" y="570" width="1040" height="120" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="600" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">Data Flow Patterns</text>
+  
+  <g>
+    <rect x="100" y="610" width="200" height="70" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+    <text x="200" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e40af">User Authentication</text>
+    <text x="200" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">Client → API → Auth Service</text>
+    <text x="200" y="657" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">→ Database (users, sessions)</text>
+    <text x="200" y="669" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">→ Return user data</text>
+  </g>
+  
+  <g>
+    <rect x="320" y="610" width="200" height="70" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1"/>
+    <text x="420" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#15803d">Contract Upload</text>
+    <text x="420" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#15803d">Client → API → File Service</text>
+    <text x="420" y="657" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#15803d">→ File Storage + Database</text>
+    <text x="420" y="669" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#15803d">→ Queue for AI analysis</text>
+  </g>
+  
+  <g>
+    <rect x="540" y="610" width="200" height="70" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+    <text x="640" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400e">AI Analysis Flow</text>
+    <text x="640" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400e">Analysis Service → Groq API</text>
+    <text x="640" y="657" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400e">→ Process response</text>
+    <text x="640" y="669" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400e">→ Store results in database</text>
+  </g>
+  
+  <g>
+    <rect x="760" y="610" width="200" height="70" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="1"/>
+    <text x="860" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#be185d">Dashboard Data</text>
+    <text x="860" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#be185d">Client → API → Database</text>
+    <text x="860" y="657" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#be185d">→ Aggregate analytics</text>
+    <text x="860" y="669" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#be185d">→ Return visualization data</text>
+  </g>
+  
+  <!-- Data Flow Statistics -->
+  <rect x="100" y="720" width="980" height="100" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="590" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f2937">Data Flow Characteristics</text>
+  
+  <text x="120" y="770" font-family="Arial, sans-serif" font-size="12" fill="#1f2937">📊 <strong>Request Types:</strong> Authentication (stateful), File Upload (multipart), Analysis (async), Dashboard (real-time)</text>
+  <text x="120" y="790" font-family="Arial, sans-serif" font-size="12" fill="#1f2937">🔒 <strong>Security:</strong> Session-based authentication, RBAC middleware, input validation, SQL injection protection</text>
+  <text x="120" y="810" font-family="Arial, sans-serif" font-size="12" fill="#1f2937">⚡ <strong>Performance:</strong> Database connection pooling, async AI processing, efficient queries, response caching</text>
+</svg>

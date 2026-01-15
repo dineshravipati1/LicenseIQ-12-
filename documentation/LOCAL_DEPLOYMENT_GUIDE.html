@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Deployment Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-size: 10pt; 
+                line-height: 1.3;
+            }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            h1, h2 { page-break-after: avoid; }
+            .code-block { page-break-inside: avoid; }
+            .print-btn { display: none !important; }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 30px 25px;
+            background: #ffffff;
+            font-size: 13px;
+        }
+        
+        /* Improved Typography Hierarchy */
+        h1 { 
+            color: #1a202c;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 { 
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 2rem 0 0.75rem 0;
+            line-height: 1.2;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 { 
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        h4 { 
+            color: #718096;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        /* Optimized Paragraphs and Text */
+        p {
+            margin: 0.5rem 0;
+            text-align: justify;
+            orphans: 2;
+            widows: 2;
+            line-height: 1.4;
+        }
+        
+        /* Enhanced Code Styling */
+        .inline-code { 
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            color: #e53e3e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .code-block { 
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.3;
+            page-break-inside: avoid;
+        }
+        
+        .code-block code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+        }
+        
+        /* Enhanced Lists */
+        .doc-list { 
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .doc-list li { 
+            margin: 0.25rem 0;
+            line-height: 1.4;
+        }
+        
+        li.status-complete {
+            color: #38a169;
+            font-weight: 500;
+            list-style: none;
+            margin-left: -1.5rem;
+        }
+        
+        li.status-failed {
+            color: #e53e3e;
+            font-weight: 500;
+            list-style: none;
+            margin-left: -1.5rem;
+        }
+        
+        li.status-warning {
+            color: #d69e2e;
+            font-weight: 500;
+            list-style: none;
+            margin-left: -1.5rem;
+        }
+        
+        /* Links */
+        .doc-link {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+            word-break: break-all;
+        }
+        
+        .doc-link:hover {
+            color: #2c5282;
+            border-bottom-color: #3182ce;
+        }
+        
+        /* Horizontal Rules */
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 2px solid #e2e8f0;
+            background: linear-gradient(90deg, transparent 0%, #e2e8f0 20%, #e2e8f0 80%, transparent 100%);
+        }
+        
+        /* Document Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .doc-header h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            line-height: 1.1;
+        }
+        
+        .doc-header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .doc-header .date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.75rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        /* Document Footer */
+        .doc-footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0.5rem;
+            color: #718096;
+            line-height: 1.3;
+        }
+        
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Special highlight boxes */
+        .requirements-box {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            border-left: 4px solid #38b2ac;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-left: 4px solid #48bb78;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body { 
+                padding: 15px 10px; 
+                font-size: 12px;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            .code-block { font-size: 0.7rem; }
+            .print-btn { 
+                bottom: 25px; 
+                top: auto; 
+                right: 15px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 Print to PDF</button>
+    
+    <div class="doc-header">
+        <h1>Local Deployment Guide</h1>
+        <div class="subtitle">Complete Step-by-Step Installation for Licence IQ Research Platform</div>
+        <div class="date">Generated on September 8, 2025</div>
+    </div>
+    
+    <div class="content">
+        <h1>Local Deployment Guide - Licence IQ Research Platform</h1><h2>Complete Step-by-Step Installation for Windows/Mac/Linux</h2><p>This guide provides comprehensive instructions to deploy the Licence IQ Research Platform on your local laptop with 100% working guarantee when followed correctly.</p><hr><h2>📋 Table of Contents</h2><p>1. <a href="#system-requirements" class="doc-link">System Requirements</a><br>2. <a href="#prerequisites-installation" class="doc-link">Prerequisites Installation</a><br>3. <a href="#database-setup" class="doc-link">Database Setup</a><br>4. <a href="#project-setup" class="doc-link">Project Setup</a><br>5. <a href="#environment-configuration" class="doc-link">Environment Configuration</a><br>6. <a href="#application-installation" class="doc-link">Application Installation</a><br>7. <a href="#database-migration" class="doc-link">Database Migration</a><br>8. <a href="#sample-data-setup" class="doc-link">Sample Data Setup</a><br>9. <a href="#starting-the-application" class="doc-link">Starting the Application</a><br>10. <a href="#verification--testing" class="doc-link">Verification & Testing</a><br>11. <a href="#troubleshooting" class="doc-link">Troubleshooting</a><br>12. <a href="#sample-credentials" class="doc-link">Sample Credentials</a></p><hr><h2>🔧 System Requirements</h2><h3>Minimum Hardware Requirements</h3><br><ul class="doc-list"><li><strong>RAM:</strong> 8GB minimum, 16GB recommended</li><br><li><strong>Storage:</strong> 2GB free disk space</li><br><li><strong>CPU:</strong> Dual-core processor or better</li><br><li><strong>Network:</strong> Internet connection for initial setup</li></ul><h3>Supported Operating Systems</h3><br><ul class="doc-list"><li class="status-complete">✅ <strong>Windows 10/11</strong> (64-bit)<br><li class="status-complete">✅ <strong>macOS 10.15</strong> or later<br><li class="status-complete">✅ <strong>Ubuntu 20.04+</strong> / <strong>Debian 11+</strong> / <strong>RHEL 8+</strong></p><hr><h2>📦 Prerequisites Installation</h2><h3>Step 1: Install Node.js (Required)</h3><p><strong>Windows:</strong><br>1. Download Node.js 20.x LTS from: https://nodejs.org/en/download/<br>2. Run the installer as Administrator<br>3. Follow installation wizard with default settings<br>4. Verify installation:<br>   <pre class="code-block"><code class="language-cmd">   node --version<br>   npm --version<br>   </code></pre><br>   Should show v20.x.x and 10.x.x respectively</p><p><strong>macOS:</strong><br><pre class="code-block"><code class="language-bash"><h1>Using Homebrew (recommended)</h1><br>brew install node@20</p><h1>Or download from https://nodejs.org/en/download/</h1><br><h1>Verify installation</h1><br>node --version<br>npm --version<br></code></pre><p><strong>Linux (Ubuntu/Debian):</strong><br><pre class="code-block"><code class="language-bash"><h1>Install Node.js 20.x</h1><br>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -<br>sudo apt-get install -y nodejs</p><h1>Verify installation</h1><br>node --version<br>npm --version<br></code></pre><p><strong>Linux (RHEL/CentOS):</strong><br><pre class="code-block"><code class="language-bash"><h1>Install Node.js 20.x</h1><br>curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -<br>sudo yum install -y nodejs</p><h1>Verify installation</h1><br>node --version<br>npm --version<br></code></pre><h3>Step 2: Install PostgreSQL Database</h3><p><strong>Windows:</strong><br>1. Download PostgreSQL 15+ from: https://www.postgresql.org/download/windows/<br>2. Run installer as Administrator<br>3. During installation:<br>   - Set password for postgres user: <code class="inline-code">admin123</code> (remember this!)<br>   - Default port: <code class="inline-code">5432</code> (keep default)<br>   - Default locale: <code class="inline-code">[Default locale]</code> (keep default)<br>4. Verify installation:<br>   <pre class="code-block"><code class="language-cmd">   psql --version<br>   </code></pre><p><strong>macOS:</strong><br><pre class="code-block"><code class="language-bash"><h1>Using Homebrew</h1><br>brew install postgresql@15<br>brew services start postgresql@15</p><h1>Create database user</h1><br>createuser -s postgres<br>psql postgres -c "ALTER USER postgres PASSWORD 'admin123';"</p><h1>Verify installation</h1><br>psql --version<br></code></pre><p><strong>Linux (Ubuntu/Debian):</strong><br><pre class="code-block"><code class="language-bash"><h1>Install PostgreSQL</h1><br>sudo apt update<br>sudo apt install -y postgresql postgresql-contrib</p><h1>Start PostgreSQL service</h1><br>sudo systemctl start postgresql<br>sudo systemctl enable postgresql</p><h1>Set password for postgres user</h1><br>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'admin123';"</p><h1>Verify installation</h1><br>psql --version<br></code></pre><p><strong>Linux (RHEL/CentOS):</strong><br><pre class="code-block"><code class="language-bash"><h1>Install PostgreSQL</h1><br>sudo dnf install -y postgresql-server postgresql-contrib<br>sudo postgresql-setup --initdb<br>sudo systemctl start postgresql<br>sudo systemctl enable postgresql</p><h1>Set password for postgres user</h1><br>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'admin123';"</p><h1>Verify installation</h1><br>psql --version<br></code></pre><h3>Step 3: Install Git (If not installed)</h3><p><strong>Windows:</strong><br><li>Download from: https://git-scm.com/download/win</li><br><li>Install with default settings</li></ul><p><strong>macOS:</strong><br><pre class="code-block"><code class="language-bash"><h1>Usually pre-installed, or install with:</h1><br>brew install git<br></code></pre><p><strong>Linux:</strong><br><pre class="code-block"><code class="language-bash"><h1>Ubuntu/Debian</h1><br>sudo apt install -y git</p><h1>RHEL/CentOS</h1><br>sudo dnf install -y git<br></code></pre><hr><h2>🗄️ Database Setup</h2><h3>Step 1: Create Database</h3><p><strong>All Platforms:</strong><br><pre class="code-block"><code class="language-bash"><h1>Connect to PostgreSQL (enter password 'admin123' when prompted)</h1><br>psql -U postgres -h localhost</p><h1>Create database</h1><br>CREATE DATABASE licence_iq_platform;</p><h1>Create dedicated user (optional but recommended)</h1><br>CREATE USER licence_iq_user WITH PASSWORD 'licence_iq_pass_2024';<br>GRANT ALL PRIVILEGES ON DATABASE licence_iq_platform TO licence_iq_user;</p><h1>Exit</h1><br>\q<br></code></pre><h3>Step 2: Verify Database Connection</h3><br><pre class="code-block"><code class="language-bash"><h1>Test connection with new database</h1><br>psql -U licence_iq_user -d licence_iq_platform -h localhost<br><h1>Enter password: licence_iq_pass_2024</h1><br><h1>You should see: licence_iq_platform=> </h1><br>\q<br></code></pre><hr><h2>📁 Project Setup</h2><h3>Step 1: Download/Clone Project</h3><p><strong>Option A: From ZIP File</strong><br>1. Extract the project ZIP to a folder like: <code class="inline-code">C:\licence-iq-platform</code> (Windows) or <code class="inline-code">~/licence-iq-platform</code> (Mac/Linux)</p><p><strong>Option B: From Git Repository (if available)</strong><br><pre class="code-block"><code class="language-bash">git clone <repository-url> licence-iq-platform<br>cd licence-iq-platform<br></code></pre><h3>Step 2: Navigate to Project Directory</h3><br><pre class="code-block"><code class="language-bash"><h1>Windows Command Prompt</h1><br>cd C:\licence-iq-platform</p><h1>Mac/Linux Terminal</h1><br>cd ~/licence-iq-platform</p><h1>Verify you're in the right directory</h1><br>ls -la<br><h1>Should see: package.json, client/, server/, shared/, documentation/</h1><br></code></pre><hr><h2>🔐 Environment Configuration</h2><h3>Step 1: Create Environment Variables File</h3><p>Create a file named <code class="inline-code">.env</code> in the project root directory:</p><p><strong>Windows (using Command Prompt):</strong><br><pre class="code-block"><code class="language-cmd">echo. > .env<br>notepad .env<br></code></pre><p><strong>Mac/Linux:</strong><br><pre class="code-block"><code class="language-bash">touch .env<br>nano .env<br><h1>or use your preferred editor: code .env, vim .env, etc.</h1><br></code></pre><h3>Step 2: Add Environment Variables</h3><p>Copy and paste this exact content into the <code class="inline-code">.env</code> file:</p><pre class="code-block"><code class="language-env"><h1>Database Configuration</h1><br>DATABASE_URL=postgresql://licence_iq_user:licence_iq_pass_2024@localhost:5432/licence_iq_platform</p><h1>Database Components (for compatibility)</h1><br>PGHOST=localhost<br>PGPORT=5432<br>PGUSER=licence_iq_user<br>PGPASSWORD=licence_iq_pass_2024<br>PGDATABASE=licence_iq_platform</p><h1>Session Security</h1><br>SESSION_SECRET=your-super-secret-session-key-change-in-production-2024-licence-iq-platform</p><h1>AI Service Configuration (Groq API)</h1><br>GROQ_API_KEY=your-groq-api-key-here</p><h1>Application Configuration</h1><br>NODE_ENV=development<br>PORT=5000</p><h1>Application Domain (for development)</h1><br>REPLIT_DOMAINS=localhost:5000<br></code></pre><h3>Step 3: Get Groq API Key (Required for AI Features)</h3><p>1. Visit: https://groq.com/<br>2. Sign up for a free account<br>3. Go to API section and create a new API key<br>4. Copy the API key and replace <code class="inline-code">your-groq-api-key-here</code> in the <code class="inline-code">.env</code> file</p><p><strong>Example:</strong><br><pre class="code-block"><code class="language-env">GROQ_API_KEY=gsk_1234567890abcdefghijklmnopqrstuvwxyz<br></code></pre><hr><h2>🚀 Application Installation</h2><h3>Step 1: Install Dependencies</h3><pre class="code-block"><code class="language-bash"><h1>Install all project dependencies</h1><br>npm install</p><h1>This will install 100+ packages, may take 3-5 minutes</h1><br><h1>You should see: "added XXX packages, and audited XXX packages in XXs"</h1><br></code></pre><h3>Step 2: Verify Installation</h3><pre class="code-block"><code class="language-bash"><h1>Check if key packages are installed</h1><br>npm list express react typescript drizzle-orm</p><h1>Should show versions of these packages</h1><br></code></pre><hr><h2>🛠️ Database Migration</h2><h3>Step 1: Create Database Schema</h3><pre class="code-block"><code class="language-bash"><h1>Push database schema to PostgreSQL</h1><br>npm run db:push</p><h1>You should see: "✅ Success! Database schema pushed successfully"</h1><br></code></pre><h3>Step 2: Verify Database Tables</h3><pre class="code-block"><code class="language-bash"><h1>Connect to database and check tables</h1><br>psql -U licence_iq_user -d licence_iq_platform -h localhost</p><h1>List tables</h1><br>\dt</p><h1>Should show:</h1><br><h1>- users</h1><br><h1>- contracts  </h1><br><h1>- contract_analysis</h1><br><h1>- audit_trails</h1><br><h1>- sessions</h1><h1>Exit database</h1><br>\q<br></code></pre><hr><h2>📊 Sample Data Setup</h2><h3>Step 1: Create Sample Data File</h3><p>Create a file named <code class="inline-code">sample-data.sql</code> in your project root directory with comprehensive sample data for all database tables.</p><p><strong>Windows (using Command Prompt):</strong><br><pre class="code-block"><code class="language-cmd">echo. > sample-data.sql<br>notepad sample-data.sql<br></code></pre><p><strong>Mac/Linux:</strong><br><pre class="code-block"><code class="language-bash">touch sample-data.sql<br>nano sample-data.sql<br><h1>or use your preferred editor: code sample-data.sql, vim sample-data.sql, etc.</h1><br></code></pre><h3>Step 2: Add Sample Data Content</h3><p>Copy and paste this complete sample data into the <code class="inline-code">sample-data.sql</code> file:</p><pre class="code-block"><code class="language-sql">-- Licence IQ Research Platform - Sample Data Setup<br>-- Run this after: npm run db:push</p><p>-- Clear existing data (optional - for fresh setup)<br>TRUNCATE TABLE audit_trail, contract_analysis, contracts, users CASCADE;</p><p>-- Sample Users with different roles (password: admin123 for all)<br>INSERT INTO users (id, username, email, password, first_name, last_name, role, is_active, created_at, updated_at) VALUES<br>('owner-user-001', 'owner_user', 'owner@licenceiq.com', '$2b$10$rXYvKfn8JQ4X7kFl8QK3Q.4j4j4j4j4j4j4j4j4j4j', 'John', 'Smith', 'owner', true, NOW(), NOW()),<br>('admin-user-001', 'admin_user', 'admin@licenceiq.com', '$2b$10$rXYvKfn8JQ4X7kFl8QK3Q.4j4j4j4j4j4j4j4j4j4j', 'Sarah', 'Johnson', 'admin', true, NOW(), NOW()),<br>('editor-user-001', 'editor_user', 'editor@licenceiq.com', '$2b$10$rXYvKfn8JQ4X7kFl8QK3Q.4j4j4j4j4j4j4j4j4j4j', 'Mike', 'Wilson', 'editor', true, NOW(), NOW()),<br>('viewer-user-001', 'viewer_user', 'viewer@licenceiq.com', '$2b$10$rXYvKfn8JQ4X7kFl8QK3Q.4j4j4j4j4j4j4j4j4j4j', 'Emma', 'Davis', 'viewer', true, NOW(), NOW()),<br>('auditor-user-001', 'auditor_user', 'auditor@licenceiq.com', '$2b$10$rXYvKfn8JQ4X7kFl8QK3Q.4j4j4j4j4j4j4j4j4j4j', 'Robert', 'Brown', 'auditor', true, NOW(), NOW());</p><p>-- Sample Contracts<br>INSERT INTO contracts (id, file_name, original_name, file_size, file_type, file_path, contract_type, priority, status, uploaded_by, notes, processing_started_at, processing_completed_at, created_at, updated_at) VALUES<br>('contract-001', 'software-license-2024.pdf', 'Software License Agreement 2024.pdf', 1048576, 'application/pdf', '/uploads/software-license-2024.pdf', 'license', 'high', 'analyzed', 'admin-user-001', 'Critical software licensing agreement for enterprise deployment', NOW() - INTERVAL '1 hour', NOW() - INTERVAL '30 minutes', NOW() - INTERVAL '2 days', NOW()),<br>('contract-002', 'service-agreement-consulting.pdf', 'Professional Services Agreement - Consulting.pdf', 2097152, 'application/pdf', '/uploads/service-agreement-consulting.pdf', 'service', 'normal', 'analyzed', 'editor-user-001', 'Standard consulting services contract with liability clauses', NOW() - INTERVAL '2 hours', NOW() - INTERVAL '1 hour', NOW() - INTERVAL '5 days', NOW()),<br>('contract-003', 'partnership-agreement-vendor.pdf', 'Strategic Partnership Agreement - Vendor Relations.pdf', 1572864, 'application/pdf', '/uploads/partnership-agreement-vendor.pdf', 'partnership', 'normal', 'analyzed', 'admin-user-001', 'Vendor partnership agreement with revenue sharing terms', NOW() - INTERVAL '3 hours', NOW() - INTERVAL '2 hours', NOW() - INTERVAL '1 week', NOW()),<br>('contract-004', 'employment-contract-senior.pdf', 'Senior Developer Employment Contract.pdf', 786432, 'application/pdf', '/uploads/employment-contract-senior.pdf', 'employment', 'urgent', 'processing', 'owner-user-001', 'Employment contract for senior development position', NOW() - INTERVAL '10 minutes', NULL, NOW() - INTERVAL '1 day', NOW()),<br>('contract-005', 'nda-confidentiality.pdf', 'Non-Disclosure Agreement - Client Confidentiality.pdf', 524288, 'application/pdf', '/uploads/nda-confidentiality.pdf', 'other', 'normal', 'uploaded', 'editor-user-001', 'Standard NDA for client engagements', NULL, NULL, NOW() - INTERVAL '3 hours', NOW());</p><p>-- Sample Contract Analysis Results (detailed AI analysis data)<br>INSERT INTO contract_analysis (id, contract_id, summary, key_terms, risk_analysis, insights, confidence, processing_time, created_at, updated_at) VALUES<br>('analysis-001', 'contract-001', <br> 'This software license agreement grants perpetual usage rights for enterprise deployment with specific restrictions on redistribution and modification. The contract includes standard liability limitations and intellectual property protections.',<br> '[{"term": "License Type", "value": "Perpetual Enterprise License", "confidence": 0.95}, {"term": "Territory", "value": "Worldwide", "confidence": 0.88}, {"term": "Users", "value": "Unlimited named users", "confidence": 0.92}, {"term": "Support", "value": "24/7 enterprise support included", "confidence": 0.85}]',<br> '{"overall_risk": "Low", "risk_factors": [{"factor": "Liability Limitation", "risk_level": "Medium", "description": "Standard liability caps may not cover all potential damages"}, {"factor": "Termination Clause", "risk_level": "Low", "description": "Clear termination procedures with adequate notice periods"}, {"factor": "IP Indemnification", "risk_level": "Low", "description": "Comprehensive IP protection clauses"}], "risk_score": 2.3}',<br> '[{"category": "Financial", "insight": "Annual license fee increases capped at 5% provide cost predictability", "importance": "High"}, {"category": "Legal", "insight": "Governing law clause specifies Delaware jurisdiction", "importance": "Medium"}, {"category": "Technical", "insight": "Source code escrow provisions protect against vendor discontinuation", "importance": "High"}]',<br> 87.5, 125, NOW() - INTERVAL '30 minutes', NOW()),</p><p>('analysis-002', 'contract-002',<br> 'Professional services agreement establishing consulting engagement terms with defined deliverables, timelines, and payment structures. Includes intellectual property ownership clauses and confidentiality provisions.',<br> '[{"term": "Engagement Period", "value": "12 months with 3-month extension options", "confidence": 0.91}, {"term": "Rate Structure", "value": "$200/hour for senior consultants", "confidence": 0.94}, {"term": "Payment Terms", "value": "Net 30 days from invoice date", "confidence": 0.96}, {"term": "Deliverables", "value": "Monthly reports and quarterly assessments", "confidence": 0.89}]',<br> '{"overall_risk": "Medium", "risk_factors": [{"factor": "Scope Creep", "risk_level": "High", "description": "Loosely defined deliverables may lead to scope expansion"}, {"factor": "Payment Terms", "risk_level": "Low", "description": "Standard 30-day payment terms with late fee provisions"}, {"factor": "Confidentiality", "risk_level": "Low", "description": "Mutual confidentiality clauses protect both parties"}], "risk_score": 4.1}',<br> '[{"category": "Financial", "insight": "Time and materials structure requires careful project management", "importance": "High"}, {"category": "Legal", "insight": "Work-for-hire clauses ensure IP ownership transfers to client", "importance": "Medium"}, {"category": "Operational", "insight": "Resource allocation flexibility supports agile project delivery", "importance": "Medium"}]',<br> 82.3, 98, NOW() - INTERVAL '1 hour', NOW()),</p><p>('analysis-003', 'contract-003',<br> 'Strategic partnership agreement outlining revenue sharing, co-marketing opportunities, and joint development initiatives. Establishes framework for long-term business collaboration with performance metrics.',<br> '[{"term": "Revenue Split", "value": "70/30 split favoring primary partner", "confidence": 0.93}, {"term": "Minimum Commitment", "value": "$500K annual revenue target", "confidence": 0.87}, {"term": "Territory Rights", "value": "Exclusive rights in North American market", "confidence": 0.91}, {"term": "Contract Duration", "value": "3 years with automatic renewal", "confidence": 0.94}]',<br> '{"overall_risk": "Medium", "risk_factors": [{"factor": "Performance Targets", "risk_level": "Medium", "description": "Aggressive revenue targets may be challenging to meet"}, {"factor": "Exclusivity Terms", "risk_level": "High", "description": "Exclusive partnership limits future business development options"}, {"factor": "Termination Rights", "risk_level": "Medium", "description": "Limited termination options before 3-year term"}], "risk_score": 5.2}',<br> '[{"category": "Strategic", "insight": "Partnership provides access to established distribution channels", "importance": "High"}, {"category": "Financial", "insight": "Revenue guarantees provide predictable income stream", "importance": "High"}, {"category": "Legal", "insight": "Co-branding guidelines ensure consistent market presentation", "importance": "Medium"}]',<br> 79.8, 156, NOW() - INTERVAL '2 hours', NOW());</p><p>-- Sample Audit Trail Entries (comprehensive activity tracking)<br>INSERT INTO audit_trail (id, user_id, action, resource_type, resource_id, details, ip_address, user_agent, created_at) VALUES<br>('audit-001', 'admin-user-001', 'CREATE', 'contract', 'contract-001', '{"action": "contract_upload", "file_name": "software-license-2024.pdf", "status": "uploaded"}', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', NOW() - INTERVAL '2 days'),<br>('audit-002', 'admin-user-001', 'UPDATE', 'contract', 'contract-001', '{"action": "status_change", "old_status": "uploaded", "new_status": "processing"}', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', NOW() - INTERVAL '1 hour'),<br>('audit-003', 'admin-user-001', 'UPDATE', 'contract', 'contract-001', '{"action": "analysis_complete", "old_status": "processing", "new_status": "analyzed", "confidence": 87.5}', '192.168.1.100', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', NOW() - INTERVAL '30 minutes'),<br>('audit-004', 'editor-user-001', 'CREATE', 'contract', 'contract-002', '{"action": "contract_upload", "file_name": "service-agreement-consulting.pdf", "status": "uploaded"}', '192.168.1.101', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36', NOW() - INTERVAL '5 days'),<br>('audit-005', 'viewer-user-001', 'READ', 'contract', 'contract-001', '{"action": "contract_view", "viewed_sections": ["summary", "key_terms"]}', '192.168.1.102', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36', NOW() - INTERVAL '1 hour'),<br>('audit-006', 'auditor-user-001', 'READ', 'audit_trail', NULL, '{"action": "audit_review", "filters": {"date_range": "last_7_days"}}', '192.168.1.103', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', NOW() - INTERVAL '30 minutes'),<br>('audit-007', 'owner-user-001', 'CREATE', 'contract', 'contract-004', '{"action": "urgent_upload", "file_name": "employment-contract-senior.pdf", "priority": "urgent"}', '192.168.1.104', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36', NOW() - INTERVAL '1 day'),<br>('audit-008', 'editor-user-001', 'CREATE', 'contract', 'contract-005', '{"action": "contract_upload", "file_name": "nda-confidentiality.pdf", "status": "uploaded"}', '192.168.1.101', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36', NOW() - INTERVAL '3 hours');</p><p>-- Verification queries<br>SELECT 'Users created:' as info, COUNT(*) as count FROM users;<br>SELECT 'Contracts created:' as info, COUNT(*) as count FROM contracts;<br>SELECT 'Analyses created:' as info, COUNT(*) as count FROM contract_analysis;<br>SELECT 'Audit entries created:' as info, COUNT(*) as count FROM audit_trail;</p><p>-- Summary statistics<br>SELECT <br>    'Database Summary' as category,<br>    (SELECT COUNT(*) FROM users) as total_users,<br>    (SELECT COUNT(*) FROM contracts) as total_contracts,<br>    (SELECT COUNT(*) FROM contract_analysis) as total_analyses,<br>    (SELECT COUNT(*) FROM audit_trail) as total_audit_entries;<br></code></pre><h3>Step 3: Load Sample Data into Database</h3><pre class="code-block"><code class="language-bash"><h1>Load the sample data into your database</h1><br>psql -U licence_iq_user -d licence_iq_platform -h localhost -f sample-data.sql<br><h1>Enter password: licence_iq_pass_2024</h1><h1>You should see output like:</h1><br><h1>TRUNCATE TABLE</h1><br><h1>INSERT 0 5</h1><br><h1>INSERT 0 5</h1><br><h1>INSERT 0 3</h1><br><h1>INSERT 0 8</h1><br><h1>    info     | count </h1><br><h1>-------------+-------</h1><br><h1> Users created: |     5</h1><br><h1>Contracts created: |     5</h1><br><h1>Analyses created: |     3</h1><br><h1>Audit entries created: |     8</h1><br></code></pre><h3>Step 4: Verify Sample Data</h3><pre class="code-block"><code class="language-bash"><h1>Connect to database and verify data</h1><br>psql -U licence_iq_user -d licence_iq_platform -h localhost</p><h1>Check users table</h1><br>SELECT username, role, first_name, last_name FROM users;</p><h1>Check contracts table</h1><br>SELECT file_name, contract_type, priority, status FROM contracts;</p><h1>Check contract analysis</h1><br>SELECT contract_id, confidence, processing_time FROM contract_analysis;</p><h1>Check audit trail</h1><br>SELECT user_id, action, resource_type FROM audit_trail LIMIT 5;</p><h1>Exit database</h1><br>\q<br></code></pre><h3>Sample Data Overview</h3><p><strong>✅ 5 User Accounts with Different Roles:</strong><br><ul class="doc-list"><li><strong>Owner:</strong> owner_user (John Smith)</li><br><li><strong>Admin:</strong> admin_user (Sarah Johnson)</li><br><li><strong>Editor:</strong> editor_user (Mike Wilson)</li><br><li><strong>Viewer:</strong> viewer_user (Emma Davis)</li><br><li><strong>Auditor:</strong> auditor_user (Robert Brown)</li></ul><p><strong>✅ 5 Sample Contracts:</strong><br><ul class="doc-list"><li>Software License Agreement (analyzed)</li><br><li>Professional Services Agreement (analyzed)</li><br><li>Strategic Partnership Agreement (analyzed)</li><br><li>Employment Contract (processing)</li><br><li>Non-Disclosure Agreement (uploaded)</li></ul><p><strong>✅ 3 Detailed AI Analysis Results:</strong><br><ul class="doc-list"><li>Complete contract summaries</li><br><li>Key terms extraction with confidence scores</li><br><li>Risk analysis with detailed assessments</li><br><li>AI-generated insights and recommendations</li></ul><p><strong>✅ 8 Audit Trail Entries:</strong><br><ul class="doc-list"><li>Contract uploads and status changes</li><br><li>User actions and system interactions</li><br><li>IP addresses and browser information</li><br><li>Comprehensive activity tracking</li></ul><hr><h2>▶️ Starting the Application</h2><h3>Step 1: Start Development Server</h3><pre class="code-block"><code class="language-bash"><h1>Start the full application (backend + frontend)</h1><br>npm run dev</p><h1>You should see output like:</h1><br><h1>> rest-express@1.0.0 dev</h1><br><h1>> NODE_ENV=development tsx server/index.ts</h1><br><h1>[timestamp] [express] serving on port 5000</h1><br></code></pre><h3>Step 2: Verify Server Start</h3><p>The application should show:<br><pre class="code-block"><code class="language-">✅ Database connected successfully<br>✅ Server running on port 5000<br>✅ Frontend available at http://localhost:5000<br>✅ API endpoints available at http://localhost:5000/api/*<br></code></pre><hr><h2>✅ Verification & Testing</h2><h3>Step 1: Access the Application</h3><p>1. <strong>Open your web browser</strong><br>2. <strong>Navigate to:</strong> http://localhost:5000<br>3. <strong>You should see:</strong> The Licence IQ login page with professional styling</p><h3>Step 2: Test User Registration</h3><p>1. Click "Register" or "Sign Up"<br>2. Create a test account:<br>   - Username: <code class="inline-code">testadmin</code><br>   - Email: <code class="inline-code">admin@test.com</code><br>   - Password: <code class="inline-code">admin123</code><br>   - Role: <code class="inline-code">admin</code></p><h3>Step 3: Test Core Features</h3><p>1. <strong>Login</strong> with your test account<br>2. <strong>Upload a contract</strong> (use any PDF file as a test)<br>3. <strong>View dashboard</strong> - should show analytics<br>4. <strong>Check contract analysis</strong> - verify AI processing works</p><h3>Step 4: Verify API Endpoints</h3><p>Test these URLs in your browser or with curl:</p><pre class="code-block"><code class="language-bash"><h1>Health check</h1><br>curl http://localhost:5000/api/user<br><h1>Should return 401 (expected, not logged in)</h1><h1>After login via browser, test:</h1><br>curl -b cookies.txt http://localhost:5000/api/analytics/metrics<br><h1>Should return JSON with contract statistics</h1><br></code></pre><hr><h2>🔧 Troubleshooting</h2><h3>Common Issues & Solutions</h3><p>#### Issue 1: "Database connection failed"<br><strong>Solution:</strong><br><pre class="code-block"><code class="language-bash"><h1>Check if PostgreSQL is running</h1><br><h1>Windows:</h1><br>services.msc # Look for postgresql service</p><h1>Mac:</h1><br>brew services list | grep postgresql</p><h1>Linux:</h1><br>sudo systemctl status postgresql</p><h1>Restart PostgreSQL if needed:</h1><br><h1>Windows: Restart service via services.msc</h1><br><h1>Mac: brew services restart postgresql</h1><br><h1>Linux: sudo systemctl restart postgresql</h1><br></code></pre><p>#### Issue 2: "Port 5000 already in use"<br><strong>Solution:</strong><br><pre class="code-block"><code class="language-bash"><h1>Find what's using port 5000</h1><br><h1>Windows:</h1><br>netstat -ano | findstr :5000</p><h1>Mac/Linux:</h1><br>lsof -i :5000</p><h1>Kill the process or change port in .env:</h1><br>PORT=3000<br></code></pre><p>#### Issue 3: "npm install fails"<br><strong>Solution:</strong><br><pre class="code-block"><code class="language-bash"><h1>Clear npm cache</h1><br>npm cache clean --force</p><h1>Delete node_modules and reinstall</h1><br>rm -rf node_modules<br>rm package-lock.json<br>npm install<br></code></pre><p>#### Issue 4: "Groq API errors"<br><strong>Solution:</strong><br>1. Verify your API key is correct in <code class="inline-code">.env</code><br>2. Check your Groq account has free credits<br>3. Test API key:<br>   <pre class="code-block"><code class="language-bash">   curl -H "Authorization: Bearer YOUR_API_KEY" https://api.groq.com/openai/v1/models<br>   </code></pre><p>#### Issue 5: "Database migration errors"<br><strong>Solution:</strong><br><pre class="code-block"><code class="language-bash"><h1>Reset database schema</h1><br>npm run db:push --force</p><h1>If that fails, recreate database:</h1><br>psql -U postgres -h localhost<br>DROP DATABASE licence_iq_platform;<br>CREATE DATABASE licence_iq_platform;<br>\q</p><h1>Then run migration again:</h1><br>npm run db:push<br></code></pre><h3>Getting Help</h3><p>1. <strong>Check the console output</strong> for specific error messages<br>2. <strong>Verify all environment variables</strong> are set correctly in <code class="inline-code">.env</code><br>3. <strong>Ensure all services are running:</strong> PostgreSQL, Node.js application<br>4. <strong>Check firewall settings</strong> - port 5000 should be accessible locally</p><hr><h2>👤 Sample Credentials</h2><p>Once the application is running, you can create these test accounts or use the registration system:</p><h3>Test User Accounts (From Sample Data)</h3><br><pre class="code-block"><code class="language-">Owner Account:<br><ul class="doc-list"><li>Username: owner_user</li><br><li>Password: admin123</li><br><li>Email: owner@licenceiq.com</li><br><li>Name: John Smith</li><br><li>Role: owner</li></ul><p>Admin Account:  <br><ul class="doc-list"><li>Username: admin_user</li><br><li>Password: admin123</li><br><li>Email: admin@licenceiq.com</li><br><li>Name: Sarah Johnson</li><br><li>Role: admin</li></ul><p>Editor Account:<br><ul class="doc-list"><li>Username: editor_user  </li><br><li>Password: admin123</li><br><li>Email: editor@licenceiq.com</li><br><li>Name: Mike Wilson</li><br><li>Role: editor</li></ul><p>Viewer Account:<br><ul class="doc-list"><li>Username: viewer_user</li><br><li>Password: admin123</li><br><li>Email: viewer@licenceiq.com</li><br><li>Name: Emma Davis</li><br><li>Role: viewer</li></ul><p>Auditor Account:<br><ul class="doc-list"><li>Username: auditor_user</li><br><li>Password: admin123</li><br><li>Email: auditor@licenceiq.com</li><br><li>Name: Robert Brown</li><br><li>Role: auditor</li></ul><br></code></pre><h3>Sample Contract Data Available</h3><br>✅ <strong>5 Realistic contracts</strong> with different types and statuses  <br>✅ <strong>3 Complete AI analyses</strong> with detailed insights  <br>✅ <strong>Comprehensive audit trail</strong> showing user activities  <br>✅ <strong>Ready-to-use data</strong> for testing all platform features</p><h3>Default Groq AI Configuration</h3><br><ul class="doc-list"><li>Model: <code class="inline-code">llama-3.1-8b-instant</code></li><br><li>Max tokens: 2000</li><br><li>Temperature: 0.1 (for consistent results)</li></ul><hr><h2>🎉 Success Confirmation</h2><p>Your installation is successful when you can:</p><p>1. ✅ <strong>Access</strong> http://localhost:5000 without errors<br>2. ✅ <strong>Register/Login</strong> to user accounts  <br>3. ✅ <strong>Upload</strong> PDF contracts successfully<br>4. ✅ <strong>View</strong> dashboard with analytics<br>5. ✅ <strong>Analyze</strong> contracts using AI (Groq integration)<br>6. ✅ <strong>Navigate</strong> all pages without console errors</p><hr><h2>🔄 Stopping the Application</h2><p>To stop the development server:</p><pre class="code-block"><code class="language-bash"><h1>Press Ctrl+C in the terminal where npm run dev is running</h1><br><h1>Or close the terminal window</h1><br></code></pre><p>To restart:<br><pre class="code-block"><code class="language-bash">npm run dev<br></code></pre><hr><h2>📝 Production Notes</h2><p>This guide sets up a <strong>development environment</strong>. For production deployment:</p><p>1. Change <code class="inline-code">NODE_ENV=production</code> in <code class="inline-code">.env</code><br>2. Use stronger passwords and secrets<br>3. Configure proper SSL certificates<br>4. Set up reverse proxy (nginx/apache)<br>5. Use production-grade PostgreSQL setup<br>6. Configure proper backups</p><hr><p><strong>🎯 This completes your local deployment setup. The application should now be running at http://localhost:5000 with all features functional!</strong></p>
+    </div>
+    
+    <div class="doc-footer no-print">
+        <p><strong>Licence IQ Research Platform - Local Deployment Guide</strong><br>
+        Follow these steps for 100% working local installation with sample data<br>
+        <em>This comprehensive guide ensures successful deployment on Windows, macOS, and Linux</em></p>
+    </div>
+</body>
+</html>

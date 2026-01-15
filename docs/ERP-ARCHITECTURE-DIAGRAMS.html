@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ - ERP Integration Architecture</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #c7d2fe 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            color: var(--primary-light);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            background: var(--dark-light);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .arch-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .arch-layer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .layer-label {
+            width: 120px;
+            text-align: right;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .layer-content {
+            flex: 1;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .layer-box {
+            flex: 1;
+            min-width: 150px;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layer-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+
+        .layer-box.external { background: var(--gradient-2); }
+        .layer-box.ingestion { background: var(--gradient-3); }
+        .layer-box.transform { background: var(--gradient-1); }
+        .layer-box.storage { background: var(--gradient-4); }
+        .layer-box.api { background: var(--gradient-5); }
+
+        .layer-box span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .layer-box small {
+            display: block;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 0.25rem;
+        }
+
+        /* Flow Arrows */
+        .flow-connector {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .flow-connector svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary);
+            opacity: 0.5;
+        }
+
+        /* Hierarchy Diagram */
+        .hierarchy-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .hierarchy-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .node-box {
+            padding: 1.5rem 3rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--white);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .node-box.company {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        }
+
+        .node-box.bu {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+        }
+
+        .node-box.location {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        }
+
+        .node-box small {
+            display: block;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .hierarchy-connector {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            margin: 0.5rem 0;
+        }
+
+        .hierarchy-branches {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .hierarchy-branches::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 100px);
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary), var(--primary), var(--secondary));
+        }
+
+        .branch-arm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .branch-arm::before {
+            content: '';
+            width: 3px;
+            height: 20px;
+            background: var(--secondary);
+        }
+
+        /* Pipeline Diagram */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            padding: 2rem;
+        }
+
+        .pipeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .step-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid currentColor;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        .step-icon.parse { background: var(--gradient-3); }
+        .step-icon.validate { background: var(--gradient-1); }
+        .step-icon.transform { background: var(--gradient-4); }
+        .step-icon.enrich { background: var(--gradient-5); }
+        .step-icon.dedupe { background: var(--gradient-2); }
+        .step-icon.stage { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); }
+
+        .step-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            max-width: 100px;
+        }
+
+        .pipeline-arrow {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            position: relative;
+            margin: 0 -5px;
+            margin-top: -50px;
+        }
+
+        .pipeline-arrow::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: -6px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid var(--secondary);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--dark-light);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon.blue { background: var(--gradient-3); }
+        .card-icon.purple { background: var(--gradient-1); }
+        .card-icon.green { background: var(--gradient-4); }
+        .card-icon.orange { background: var(--gradient-5); }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        .card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Status Flow */
+        .status-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .status-badge.draft { background: var(--gray); }
+        .status-badge.pending { background: var(--warning); }
+        .status-badge.approved { background: var(--success); }
+        .status-badge.active { background: var(--secondary); }
+        .status-badge.connected { background: var(--primary); }
+        .status-badge.error { background: var(--danger); }
+
+        .status-arrow {
+            font-size: 1.5rem;
+            color: var(--gray);
+        }
+
+        /* Connection Diagram */
+        .connection-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 3rem;
+        }
+
+        .connection-box {
+            padding: 2rem 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 2px solid;
+            position: relative;
+        }
+
+        .connection-box.client {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        .connection-box.server {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .connection-box.erp {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+        }
+
+        .connection-box h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .connection-box small {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .connection-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .connection-line .line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .connection-line small {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* SVG Diagrams */
+        .svg-diagram {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        /* Role Matrix */
+        .role-matrix {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            background: var(--dark-light);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .role-matrix th,
+        .role-matrix td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .role-matrix th {
+            background: rgba(99, 102, 241, 0.2);
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .role-matrix tr:last-child td {
+            border-bottom: none;
+        }
+
+        .role-matrix td:first-child {
+            font-weight: 600;
+        }
+
+        .check {
+            color: var(--success);
+            font-size: 1.25rem;
+        }
+
+        .cross {
+            color: var(--danger);
+            font-size: 1.25rem;
+        }
+
+        .partial {
+            color: var(--warning);
+            font-size: 1.25rem;
+        }
+
+        /* Job Lifecycle */
+        .lifecycle {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 2rem;
+        }
+
+        .lifecycle-step {
+            display: flex;
+            align-items: center;
+        }
+
+        .lifecycle-node {
+            width: 120px;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--white);
+        }
+
+        .lifecycle-node.pending { background: var(--gray); }
+        .lifecycle-node.processing { background: var(--secondary); }
+        .lifecycle-node.staged { background: var(--warning); }
+        .lifecycle-node.committed { background: var(--success); }
+        .lifecycle-node.failed { background: var(--danger); }
+        .lifecycle-node.rollback { background: #dc2626; }
+
+        .lifecycle-arrow {
+            width: 40px;
+            height: 2px;
+            background: var(--gray);
+            position: relative;
+        }
+
+        .lifecycle-arrow::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            border-left: 8px solid var(--gray);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        /* Metrics Cards */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: var(--dark-light);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-light);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .pipeline-arrow {
+                display: none;
+            }
+            
+            .pipeline-step {
+                margin-bottom: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">LicenseIQ</div>
+            <div class="nav-links">
+                <a href="#architecture">Architecture</a>
+                <a href="#hierarchy">Hierarchy</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#lifecycle">Lifecycle</a>
+                <a href="#connections">Connections</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                Enterprise Integration Platform
+            </span>
+            <h1>ERP Data Management<br>Integration Architecture</h1>
+            <p>Visual guide to the complete data flow from external ERP systems to LicenseIQ platform</p>
+        </div>
+    </div>
+
+    <!-- System Architecture -->
+    <section id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2>System Architecture</h2>
+                <p>Multi-layered architecture supporting enterprise-grade data integration</p>
+            </div>
+
+            <div class="arch-diagram">
+                <div class="arch-layers">
+                    <div class="arch-layer">
+                        <div class="layer-label">External</div>
+                        <div class="layer-content">
+                            <div class="layer-box external">
+                                <span>Oracle Fusion<small>Cloud ERP</small></span>
+                            </div>
+                            <div class="layer-box external">
+                                <span>SAP S/4HANA<small>Enterprise</small></span>
+                            </div>
+                            <div class="layer-box external">
+                                <span>NetSuite<small>Cloud ERP</small></span>
+                            </div>
+                            <div class="layer-box external">
+                                <span>Custom APIs<small>REST/SOAP</small></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <svg viewBox="0 0 24 24"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div class="layer-label">Ingestion</div>
+                        <div class="layer-content">
+                            <div class="layer-box ingestion">
+                                <span>Connection Manager<small>Auth & Health</small></span>
+                            </div>
+                            <div class="layer-box ingestion">
+                                <span>API Gateway<small>Rate Limiting</small></span>
+                            </div>
+                            <div class="layer-box ingestion">
+                                <span>File Processor<small>CSV/Excel</small></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <svg viewBox="0 0 24 24"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div class="layer-label">Transform</div>
+                        <div class="layer-content">
+                            <div class="layer-box transform">
+                                <span>Schema Validator<small>Zod Schemas</small></span>
+                            </div>
+                            <div class="layer-box transform">
+                                <span>Field Mapper<small>AI-Assisted</small></span>
+                            </div>
+                            <div class="layer-box transform">
+                                <span>Data Enricher<small>Computed Fields</small></span>
+                            </div>
+                            <div class="layer-box transform">
+                                <span>Deduplicator<small>Unique Keys</small></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <svg viewBox="0 0 24 24"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div class="layer-label">Storage</div>
+                        <div class="layer-content">
+                            <div class="layer-box storage">
+                                <span>Staging Tables<small>Preview & Review</small></span>
+                            </div>
+                            <div class="layer-box storage">
+                                <span>Target Tables<small>Committed Data</small></span>
+                            </div>
+                            <div class="layer-box storage">
+                                <span>Audit Log<small>Full History</small></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <svg viewBox="0 0 24 24"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div class="layer-label">API Layer</div>
+                        <div class="layer-content">
+                            <div class="layer-box api">
+                                <span>REST API<small>Express.js</small></span>
+                            </div>
+                            <div class="layer-box api">
+                                <span>React UI<small>Dashboard</small></span>
+                            </div>
+                            <div class="layer-box api">
+                                <span>Webhooks<small>Notifications</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizational Hierarchy -->
+    <section id="hierarchy" style="background: var(--dark-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Organizational Hierarchy</h2>
+                <p>Three-level context that drives all access control and data isolation</p>
+            </div>
+
+            <div class="arch-diagram" style="background: var(--dark);">
+                <div class="hierarchy-visual">
+                    <!-- Company Level -->
+                    <div class="hierarchy-node">
+                        <div class="node-box company">
+                            <span>Company</span>
+                            <small>Top-level organization</small>
+                        </div>
+                    </div>
+                    
+                    <div class="hierarchy-connector"></div>
+                    
+                    <!-- Business Unit Level -->
+                    <div class="hierarchy-branches">
+                        <div class="branch-arm">
+                            <div class="node-box bu">
+                                <span>Business Unit A</span>
+                                <small>Division / Department</small>
+                            </div>
+                        </div>
+                        <div class="branch-arm">
+                            <div class="node-box bu">
+                                <span>Business Unit B</span>
+                                <small>Division / Department</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hierarchy-connector"></div>
+                    
+                    <!-- Location Level -->
+                    <div class="hierarchy-branches">
+                        <div class="branch-arm">
+                            <div class="node-box location">
+                                <span>Location 1</span>
+                                <small>Physical Site</small>
+                            </div>
+                        </div>
+                        <div class="branch-arm">
+                            <div class="node-box location">
+                                <span>Location 2</span>
+                                <small>Physical Site</small>
+                            </div>
+                        </div>
+                        <div class="branch-arm">
+                            <div class="node-box location">
+                                <span>Location 3</span>
+                                <small>Physical Site</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Access Control Matrix -->
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem; color: var(--white);">Access Control Matrix</h3>
+            <table class="role-matrix">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>View All Companies</th>
+                        <th>Manage Connections</th>
+                        <th>Create Mappings</th>
+                        <th>Run Imports</th>
+                        <th>Approve Mappings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge error" style="padding: 0.5rem 1rem;">System Admin</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge pending" style="padding: 0.5rem 1rem;">Company Admin</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="check">&#10004;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge active" style="padding: 0.5rem 1rem;">BU Admin</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                        <td><span class="partial">&#9679;</span> BU Only</td>
+                        <td><span class="partial">&#9679;</span> BU Only</td>
+                        <td><span class="check">&#10004;</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge approved" style="padding: 0.5rem 1rem;">Location User</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                        <td><span class="cross">&#10008;</span></td>
+                        <td><span class="partial">&#9679;</span> View Only</td>
+                        <td><span class="cross">&#10008;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Data Pipeline -->
+    <section id="pipeline">
+        <div class="container">
+            <div class="section-header">
+                <h2>Data Transformation Pipeline</h2>
+                <p>Six-stage pipeline for processing and validating imported data</p>
+            </div>
+
+            <div class="arch-diagram">
+                <div class="pipeline">
+                    <div class="pipeline-step">
+                        <div class="step-icon parse">&#128196;</div>
+                        <div class="step-label">Parse</div>
+                        <div class="step-desc">Extract raw data from source</div>
+                    </div>
+                    <div class="pipeline-arrow"></div>
+                    <div class="pipeline-step">
+                        <div class="step-icon validate">&#10004;</div>
+                        <div class="step-label">Validate</div>
+                        <div class="step-desc">Schema & type checking</div>
+                    </div>
+                    <div class="pipeline-arrow"></div>
+                    <div class="pipeline-step">
+                        <div class="step-icon transform">&#128260;</div>
+                        <div class="step-label">Transform</div>
+                        <div class="step-desc">Apply field mappings</div>
+                    </div>
+                    <div class="pipeline-arrow"></div>
+                    <div class="pipeline-step">
+                        <div class="step-icon enrich">&#10024;</div>
+                        <div class="step-label">Enrich</div>
+                        <div class="step-desc">Compute derived fields</div>
+                    </div>
+                    <div class="pipeline-arrow"></div>
+                    <div class="pipeline-step">
+                        <div class="step-icon dedupe">&#128279;</div>
+                        <div class="step-label">Dedupe</div>
+                        <div class="step-desc">Detect duplicates</div>
+                    </div>
+                    <div class="pipeline-arrow"></div>
+                    <div class="pipeline-step">
+                        <div class="step-icon stage">&#128190;</div>
+                        <div class="step-label">Stage</div>
+                        <div class="step-desc">Save for review</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transformation Types -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon blue">&#128295;</div>
+                    <h3>Direct Mapping</h3>
+                    <p>Copy value as-is from source to target field without modification.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon purple">&#128290;</div>
+                    <h3>Numeric Transform</h3>
+                    <p>Parse strings to numbers, handle currency formatting, apply precision.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">&#128197;</div>
+                    <h3>Date Parsing</h3>
+                    <p>Convert various date formats to standardized ISO format with timezone.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon orange">&#129302;</div>
+                    <h3>AI-Assisted</h3>
+                    <p>Use LLM to suggest field mappings based on column names and samples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Lifecycle -->
+    <section id="lifecycle" style="background: var(--dark-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Import Job Lifecycle</h2>
+                <p>Complete workflow from job creation to commit or rollback</p>
+            </div>
+
+            <div class="arch-diagram" style="background: var(--dark);">
+                <div class="lifecycle">
+                    <div class="lifecycle-step">
+                        <div class="lifecycle-node pending">Pending</div>
+                    </div>
+                    <div class="lifecycle-arrow"></div>
+                    <div class="lifecycle-step">
+                        <div class="lifecycle-node processing">Processing</div>
+                    </div>
+                    <div class="lifecycle-arrow"></div>
+                    <div class="lifecycle-step">
+                        <div class="lifecycle-node staged">Staged</div>
+                    </div>
+                    <div class="lifecycle-arrow"></div>
+                    <div class="lifecycle-step">
+                        <div class="lifecycle-node committed">Committed</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p style="color: var(--gray); margin-bottom: 1rem;">Alternative Paths:</p>
+                    <div class="lifecycle" style="padding: 0;">
+                        <div class="lifecycle-step">
+                            <div class="lifecycle-node staged">Staged</div>
+                        </div>
+                        <div class="lifecycle-arrow"></div>
+                        <div class="lifecycle-step">
+                            <div class="lifecycle-node rollback">Rolled Back</div>
+                        </div>
+                    </div>
+                    <div class="lifecycle" style="padding: 0; margin-top: 1rem;">
+                        <div class="lifecycle-step">
+                            <div class="lifecycle-node processing">Processing</div>
+                        </div>
+                        <div class="lifecycle-arrow"></div>
+                        <div class="lifecycle-step">
+                            <div class="lifecycle-node failed">Failed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Record Status -->
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem; color: var(--white);">Record Status Flow</h3>
+            <div class="status-flow">
+                <div class="status-item">
+                    <span class="status-badge" style="background: var(--secondary);">Staged</span>
+                    <span class="status-arrow">&#8594;</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge approved">Committed</span>
+                </div>
+            </div>
+            <div class="status-flow">
+                <div class="status-item">
+                    <span class="status-badge" style="background: var(--secondary);">Staged</span>
+                    <span class="status-arrow">&#8594;</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge error">Failed</span>
+                </div>
+            </div>
+            <div class="status-flow">
+                <div class="status-item">
+                    <span class="status-badge" style="background: var(--secondary);">Staged</span>
+                    <span class="status-arrow">&#8594;</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge" style="background: var(--warning);">Skipped</span>
+                    <small style="color: var(--gray); margin-left: 0.5rem;">(Duplicate)</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connection Flow -->
+    <section id="connections">
+        <div class="container">
+            <div class="section-header">
+                <h2>Connection Architecture</h2>
+                <p>Secure authentication and API integration patterns</p>
+            </div>
+
+            <div class="arch-diagram">
+                <div class="connection-diagram">
+                    <div class="connection-box client">
+                        <h4>&#128187; LicenseIQ UI</h4>
+                        <small>React Dashboard</small>
+                    </div>
+                    <div class="connection-line">
+                        <small>HTTPS</small>
+                        <div class="line"></div>
+                        <small>REST API</small>
+                    </div>
+                    <div class="connection-box server">
+                        <h4>&#9881; LicenseIQ Server</h4>
+                        <small>Express.js + PostgreSQL</small>
+                    </div>
+                    <div class="connection-line">
+                        <small>OAuth2 / API Key</small>
+                        <div class="line"></div>
+                        <small>REST/SOAP</small>
+                    </div>
+                    <div class="connection-box erp">
+                        <h4>&#127970; External ERP</h4>
+                        <small>Oracle, SAP, etc.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auth Types -->
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem; color: var(--white);">Supported Authentication</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon blue">&#128273;</div>
+                    <h3>API Key</h3>
+                    <p>Simple key-based authentication via header or query parameter.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon purple">&#128274;</div>
+                    <h3>OAuth 2.0</h3>
+                    <p>Industry-standard authorization with token refresh support.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">&#128272;</div>
+                    <h3>Basic Auth</h3>
+                    <p>Username/password credentials encoded in request header.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon orange">&#127919;</div>
+                    <h3>Bearer Token</h3>
+                    <p>JWT or opaque token passed in Authorization header.</p>
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem; color: var(--white);">Health Monitoring Metrics</h3>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Uptime SLA Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">&lt;500ms</div>
+                    <div class="metric-label">Latency Threshold</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5min</div>
+                    <div class="metric-label">Health Check Interval</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">90 days</div>
+                    <div class="metric-label">Log Retention</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapping Version Control -->
+    <section style="background: var(--dark-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Mapping Version Control</h2>
+                <p>Full versioning with approval workflow and rollback capability</p>
+            </div>
+
+            <div class="arch-diagram" style="background: var(--dark);">
+                <div class="status-flow" style="flex-direction: column; gap: 1.5rem;">
+                    <div class="status-flow" style="padding: 0;">
+                        <div class="status-item">
+                            <span class="status-badge draft">v1 Draft</span>
+                            <span class="status-arrow">&#8594;</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-badge pending">Pending Review</span>
+                            <span class="status-arrow">&#8594;</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-badge approved">v1 Approved</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; color: var(--gray);">
+                        &#8595; Edit creates new version
+                    </div>
+                    <div class="status-flow" style="padding: 0;">
+                        <div class="status-item">
+                            <span class="status-badge draft">v2 Draft</span>
+                            <span class="status-arrow">&#8594;</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-badge pending">Pending Review</span>
+                            <span class="status-arrow">&#8594;</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-badge approved">v2 Approved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Version Features -->
+            <div class="cards-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-icon purple">&#128220;</div>
+                    <h3>Immutable History</h3>
+                    <p>Each version is preserved. Previous versions remain accessible for audit and rollback.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon blue">&#128101;</div>
+                    <h3>Approval Workflow</h3>
+                    <p>Mappings require admin approval before use in production imports.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">&#128260;</div>
+                    <h3>Instant Rollback</h3>
+                    <p>Revert to any previous approved version with one click.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon orange">&#128202;</div>
+                    <h3>Usage Tracking</h3>
+                    <p>Track which version was used for each import job for full traceability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LicenseIQ</strong> ERP Data Management Integration</p>
+        <p style="margin-top: 0.5rem;">Architecture Documentation v2.0 | December 2024</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,20 @@
+SCREEN 2: AI ANALYSIS PROCESSING
+Duration: ~35 seconds
+
+[INTRO]
+Now our AI is analyzing the contract using Groq's LLaMA model - completely free, no API costs.
+
+[STEP 1]
+Watch as the system extracts key information:
+- First, it identifies the parties involved - the licensor and licensee
+- Then it finds important dates and territories
+- Next, it extracts payment terms and royalty structures
+
+[STEP 2]
+The AI is also performing risk assessment, checking for compliance issues, and extracting royalty calculation rules.
+
+[STEP 3]
+This entire process happens in seconds, powered by advanced language models.
+
+[TRANSITION]
+The analysis is complete! Let's see what the AI found.

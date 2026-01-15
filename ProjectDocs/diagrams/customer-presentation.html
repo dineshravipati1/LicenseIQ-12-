@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ - Customer Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #2d3748;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background: white; }
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+        }
+        
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .slide-title h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+        
+        .slide-title h2 {
+            font-size: 28px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        
+        .slide-title .tagline {
+            font-size: 32px;
+            font-style: italic;
+            margin-top: 40px;
+            font-weight: 400;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 42px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        h3 {
+            color: #4a5568;
+            font-size: 28px;
+            margin: 30px 0 15px 0;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border-left: 6px solid #667eea;
+        }
+        
+        .value-card h3 {
+            color: #667eea;
+            font-size: 56px;
+            margin: 0 0 15px 0;
+            border: none;
+        }
+        
+        .value-card p {
+            font-size: 20px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .feature-box {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .feature-box h3 {
+            color: #2d3748;
+            font-size: 22px;
+            margin: 0 0 12px 0;
+            border: none;
+        }
+        
+        .feature-box p {
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .process-diagram {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .process-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        
+        .process-step {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid #667eea;
+        }
+        
+        .process-step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .process-step h4 {
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .process-step p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .arrow {
+            color: #667eea;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .pricing-card.popular {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        }
+        
+        .pricing-card h3 {
+            color: #2d3748;
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            border: none;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 18px;
+            color: #718096;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 10px 0;
+            color: #4a5568;
+            font-size: 15px;
+        }
+        
+        .pricing-card li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .cta-button {
+            background: #667eea;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .popular-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .contact-info {
+            background: #f7fafc;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info p {
+            font-size: 18px;
+            color: #4a5568;
+            margin: 10px 0;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide slide-title">
+        <div>
+            <div class="logo">LicenseIQ</div>
+            <h1>AI-Powered Contract Management</h1>
+            <h2>Automated Royalty Calculations for Manufacturing Companies</h2>
+            <p class="tagline">"Reads contracts like a lawyer, calculates like an accountant"</p>
+        </div>
+    </div>
+    
+    <!-- Slide 2: The Problem -->
+    <div class="slide">
+        <h2>The Challenge You Face</h2>
+        <div class="value-grid">
+            <div class="value-card">
+                <h3>10-40 Hours</h3>
+                <p>Manual work per quarter reviewing contracts and calculating royalties in Excel</p>
+            </div>
+            <div class="value-card">
+                <h3>$10K-$100K+</h3>
+                <p>Payment errors from miscalculations and missed contract terms</p>
+            </div>
+            <div class="value-card">
+                <h3>100+</h3>
+                <p>Complex licensing agreements with volume tiers and seasonal adjustments</p>
+            </div>
+            <div class="value-card">
+                <h3>3-5 Days</h3>
+                <p>Audit preparation scrambling to find documentation and prove compliance</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 3: The Solution -->
+    <div class="slide">
+        <h2>Our Solution: Intelligent Automation</h2>
+        <p style="font-size: 20px; color: #4a5568; margin-bottom: 40px;">
+            LicenseIQ uses AI to read your contracts, match sales data, and calculate royalties automatically—
+            with 100% accuracy and complete audit trails.
+        </p>
+        
+        <div class="value-grid">
+            <div class="value-card" style="border-left-color: #2e7d32;">
+                <h3>95%</h3>
+                <p><strong>Time Savings:</strong> 30 minutes instead of 10-40 hours per quarter</p>
+            </div>
+            <div class="value-card" style="border-left-color: #d84315;">
+                <h3>100%</h3>
+                <p><strong>Accuracy:</strong> Eliminate calculation errors and payment disputes</p>
+            </div>
+            <div class="value-card" style="border-left-color: #0277bd;">
+                <h3>4 Weeks</h3>
+                <p><strong>Fast Setup:</strong> vs. 18-month enterprise ERP implementations</p>
+            </div>
+            <div class="value-card" style="border-left-color: #7b1fa2;">
+                <h3>$200K+</h3>
+                <p><strong>Annual ROI:</strong> From time savings and error elimination</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 4: How It Works -->
+    <div class="slide">
+        <h2>How LicenseIQ Works</h2>
+        
+        <div class="process-diagram">
+            <h3 style="text-align: center; margin-bottom: 30px;">Simple 3-Step Process</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <h4>Upload Contracts</h4>
+                    <p>Drag & drop your PDF contracts. AI reads and extracts all terms, rates, and conditions automatically.</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <h4>Import Sales Data</h4>
+                    <p>Connect to your ERP (SAP, Oracle, NetSuite) or upload CSV/Excel. AI matches sales to contracts.</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <h4>Calculate & Report</h4>
+                    <p>Click "Calculate" to get instant, accurate royalties with detailed PDF invoices and audit trails.</p>
+                </div>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 18px; color: #4a5568; margin-top: 40px;">
+            <strong>Result:</strong> What used to take days now takes 30 minutes—with perfect accuracy and full documentation.
+        </p>
+    </div>
+    
+    <!-- Slide 5: Key Features -->
+    <div class="slide">
+        <h2>Key Features That Save You Time</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>🤖 AI Contract Reading</h3>
+                <p>Automatically extracts parties, dates, rates, territories, and payment terms from any contract format.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>🔗 Smart Sales Matching</h3>
+                <p>AI matches your sales transactions to the right contracts with 80%+ auto-match rate.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>🧮 Precise Calculations</h3>
+                <p>Handles volume tiers, seasonal adjustments, multi-party splits, and minimum guarantees flawlessly.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>📄 Professional Invoices</h3>
+                <p>Generate detailed PDF invoices with full calculation breakdowns in seconds.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>💬 Ask Questions</h3>
+                <p>Natural language Q&A about your contracts—get instant answers with source citations.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>📊 Real-time Analytics</h3>
+                <p>Interactive dashboards show royalty trends, top contracts, and financial forecasts.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>⚠️ Risk Detection</h3>
+                <p>Automatically identifies missing clauses, compliance issues, and unusual terms.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>📝 Complete Audit Trail</h3>
+                <p>SOX-compliant activity logging for every action, calculation, and change.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 6: ERP Integration -->
+    <div class="slide">
+        <h2>Seamless ERP Integration</h2>
+        <p style="font-size: 20px; color: #4a5568; margin-bottom: 40px;">
+            Connect to your existing systems—no data migration or workflow disruption.
+        </p>
+        
+        <div class="feature-grid">
+            <div class="feature-box" style="border-left-color: #2196f3;">
+                <h3>🏢 SAP ERP</h3>
+                <p>Direct API integration for real-time sales order and billing data sync. Bi-directional updates.</p>
+            </div>
+            
+            <div class="feature-box" style="border-left-color: #d84315;">
+                <h3>📊 Oracle ERP</h3>
+                <p>Pull revenue transactions and financial data automatically. Push royalty calculations back.</p>
+            </div>
+            
+            <div class="feature-box" style="border-left-color: #388e3c;">
+                <h3>💼 NetSuite</h3>
+                <p>Full transaction history import with customer mapping. Scheduled daily or weekly sync.</p>
+            </div>
+            
+            <div class="feature-box" style="border-left-color: #ef6c00;">
+                <h3>📋 QuickBooks</h3>
+                <p>Invoice and payment record integration for small-mid size operations.</p>
+            </div>
+            
+            <div class="feature-box" style="border-left-color: #7b1fa2;">
+                <h3>📁 CSV/Excel Import</h3>
+                <p>Simple file upload with field mapping for any system. Support for 100K+ rows.</p>
+            </div>
+            
+            <div class="feature-box" style="border-left-color: #0277bd;">
+                <h3>🔌 Custom APIs</h3>
+                <p>REST API access for proprietary systems. Comprehensive documentation and support.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 7: Pricing -->
+    <div class="slide">
+        <h2>Simple, Transparent Pricing</h2>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$2,000<span>/month</span></div>
+                <ul>
+                    <li>Up to 5 contracts</li>
+                    <li>AI contract reading</li>
+                    <li>Sales matching</li>
+                    <li>Royalty calculator</li>
+                    <li>PDF invoices</li>
+                    <li>Basic analytics</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <span class="popular-badge">MOST POPULAR</span>
+                <h3>Professional</h3>
+                <div class="price">$5,000<span>/month</span></div>
+                <ul>
+                    <li>Up to 25 contracts</li>
+                    <li>All Starter features</li>
+                    <li>ERP integrations (SAP, Oracle)</li>
+                    <li>Advanced analytics</li>
+                    <li>API access</li>
+                    <li>User management (RBAC)</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <ul>
+                    <li>Unlimited contracts</li>
+                    <li>All Professional features</li>
+                    <li>Custom integrations</li>
+                    <li>Multi-entity support</li>
+                    <li>White-label option</li>
+                    <li>Dedicated success manager</li>
+                    <li>SLA guarantees</li>
+                </ul>
+                <a href="#" class="cta-button">Contact Sales</a>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 18px; color: #4a5568; margin-top: 40px;">
+            All plans include: Free updates • Data security • SOX compliance • Training & onboarding
+        </p>
+    </div>
+    
+    <!-- Slide 8: ROI Calculator -->
+    <div class="slide">
+        <h2>Your Return on Investment</h2>
+        <p style="font-size: 20px; color: #4a5568; margin-bottom: 30px;">
+            Typical manufacturing company with $50M revenue and 25 licensing contracts:
+        </p>
+        
+        <div class="value-grid">
+            <div class="value-card" style="border-left-color: #d84315;">
+                <h3>$120K/year</h3>
+                <p><strong>Labor Cost Savings:</strong><br/>
+                40 hours/quarter × 4 quarters × $75/hr fully loaded</p>
+            </div>
+            
+            <div class="value-card" style="border-left-color: #2e7d32;">
+                <h3>$50K/year</h3>
+                <p><strong>Error Prevention:</strong><br/>
+                Eliminate 5% payment errors on $1M annual royalties</p>
+            </div>
+            
+            <div class="value-card" style="border-left-color: #7b1fa2;">
+                <h3>$30K/year</h3>
+                <p><strong>Audit Efficiency:</strong><br/>
+                Instant compliance reports vs. 3-5 days manual prep</p>
+            </div>
+            
+            <div class="value-card" style="border-left-color: #0277bd;">
+                <h3>$200K/year</h3>
+                <p><strong>Total Annual Savings</strong><br/>
+                <strong>ROI: 333%</strong> (vs. $60K annual cost)</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 20px; color: #667eea; margin-top: 50px; font-weight: bold;">
+            Typical payback period: 3-4 months
+        </p>
+    </div>
+    
+    <!-- Slide 9: Next Steps -->
+    <div class="slide">
+        <h2>Get Started in 3 Easy Steps</h2>
+        
+        <div class="process-diagram">
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <h4>Schedule Demo</h4>
+                    <p>30-minute personalized demo with your contracts and data</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <h4>Free Trial (14 Days)</h4>
+                    <p>Upload your contracts, import sales, test calculations</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <h4>Go Live (4 Weeks)</h4>
+                    <p>Complete setup, training, and ERP integration</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h3>Ready to Transform Your Royalty Management?</h3>
+            <p><strong>Email:</strong> sales@licenseiq.ai</p>
+            <p><strong>Phone:</strong> 1-800-LICENSE</p>
+            <p><strong>Website:</strong> www.licenseiq.ai</p>
+            <br>
+            <a href="#" class="cta-button" style="font-size: 22px; padding: 20px 50px;">Schedule Your Free Demo</a>
+        </div>
+    </div>
+    
+    <!-- Print Instructions -->
+    <div class="no-print" style="position: fixed; bottom: 20px; right: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <p style="font-size: 14px; color: #4a5568;">
+            <strong>Print to PDF:</strong> Press Ctrl+P (Windows) or Cmd+P (Mac)<br>
+            <strong>Navigate:</strong> Scroll through slides
+        </p>
+    </div>
+</body>
+</html>

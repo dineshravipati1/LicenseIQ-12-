@@ -1,0 +1,21 @@
+Transaction ID,Date,Product Name,Product Category,Application Sector,Units Sold,Unit Price,Gross Sales,Freight Costs,Sales Tax,Returns Credits,Trade Discounts,Distributor Commission,Territory,Customer Name
+MFG-2024-001,2024-02-15,Composite Bearing CB-500,Automotive Components,Automotive Transmission,45000,85.00,3825000,45000,0,15000,250000,0,United States,AutoParts Direct Inc
+MFG-2024-002,2024-02-28,High-Temp Polymer Coating HT-200,Automotive Components,Engine Systems,38000,125.00,4750000,52000,0,25000,350000,0,United States,Performance Motors LLC
+MFG-2024-003,2024-03-12,Precision Molded Component PM-350,Automotive Components,Chassis Systems,52000,95.00,4940000,48000,0,20000,380000,0,Canada,Canadian Auto Supply
+MFG-2024-004,2024-03-28,Smart Material Component SM-100,Automotive Components,Electronic Control,28000,185.00,5180000,58000,0,30000,410000,0,Mexico,MexAuto Manufacturing
+MFG-2024-005,2024-04-10,Industrial Bearing IB-750,Industrial Components,Heavy Machinery,15000,250.00,3750000,42000,0,18000,280000,0,United States,Industrial Solutions Corp
+MFG-2024-006,2024-04-25,Aerospace Composite AC-1000,Aerospace Components,Aircraft Systems,3500,1200.00,4200000,65000,0,35000,0,0,United States,AeroTech Systems Inc
+MFG-2024-007,2024-05-08,Composite Bearing CB-500,Automotive Components,Automotive Transmission,62000,85.00,5270000,55000,0,22000,420000,0,United States,Premium Auto Parts
+MFG-2024-008,2024-05-22,High-Temp Polymer Coating HT-200,Automotive Components,Engine Systems,48000,125.00,6000000,68000,0,40000,480000,0,United States,Engine Tech Solutions
+MFG-2024-009,2024-06-05,Precision Molded Component PM-350,Industrial Components,Manufacturing Equipment,25000,115.00,2875000,38000,0,15000,225000,0,Canada,Industrial Equipment Ltd
+MFG-2024-010,2024-06-18,Smart Material Component SM-100,Automotive Components,Electronic Control,35000,185.00,6475000,72000,0,45000,518000,0,United States,Smart Automotive Inc
+MFG-2024-011,2024-07-02,Industrial Bearing IB-750,Industrial Components,Heavy Machinery,18000,250.00,4500000,48000,0,20000,350000,0,Mexico,Heavy Industries SA
+MFG-2024-012,2024-07-15,Aerospace Composite AC-1000,Aerospace Components,Spacecraft Systems,2800,1350.00,3780000,58000,0,28000,0,0,United States,Space Systems Corp
+MFG-2024-013,2024-08-01,Composite Bearing CB-500,Automotive Components,Automotive Transmission,75000,82.00,6150000,65000,0,35000,492000,0,United States,Volume Auto Distributors
+MFG-2024-014,2024-08-18,High-Temp Polymer Coating HT-200,Automotive Components,Engine Systems,55000,122.00,6710000,72000,0,42000,536800,64416,United States,National Auto Parts Network
+MFG-2024-015,2024-09-05,Precision Molded Component PM-350,Automotive Components,Chassis Systems,68000,92.00,6256000,68000,0,38000,500480,0,Canada,Trans-Canada Automotive
+MFG-2024-016,2024-09-20,Smart Material Component SM-100,Industrial Components,Automation Systems,32000,195.00,6240000,70000,0,40000,499200,0,United States,Automation Technologies Inc
+MFG-2024-017,2024-10-08,Industrial Bearing IB-750,Industrial Components,Mining Equipment,22000,265.00,5830000,62000,0,35000,466400,0,United States,Mining Solutions LLC
+MFG-2024-018,2024-10-22,Aerospace Composite AC-1000,Aerospace Components,Satellite Systems,4200,1280.00,5376000,75000,0,48000,0,0,United States,Satellite Tech Corporation
+MFG-2024-019,2024-11-05,Composite Bearing CB-500,Automotive Components,Automotive Transmission,82000,80.00,6560000,72000,0,45000,524800,0,Mexico,Latin American Auto Group
+MFG-2024-020,2024-11-20,High-Temp Polymer Coating HT-200,Automotive Components,Engine Systems,64000,120.00,7680000,80000,0,52000,614400,73728,United States,Major Auto Manufacturers Alliance

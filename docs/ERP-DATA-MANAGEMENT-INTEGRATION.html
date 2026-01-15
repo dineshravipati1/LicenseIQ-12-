@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ - ERP Data Management Integration Architecture</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --bg-light: #f8fafc;
+            --bg-dark: #1e293b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: var(--bg-light);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+        
+        nav.toc {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 1rem;
+        }
+        
+        nav.toc h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        nav.toc ul {
+            list-style: none;
+        }
+        
+        nav.toc li {
+            margin: 0.5rem 0;
+        }
+        
+        nav.toc a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav.toc a:hover {
+            color: var(--primary);
+        }
+        
+        section {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        section h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        section h3 {
+            color: var(--bg-dark);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        section h4 {
+            color: var(--secondary);
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .diagram-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .flow-step {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .hierarchy-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .hierarchy-level {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .hierarchy-level.company {
+            border-color: #7c3aed;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+        }
+        
+        .hierarchy-level.bu {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        
+        .hierarchy-level.location {
+            border-color: #059669;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+        
+        .hierarchy-level h4 {
+            margin: 0 0 0.5rem;
+            color: inherit;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        table th, table td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+        
+        table tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-info { background: #e0f2fe; color: #075985; }
+        .badge-primary { background: #dbeafe; color: #1e40af; }
+        
+        .test-case {
+            border-left: 4px solid var(--primary);
+            background: var(--bg-light);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .test-case.pass {
+            border-left-color: var(--success);
+        }
+        
+        .test-case.edge {
+            border-left-color: var(--warning);
+        }
+        
+        .test-case.security {
+            border-left-color: var(--danger);
+        }
+        
+        .test-case h5 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sequence-diagram {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.4;
+        }
+        
+        .api-endpoint {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        .api-endpoint .method {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        
+        .api-endpoint .method.get { background: #22c55e; color: white; }
+        .api-endpoint .method.post { background: #3b82f6; color: white; }
+        .api-endpoint .method.patch { background: #f59e0b; color: white; }
+        .api-endpoint .method.delete { background: #ef4444; color: white; }
+        
+        .api-endpoint .path {
+            font-family: monospace;
+            color: var(--bg-dark);
+        }
+        
+        code {
+            background: var(--bg-light);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>ERP Data Management Integration</h1>
+            <p>Complete Architecture & Workflow Documentation</p>
+            <span class="version-badge">LicenseIQ Platform v2.0</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">1. System Overview</a></li>
+                <li><a href="#hierarchy">2. Contextual Hierarchy (Company/BU/Location)</a></li>
+                <li><a href="#connections">3. Integration Connections</a></li>
+                <li><a href="#mappings">4. Field Mappings</a></li>
+                <li><a href="#sources">5. Data Import Sources</a></li>
+                <li><a href="#jobs">6. Import Jobs Lifecycle</a></li>
+                <li><a href="#transformation">7. Data Transformation Pipeline</a></li>
+                <li><a href="#audit">8. Audit Trail & Monitoring</a></li>
+                <li><a href="#testcases">9. Test Cases</a></li>
+                <li><a href="#api-reference">10. API Reference</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Overview -->
+        <section id="overview">
+            <h2>1. System Overview</h2>
+            <p>The LicenseIQ ERP Data Management Integration provides a comprehensive solution for importing, transforming, and managing data from external ERP systems. The architecture follows enterprise-grade iPaaS (Integration Platform as a Service) patterns with full support for multi-tenant organizational hierarchies.</p>
+            
+            <h3>Key Capabilities</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>Data Ingestion</h4>
+                    <ul>
+                        <li>File-based imports (CSV, Excel)</li>
+                        <li>API-based imports (REST)</li>
+                        <li>Scheduled automation</li>
+                        <li>Real-time webhooks</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Data Transformation</h4>
+                    <ul>
+                        <li>AI-powered field mapping</li>
+                        <li>Schema validation (Zod)</li>
+                        <li>Type coercion & normalization</li>
+                        <li>Deduplication logic</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Governance</h4>
+                    <ul>
+                        <li>Role-based access control</li>
+                        <li>Mapping version control</li>
+                        <li>Approval workflows</li>
+                        <li>Full audit trail</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Reliability</h4>
+                    <ul>
+                        <li>Dry-run previews</li>
+                        <li>Staged commits</li>
+                        <li>Rollback capability</li>
+                        <li>Health monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>End-to-End Process Flow</h3>
+            <div class="diagram-box">
+                <div class="flow-diagram">
+                    <div class="flow-step">1. Select Context<br><small>(Company/BU/Location)</small></div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">2. Configure<br>Connection</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">3. Create Field<br>Mapping</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">4. Define Import<br>Source</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">5. Execute<br>Dry-Run</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">6. Review &<br>Commit</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">7. Audit &<br>Monitor</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Hierarchy -->
+        <section id="hierarchy">
+            <h2>2. Contextual Hierarchy</h2>
+            <p>All ERP integration configurations are scoped to the 3-level organizational hierarchy. This ensures data isolation and appropriate access control across multi-tenant deployments.</p>
+
+            <h3>Hierarchy Structure</h3>
+            <div class="diagram-box">
+<pre>
+                    ┌─────────────────────────────────────┐
+                    │           COMPANY                   │
+                    │   (Top-level organization)          │
+                    │   Example: Monrovia Nursery Co.     │
+                    └─────────────────┬───────────────────┘
+                                      │
+              ┌───────────────────────┼───────────────────────┐
+              │                       │                       │
+    ┌─────────▼─────────┐   ┌─────────▼─────────┐   ┌─────────▼─────────┐
+    │   BUSINESS UNIT   │   │   BUSINESS UNIT   │   │   BUSINESS UNIT   │
+    │   (Division)      │   │   (Division)      │   │   (Division)      │
+    │   Monrovia Branded│   │   Wight/Berryhill │   │   Direct Sales    │
+    └─────────┬─────────┘   └─────────┬─────────┘   └─────────┬─────────┘
+              │                       │                       │
+    ┌─────────┼─────────┐   ┌─────────┼─────────┐             │
+    │         │         │   │         │         │             │
+┌───▼───┐ ┌───▼───┐ ┌───▼───┐ ┌───▼───┐ ┌───▼───┐       ┌───▼───┐
+│LOCATION│ │LOCATION│ │LOCATION│ │LOCATION│ │LOCATION│   │LOCATION│
+│Dayton  │ │Visalia │ │Cairo   │ │NC     │ │OH      │   │Online  │
+│OR (HQ) │ │CA      │ │GA      │ │       │ │        │   │        │
+└────────┘ └────────┘ └────────┘ └────────┘ └────────┘   └────────┘
+</pre>
+            </div>
+
+            <h3>Access Control Matrix</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Company Access</th>
+                        <th>BU Access</th>
+                        <th>Location Access</th>
+                        <th>ERP Admin Functions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-danger">System Admin</span></td>
+                        <td>All Companies</td>
+                        <td>All BUs</td>
+                        <td>All Locations</td>
+                        <td>Full Access</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">Company Admin</span></td>
+                        <td>Own Company Only</td>
+                        <td>All BUs in Company</td>
+                        <td>All Locations in Company</td>
+                        <td>Full Access (Company Scope)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">BU Admin</span></td>
+                        <td>Own Company (Read)</td>
+                        <td>Own BU Only</td>
+                        <td>All Locations in BU</td>
+                        <td>Limited to BU Scope</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">Location User</span></td>
+                        <td>Own Company (Read)</td>
+                        <td>Own BU (Read)</td>
+                        <td>Own Location Only</td>
+                        <td>View/Execute Only</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Context Filtering Logic</h3>
+            <div class="diagram-box">
+<pre>
+// Helper function used across all ERP routes
+function getErpOrgContextFilters(user) {
+    if (isSystemAdmin(user)) {
+        return {};  // No filters - access to all data
+    }
+    
+    const context = user.activeContext;
+    return {
+        companyId: context?.companyId,        // Always enforced
+        businessUnitId: context?.businessUnitId,  // If user has BU context
+        locationId: context?.locationId       // If user has Location context
+    };
+}
+
+// Access validation for mappings/jobs
+function canAccessResource(resource, user) {
+    if (isSystemAdmin(user)) return true;
+    
+    const context = user.activeContext;
+    
+    // 1. Company must always match
+    if (resource.companyId !== context.companyId) return false;
+    
+    // 2. Location-level users: resource must match their location
+    if (context.locationId && resource.locationId !== context.locationId) return false;
+    
+    // 3. BU-level users: resource must be in their BU
+    if (context.businessUnitId && !context.locationId) {
+        if (resource.businessUnitId !== context.businessUnitId) return false;
+    }
+    
+    return true;
+}
+</pre>
+            </div>
+        </section>
+
+        <!-- Section 3: Integration Connections -->
+        <section id="connections">
+            <h2>3. Integration Connections</h2>
+            <p>Integration Connections define how LicenseIQ connects to external ERP systems. Each connection stores authentication credentials, endpoint configuration, and health telemetry.</p>
+
+            <h3>Connection Configuration</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>String</td>
+                        <td>Display name for the connection</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>erpSystemId</code></td>
+                        <td>UUID</td>
+                        <td>Reference to ERP System (Oracle, SAP, etc.)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>baseUrl</code></td>
+                        <td>URL</td>
+                        <td>Base API endpoint URL</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>authType</code></td>
+                        <td>Enum</td>
+                        <td>none | api_key | basic | oauth2 | bearer</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>authConfig</code></td>
+                        <td>JSON</td>
+                        <td>Authentication credentials (encrypted)</td>
+                        <td>Conditional</td>
+                    </tr>
+                    <tr>
+                        <td><code>companyId</code></td>
+                        <td>UUID</td>
+                        <td>Scoping: Company level</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>businessUnitId</code></td>
+                        <td>UUID</td>
+                        <td>Scoping: Business Unit level</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><code>locationId</code></td>
+                        <td>UUID</td>
+                        <td>Scoping: Location level</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>Enum</td>
+                        <td>active | inactive | error | connected</td>
+                        <td>Auto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Authentication Flow</h3>
+            <div class="sequence-diagram">
+┌────────┐     ┌────────────┐     ┌─────────────┐     ┌────────────┐
+│  User  │     │ LicenseIQ  │     │  Connection │     │  ERP API   │
+└────┬───┘     └─────┬──────┘     └──────┬──────┘     └─────┬──────┘
+     │               │                    │                  │
+     │ Create Conn   │                    │                  │
+     │──────────────>│                    │                  │
+     │               │                    │                  │
+     │               │ Store AuthConfig   │                  │
+     │               │───────────────────>│                  │
+     │               │                    │                  │
+     │ Test Connection                    │                  │
+     │──────────────>│                    │                  │
+     │               │                    │                  │
+     │               │ Build Auth Headers │                  │
+     │               │<───────────────────│                  │
+     │               │                    │                  │
+     │               │ Health Check Request                  │
+     │               │───────────────────────────────────────>
+     │               │                    │                  │
+     │               │           200 OK + Latency            │
+     │               │<───────────────────────────────────────
+     │               │                    │                  │
+     │               │ Update Status = 'connected'           │
+     │               │───────────────────>│                  │
+     │               │                    │                  │
+     │  Connection Ready                  │                  │
+     │<──────────────│                    │                  │
+     │               │                    │                  │
+            </div>
+
+            <h3>Connection Status States</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4><span class="badge badge-success">active</span></h4>
+                    <p>Connection is configured and enabled. Ready for use in Import Sources.</p>
+                </div>
+                <div class="info-box">
+                    <h4><span class="badge badge-primary">connected</span></h4>
+                    <p>Connection has been tested and verified. Health check passed.</p>
+                </div>
+                <div class="info-box">
+                    <h4><span class="badge badge-warning">inactive</span></h4>
+                    <p>Connection is disabled. Will not appear in dropdowns.</p>
+                </div>
+                <div class="info-box">
+                    <h4><span class="badge badge-danger">error</span></h4>
+                    <p>Connection health check failed. Check credentials/endpoint.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Important:</strong> Only connections with status <code>active</code> or <code>connected</code> appear in the API Connection dropdown when creating Data Import Sources.
+            </div>
+        </section>
+
+        <!-- Section 4: Field Mappings -->
+        <section id="mappings">
+            <h2>4. Field Mappings</h2>
+            <p>Field Mappings define the transformation rules between ERP source fields and LicenseIQ target schema. Mappings support versioning, approval workflows, and AI-assisted auto-generation.</p>
+
+            <h3>Mapping Structure</h3>
+            <div class="diagram-box">
+<pre>
+{
+  "id": "mapping-uuid-001",
+  "name": "Oracle Invoices → Sales Data",
+  "erpSystemId": "oracle-fusion-uuid",
+  "erpEntityId": "invoices-entity-uuid",
+  "licenseiqEntityId": "sales-data-entity-uuid",
+  "version": 3,
+  "status": "approved",
+  "companyId": "company-uuid",
+  "businessUnitId": "bu-uuid",
+  "locationId": null,
+  
+  "fieldMappings": [
+    {
+      "sourceField": "INVOICE_NUMBER",
+      "targetField": "invoiceId",
+      "transformationType": "direct",
+      "defaultValue": null,
+      "isRequired": true
+    },
+    {
+      "sourceField": "TOTAL_AMOUNT",
+      "targetField": "amount",
+      "transformationType": "numeric",
+      "defaultValue": 0,
+      "isRequired": true
+    },
+    {
+      "sourceField": "INVOICE_DATE",
+      "targetField": "transactionDate",
+      "transformationType": "date",
+      "transformationConfig": { "format": "YYYY-MM-DD" },
+      "isRequired": true
+    },
+    {
+      "sourceField": "CUSTOMER_NAME",
+      "targetField": "customerName",
+      "transformationType": "text",
+      "defaultValue": "Unknown"
+    }
+  ],
+  
+  "aiMappingResults": {
+    "confidence": 0.87,
+    "suggestedMappings": [...],
+    "modelUsed": "llama-3.3-70b-versatile"
+  }
+}
+</pre>
+            </div>
+
+            <h3>Transformation Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>direct</code></td>
+                        <td>Copy value as-is</td>
+                        <td>SOURCE_ID → targetId</td>
+                    </tr>
+                    <tr>
+                        <td><code>numeric</code></td>
+                        <td>Parse and validate as number</td>
+                        <td>"1,234.56" → 1234.56</td>
+                    </tr>
+                    <tr>
+                        <td><code>date</code></td>
+                        <td>Parse date with format config</td>
+                        <td>"2024-01-15" → Date object</td>
+                    </tr>
+                    <tr>
+                        <td><code>text</code></td>
+                        <td>Text normalization (trim, case)</td>
+                        <td>" HELLO " → "Hello"</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean</code></td>
+                        <td>Parse boolean values</td>
+                        <td>"Y", "1", "true" → true</td>
+                    </tr>
+                    <tr>
+                        <td><code>lookup</code></td>
+                        <td>Map to predefined values</td>
+                        <td>"A" → "Active", "I" → "Inactive"</td>
+                    </tr>
+                    <tr>
+                        <td><code>concat</code></td>
+                        <td>Combine multiple source fields</td>
+                        <td>FIRST + " " + LAST → fullName</td>
+                    </tr>
+                    <tr>
+                        <td><code>formula</code></td>
+                        <td>JavaScript expression</td>
+                        <td>QTY * PRICE → lineTotal</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Version Control & Approval</h3>
+            <div class="diagram-box">
+                <div class="flow-diagram">
+                    <div class="flow-step" style="background:#64748b">Draft<br><small>v1 (draft)</small></div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#f59e0b">Pending<br><small>Submit for review</small></div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#22c55e">Approved<br><small>Ready for use</small></div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#2563eb">New Version<br><small>v2 (draft)</small></div>
+                </div>
+            </div>
+            
+            <ul>
+                <li><strong>Draft:</strong> Mapping is being edited, not available for import jobs</li>
+                <li><strong>Pending:</strong> Submitted for approval by admin/owner</li>
+                <li><strong>Approved:</strong> Active and available for import sources</li>
+                <li><strong>Archived:</strong> Previous version, kept for audit trail</li>
+            </ul>
+        </section>
+
+        <!-- Section 5: Data Import Sources -->
+        <section id="sources">
+            <h2>5. Data Import Sources</h2>
+            <p>Data Import Sources define reusable import configurations that combine a connection, endpoint template, field mapping, and scheduling options.</p>
+
+            <h3>Source Types</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>File Upload</h4>
+                    <ul>
+                        <li>CSV or Excel files</li>
+                        <li>Manual upload via UI</li>
+                        <li>SFTP integration (future)</li>
+                        <li>Flexible column matching</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>API Connection</h4>
+                    <ul>
+                        <li>REST API integration</li>
+                        <li>OAuth2/API Key auth</li>
+                        <li>Endpoint templates</li>
+                        <li>Scheduled automation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Source Configuration</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Description</th>
+                        <th>Required For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ERP System</strong></td>
+                        <td>Oracle Fusion, SAP, NetSuite, etc.</td>
+                        <td>All sources</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Field Mapping</strong></td>
+                        <td>Transformation rules to apply</td>
+                        <td>All sources</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API Connection</strong></td>
+                        <td>Configured connection with auth</td>
+                        <td>API sources only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endpoint Template</strong></td>
+                        <td>API endpoint path and response parsing</td>
+                        <td>API sources only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filters</strong></td>
+                        <td>Date range, status, entity filters</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Schedule</strong></td>
+                        <td>Manual, hourly, daily, weekly, monthly</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Import Options</strong></td>
+                        <td>Dry-run default, skip duplicates, auto-commit</td>
+                        <td>Optional</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>API Import Execution Flow</h3>
+            <div class="sequence-diagram">
+┌────────┐  ┌─────────────┐  ┌────────────┐  ┌─────────────┐  ┌────────────┐
+│  User  │  │Import Source│  │ Connection │  │  Endpoint   │  │  ERP API   │
+└────┬───┘  └──────┬──────┘  └─────┬──────┘  └──────┬──────┘  └─────┬──────┘
+     │             │               │                │               │
+     │ Run Import  │               │                │               │
+     │────────────>│               │                │               │
+     │             │               │                │               │
+     │             │ Get Auth Config               │               │
+     │             │──────────────>│               │               │
+     │             │               │               │               │
+     │             │ Auth Headers  │               │               │
+     │             │<──────────────│               │               │
+     │             │               │               │               │
+     │             │ Get Endpoint Template         │               │
+     │             │──────────────────────────────>│               │
+     │             │               │               │               │
+     │             │ URL + Response Path           │               │
+     │             │<──────────────────────────────│               │
+     │             │               │               │               │
+     │             │ API Request (with auth + filters)             │
+     │             │──────────────────────────────────────────────>│
+     │             │               │               │               │
+     │             │ JSON Response                 │               │
+     │             │<──────────────────────────────────────────────│
+     │             │               │               │               │
+     │             │ Parse via responseDataPath    │               │
+     │             │ Apply Field Mapping           │               │
+     │             │ Create Import Job             │               │
+     │             │               │               │               │
+     │  Job Created (with staged records)         │               │
+     │<────────────│               │               │               │
+            </div>
+        </section>
+
+        <!-- Section 6: Import Jobs -->
+        <section id="jobs">
+            <h2>6. Import Jobs Lifecycle</h2>
+            <p>Import Jobs track the execution of data imports, including record-level status, validation results, and commit/rollback operations.</p>
+
+            <h3>Job States</h3>
+            <div class="diagram-box">
+                <div class="flow-diagram">
+                    <div class="flow-step" style="background:#64748b">Pending</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#3b82f6">Processing</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#f59e0b">Staged<br><small>(Dry-Run)</small></div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#22c55e">Committed</div>
+                </div>
+                <br>
+                <div class="flow-diagram">
+                    <div class="flow-step" style="background:#f59e0b">Staged</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="background:#ef4444">Rolled Back</div>
+                </div>
+            </div>
+
+            <h3>Job Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Records Written</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-info">dry_run</span></td>
+                        <td>Preview import without persisting to target tables</td>
+                        <td>Staged only (preview)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">import</span></td>
+                        <td>Full import with immediate commit</td>
+                        <td>Direct to target tables</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">staged</span></td>
+                        <td>Import to staging, awaiting manual commit</td>
+                        <td>Staged (pending commit)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Record Status Flow</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Actions Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-info">staged</span></td>
+                        <td>Record imported to staging table, awaiting review</td>
+                        <td>Commit, Reject, Edit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">committed</span></td>
+                        <td>Record persisted to target LicenseIQ table</td>
+                        <td>View only</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-danger">failed</span></td>
+                        <td>Validation or transformation error</td>
+                        <td>View error, Retry, Skip</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">skipped</span></td>
+                        <td>Duplicate detected and skipped</td>
+                        <td>View only</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Commit & Rollback</h3>
+            <div class="info-box">
+                <h4>Commit Operation</h4>
+                <ol>
+                    <li>Validate all staged records pass schema validation</li>
+                    <li>Begin database transaction</li>
+                    <li>Insert/Update records in target tables</li>
+                    <li>Update record status to 'committed'</li>
+                    <li>Update job status to 'completed'</li>
+                    <li>Commit transaction</li>
+                    <li>Log audit event</li>
+                </ol>
+            </div>
+
+            <div class="warning-box">
+                <h4>Rollback Operation</h4>
+                <ol>
+                    <li>Identify all committed records for the job</li>
+                    <li>Begin database transaction</li>
+                    <li>Delete records from target tables</li>
+                    <li>Update record status to 'rolled_back'</li>
+                    <li>Update job status to 'rolled_back'</li>
+                    <li>Commit transaction</li>
+                    <li>Log audit event with reason</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 7: Data Transformation -->
+        <section id="transformation">
+            <h2>7. Data Transformation Pipeline</h2>
+            <p>The transformation pipeline processes each record through validation, mapping, enrichment, and deduplication stages.</p>
+
+            <h3>Pipeline Stages</h3>
+            <div class="diagram-box">
+<pre>
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        DATA TRANSFORMATION PIPELINE                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌────────┐ │
+│  │  Source  │───>│  Schema  │───>│  Field   │───>│  Enrich  │───>│ Dedupe │ │
+│  │  Parse   │    │ Validate │    │ Mapping  │    │  & Calc  │    │ Check  │ │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘    └────────┘ │
+│       │              │               │               │               │      │
+│       ▼              ▼               ▼               ▼               ▼      │
+│   Raw JSON      Zod Schema     Transformed      Computed        Final      │
+│   or CSV        Validation     Record           Fields          Record      │
+│                                                                              │
+│  ────────────────────────────────────────────────────────────────────────── │
+│                                     │                                        │
+│                                     ▼                                        │
+│                            ┌──────────────┐                                  │
+│                            │   Staging    │                                  │
+│                            │    Table     │                                  │
+│                            └──────────────┘                                  │
+│                                     │                                        │
+│                          Commit ────┴──── Rollback                          │
+│                            │                   │                             │
+│                            ▼                   ▼                             │
+│                    ┌──────────────┐    ┌──────────────┐                     │
+│                    │   Target     │    │   Delete     │                     │
+│                    │   Table      │    │   Records    │                     │
+│                    └──────────────┘    └──────────────┘                     │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+</pre>
+            </div>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rule Type</th>
+                        <th>Description</th>
+                        <th>Error Handling</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Required Fields</td>
+                        <td>Non-null/non-empty check</td>
+                        <td>Record marked as 'failed'</td>
+                    </tr>
+                    <tr>
+                        <td>Type Validation</td>
+                        <td>Numeric, date, boolean parsing</td>
+                        <td>Use default value or fail</td>
+                    </tr>
+                    <tr>
+                        <td>Format Validation</td>
+                        <td>Email, phone, UUID patterns</td>
+                        <td>Record marked as 'failed'</td>
+                    </tr>
+                    <tr>
+                        <td>Range Validation</td>
+                        <td>Min/max for numbers, dates</td>
+                        <td>Record marked as 'failed'</td>
+                    </tr>
+                    <tr>
+                        <td>Referential Integrity</td>
+                        <td>Foreign key validation</td>
+                        <td>Create or fail based on config</td>
+                    </tr>
+                    <tr>
+                        <td>Duplicate Detection</td>
+                        <td>Based on unique key fields</td>
+                        <td>Skip, update, or fail</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Error Handling Strategy</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>Record-Level Errors</h4>
+                    <ul>
+                        <li>Individual record validation failures</li>
+                        <li>Logged with error details per record</li>
+                        <li>Other records continue processing</li>
+                        <li>Manual review queue for failed records</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Job-Level Errors</h4>
+                    <ul>
+                        <li>Connection failures</li>
+                        <li>Authentication errors</li>
+                        <li>Mapping configuration issues</li>
+                        <li>Entire job marked as 'failed'</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Audit Trail -->
+        <section id="audit">
+            <h2>8. Audit Trail & Monitoring</h2>
+            <p>Comprehensive audit logging and health monitoring ensure traceability and operational visibility.</p>
+
+            <h3>Audit Events</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Type</th>
+                        <th>Data Captured</th>
+                        <th>Retention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>connection_created</td>
+                        <td>Connection config, user, timestamp</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>connection_tested</td>
+                        <td>Status, latency, error message</td>
+                        <td>90 days</td>
+                    </tr>
+                    <tr>
+                        <td>mapping_approved</td>
+                        <td>Version, approver, changes</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>import_started</td>
+                        <td>Source, job ID, record count</td>
+                        <td>1 year</td>
+                    </tr>
+                    <tr>
+                        <td>import_completed</td>
+                        <td>Duration, success/fail counts</td>
+                        <td>1 year</td>
+                    </tr>
+                    <tr>
+                        <td>records_committed</td>
+                        <td>Job ID, record IDs, user</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>records_rolled_back</td>
+                        <td>Job ID, reason, user</td>
+                        <td>Permanent</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Health Monitoring</h3>
+            <div class="info-box">
+                <h4>Connection Health Checks</h4>
+                <ul>
+                    <li>Periodic ping to verify connectivity</li>
+                    <li>Latency tracking for performance monitoring</li>
+                    <li>Authentication token refresh before expiry</li>
+                    <li>Rate limit tracking and backoff</li>
+                    <li>Health events stored in <code>integration_health_events</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Test Cases -->
+        <section id="testcases">
+            <h2>9. Test Cases</h2>
+            <p>Comprehensive test coverage for the ERP Data Management Integration workflow.</p>
+
+            <h3>9.1 Contextual Hierarchy Tests</h3>
+            
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-H001: System Admin Access All Companies</h5>
+                <p><strong>Precondition:</strong> User logged in as System Admin</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Navigate to ERP Integration Hub</li>
+                    <li>View Connections list</li>
+                    <li>Attempt to create connection for Company B</li>
+                </ol>
+                <p><strong>Expected:</strong> All connections visible, can create for any company</p>
+            </div>
+
+            <div class="test-case security">
+                <h5><span class="badge badge-danger">SECURITY</span> TC-H002: Location User Cannot Access Other Locations</h5>
+                <p><strong>Precondition:</strong> User has role at Location A only</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Switch context to Location A</li>
+                    <li>View Field Mappings</li>
+                    <li>Attempt API call to view Location B mapping</li>
+                </ol>
+                <p><strong>Expected:</strong> 403 Forbidden response, only Location A mappings visible</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-H003: BU Admin Creates Company-Level Mapping</h5>
+                <p><strong>Precondition:</strong> User is BU Admin (not Company Admin)</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Navigate to Field Mappings</li>
+                    <li>Create new mapping with only companyId (no BU/Location)</li>
+                </ol>
+                <p><strong>Expected:</strong> 403 Forbidden - BU Admin cannot create company-wide mappings</p>
+            </div>
+
+            <h3>9.2 Integration Connections Tests</h3>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-C001: Create OAuth2 Connection</h5>
+                <p><strong>Precondition:</strong> Valid OAuth2 credentials available</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Click "Add Connection"</li>
+                    <li>Select ERP System: Oracle Fusion</li>
+                    <li>Enter base URL and OAuth2 config</li>
+                    <li>Click "Test Connection"</li>
+                    <li>Save connection</li>
+                </ol>
+                <p><strong>Expected:</strong> Connection created with status 'connected', health event logged</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-C002: Inactive Connection Not in Dropdown</h5>
+                <p><strong>Precondition:</strong> Connection exists with status 'inactive'</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Navigate to Data Import Sources</li>
+                    <li>Click "Add Source"</li>
+                    <li>Select Source Type: API Connection</li>
+                    <li>Open API Connection dropdown</li>
+                </ol>
+                <p><strong>Expected:</strong> Inactive connection NOT visible in dropdown</p>
+            </div>
+
+            <div class="test-case security">
+                <h5><span class="badge badge-danger">SECURITY</span> TC-C003: Cannot View Other Company's Connection</h5>
+                <p><strong>Precondition:</strong> Company A admin, Company B connection exists</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Call GET /api/integration-connections</li>
+                    <li>Verify response</li>
+                    <li>Attempt GET /api/integration-connections/{company-b-conn-id}</li>
+                </ol>
+                <p><strong>Expected:</strong> List excludes Company B connection, direct access returns 403</p>
+            </div>
+
+            <h3>9.3 Field Mappings Tests</h3>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-M001: AI-Assisted Mapping Generation</h5>
+                <p><strong>Precondition:</strong> ERP entity and LicenseIQ entity selected</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Create new mapping</li>
+                    <li>Click "AI Auto-Map"</li>
+                    <li>Review suggested field mappings</li>
+                    <li>Accept or modify suggestions</li>
+                    <li>Save mapping</li>
+                </ol>
+                <p><strong>Expected:</strong> AI suggestions with confidence scores, mappings saved correctly</p>
+            </div>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-M002: Mapping Version Increment</h5>
+                <p><strong>Precondition:</strong> Approved mapping v1 exists</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Edit existing mapping</li>
+                    <li>Modify field transformation</li>
+                    <li>Save as new version</li>
+                </ol>
+                <p><strong>Expected:</strong> New version v2 created as draft, v1 remains approved</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-M003: Use Unapproved Mapping</h5>
+                <p><strong>Precondition:</strong> Mapping exists with status 'draft'</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Create Import Source</li>
+                    <li>Select the draft mapping</li>
+                    <li>Attempt to run import</li>
+                </ol>
+                <p><strong>Expected:</strong> Warning shown, import blocked until mapping approved</p>
+            </div>
+
+            <h3>9.4 Data Import Sources Tests</h3>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-S001: Create File Upload Source</h5>
+                <p><strong>Precondition:</strong> Field mapping exists and approved</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Click "Add Source"</li>
+                    <li>Select Type: File Upload</li>
+                    <li>Select ERP System and Field Mapping</li>
+                    <li>Configure import options</li>
+                    <li>Save source</li>
+                </ol>
+                <p><strong>Expected:</strong> Source created, available for file uploads</p>
+            </div>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-S002: Create API Source with Schedule</h5>
+                <p><strong>Precondition:</strong> Active connection and endpoint template exist</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Click "Add Source"</li>
+                    <li>Select Type: API Connection</li>
+                    <li>Select connection and endpoint template</li>
+                    <li>Enable schedule: Daily at 02:00 UTC</li>
+                    <li>Save source</li>
+                </ol>
+                <p><strong>Expected:</strong> Source created with schedule config, next run calculated</p>
+            </div>
+
+            <h3>9.5 Import Jobs Tests</h3>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-J001: Successful Dry-Run Import</h5>
+                <p><strong>Precondition:</strong> Valid CSV file, configured source</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Select import source</li>
+                    <li>Upload CSV file</li>
+                    <li>Click "Dry-Run"</li>
+                    <li>Review staged records</li>
+                </ol>
+                <p><strong>Expected:</strong> Job created, records staged with preview, no target table changes</p>
+            </div>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-J002: Commit Staged Records</h5>
+                <p><strong>Precondition:</strong> Job with staged records exists</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Open job details</li>
+                    <li>Review all staged records</li>
+                    <li>Click "Commit All"</li>
+                    <li>Confirm action</li>
+                </ol>
+                <p><strong>Expected:</strong> Records inserted into target table, status updated, audit logged</p>
+            </div>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-J003: Rollback Committed Job</h5>
+                <p><strong>Precondition:</strong> Job with committed records exists</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Open job details</li>
+                    <li>Click "Rollback"</li>
+                    <li>Enter rollback reason</li>
+                    <li>Confirm action</li>
+                </ol>
+                <p><strong>Expected:</strong> Records deleted from target, status updated, audit logged with reason</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-J004: Partial Failure Import</h5>
+                <p><strong>Precondition:</strong> CSV with some invalid records</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Upload CSV with 100 records (5 invalid)</li>
+                    <li>Run import</li>
+                    <li>Review job results</li>
+                </ol>
+                <p><strong>Expected:</strong> 95 records staged/committed, 5 marked as 'failed' with error details</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-J005: Duplicate Detection</h5>
+                <p><strong>Precondition:</strong> Skip duplicates enabled, existing records in system</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Upload CSV with duplicate invoice numbers</li>
+                    <li>Run import</li>
+                    <li>Review job results</li>
+                </ol>
+                <p><strong>Expected:</strong> Duplicates marked as 'skipped', unique records processed</p>
+            </div>
+
+            <h3>9.6 Data Integrity Tests</h3>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-D001: Numeric Field Validation</h5>
+                <p><strong>Precondition:</strong> Mapping with numeric transformation</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Upload CSV with amount field containing "1,234.56"</li>
+                    <li>Run import</li>
+                    <li>Verify transformed value</li>
+                </ol>
+                <p><strong>Expected:</strong> Value correctly parsed as 1234.56</p>
+            </div>
+
+            <div class="test-case pass">
+                <h5><span class="badge badge-success">PASS</span> TC-D002: Date Format Parsing</h5>
+                <p><strong>Precondition:</strong> Mapping with date transformation (format: MM/DD/YYYY)</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Upload CSV with date "12/25/2024"</li>
+                    <li>Run import</li>
+                    <li>Verify stored date value</li>
+                </ol>
+                <p><strong>Expected:</strong> Date correctly stored as 2024-12-25</p>
+            </div>
+
+            <div class="test-case edge">
+                <h5><span class="badge badge-warning">EDGE</span> TC-D003: Required Field Missing</h5>
+                <p><strong>Precondition:</strong> Mapping with required invoiceId field</p>
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Upload CSV with empty invoice ID column</li>
+                    <li>Run import</li>
+                    <li>Review job results</li>
+                </ol>
+                <p><strong>Expected:</strong> Record marked as 'failed' with "Required field missing" error</p>
+            </div>
+        </section>
+
+        <!-- Section 10: API Reference -->
+        <section id="api-reference">
+            <h2>10. API Reference</h2>
+            <p>Key API endpoints for the ERP Data Management Integration.</p>
+
+            <h3>Integration Connections</h3>
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/integration-connections</span>
+                <p>List all connections (filtered by user context)</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/integration-connections</span>
+                <p>Create new integration connection</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/integration-connections/:id/test</span>
+                <p>Test connection and update health status</p>
+            </div>
+
+            <h3>Field Mappings</h3>
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/erp/mappings</span>
+                <p>List field mappings (filtered by context)</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/mappings</span>
+                <p>Create new field mapping</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/mappings/:id/ai-map</span>
+                <p>Generate AI-assisted field mappings</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method patch">PATCH</span>
+                <span class="path">/api/erp/mappings/:id/approve</span>
+                <p>Approve mapping for production use</p>
+            </div>
+
+            <h3>Data Import Sources</h3>
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/erp/import/sources</span>
+                <p>List import sources (filtered by context)</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/import/sources</span>
+                <p>Create new import source</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/import/sources/:id/run</span>
+                <p>Execute import from source</p>
+            </div>
+
+            <h3>Import Jobs</h3>
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/erp/import/jobs</span>
+                <p>List import jobs with filters</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/erp/import/jobs/:id</span>
+                <p>Get job details with records</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/import/dry-run</span>
+                <p>Execute dry-run import (file upload)</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/import/jobs/:id/commit</span>
+                <p>Commit staged records to target tables</p>
+            </div>
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/erp/import/jobs/:id/rollback</span>
+                <p>Rollback committed records</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>LicenseIQ ERP Data Management Integration Documentation</p>
+        <p>Version 2.0 | Last Updated: December 2024</p>
+    </footer>
+</body>
+</html>

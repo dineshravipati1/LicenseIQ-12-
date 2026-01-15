@@ -1,0 +1,16 @@
+productCode,productName,category,territory,description,unitCost,standardPrice
+MAPLE-001,Aurora Flame Maple,Ornamental Trees,Primary,Premium ornamental maple tree with vibrant red foliage,12.50,25.00
+MAPLE-002,Crimson King Maple,Ornamental Trees,Primary,Classic shade tree with deep purple-red leaves,10.00,22.00
+JUNIPER-001,Golden Spire Juniper,Ornamental Shrubs,Secondary,Columnar evergreen with golden yellow foliage,8.75,18.50
+JUNIPER-002,Blue Arrow Juniper,Ornamental Shrubs,Primary,Narrow upright juniper with blue-green color,9.25,19.00
+ROSE-001,Pacific Sunset Rose,Flowering Shrubs,Primary,Award-winning hybrid tea rose with coral blooms,6.50,15.00
+ROSE-002,Crimson Glory Rose,Flowering Shrubs,Primary,Fragrant deep red hybrid tea rose,7.00,16.00
+HOSTA-001,Emerald Crown Hosta,Perennials,Primary,Large hosta with emerald green leaves and white margins,4.25,10.00
+HOSTA-002,Royal Standard Hosta,Perennials,Secondary,Fragrant white flowers and glossy green leaves,3.75,9.00
+HYDRANGEA-001,Cascade Blue Hydrangea,Flowering Shrubs,Primary,Mophead hydrangea with vibrant blue flowers,11.00,24.00
+HYDRANGEA-002,Pink Diamond Hydrangea,Flowering Shrubs,Secondary,Panicle hydrangea with pink and white flowers,10.50,23.00
+AZALEA-001,Flame Azalea,Flowering Shrubs,Primary,Native deciduous azalea with orange-red blooms,8.00,17.00
+LILAC-001,Purple Majesty Lilac,Flowering Shrubs,Primary,Fragrant purple blooms in spring,9.50,20.00
+BOXWOOD-001,Green Mountain Boxwood,Evergreen Shrubs,Primary,Dense evergreen for hedges and topiary,7.25,16.00
+SPRUCE-001,Colorado Blue Spruce,Evergreen Trees,Secondary,Classic blue-needled evergreen tree,15.00,32.00
+DOGWOOD-001,Pink Flowering Dogwood,Ornamental Trees,Primary,Beautiful spring flowering tree with pink bracts,13.50,28.00

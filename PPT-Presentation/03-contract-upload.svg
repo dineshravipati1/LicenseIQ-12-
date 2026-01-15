@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 20px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #6b7280; }
+      .button-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; font-weight: 600; fill: white; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .primary-btn { fill: #3b82f6; stroke: none; }
+      .card { fill: white; stroke: #e5e7eb; }
+      .upload-zone { fill: #f0f9ff; stroke: #3b82f6; stroke-dasharray: 10,5; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">Contract Upload</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">Simple Drag &amp; Drop PDF Upload Interface</text>
+
+  <!-- Upload Screen -->
+  <g transform="translate(150, 80)">
+    <rect class="screen" width="500" height="320" rx="12"/>
+    
+    <!-- Header -->
+    <text x="250" y="30" text-anchor="middle" class="header-text">Upload Contract Documents</text>
+    <text x="250" y="50" text-anchor="middle" class="body-text">Drag and drop your PDF files or click to browse</text>
+    
+    <!-- Upload Zone -->
+    <rect x="50" y="70" width="400" height="150" rx="12" class="upload-zone" stroke-width="3"/>
+    
+    <!-- Upload Icon -->
+    <g transform="translate(225, 115)">
+      <rect x="-25" y="-12" width="50" height="24" fill="#3b82f6" rx="4"/>
+      <polygon points="-8,-4 8,-4 0,-12" fill="white"/>
+      <rect x="-3" y="-4" width="6" height="12" fill="white"/>
+    </g>
+    
+    <text x="250" y="155" text-anchor="middle" class="header-text">Drop PDF files here</text>
+    <text x="250" y="175" text-anchor="middle" class="body-text">or click to select files from your computer</text>
+    <text x="250" y="195" text-anchor="middle" class="small-text">Maximum file size: 10MB per file • Supported formats: PDF</text>
+    
+    <!-- Browse Button -->
+    <rect x="175" y="235" width="150" height="35" rx="6" class="primary-btn"/>
+    <text x="250" y="255" text-anchor="middle" class="button-text">Browse Files</text>
+    
+    <!-- File List Header -->
+    <text x="50" y="295" class="header-text">Uploaded Files:</text>
+  </g>
+
+  <!-- File Examples -->
+  <g transform="translate(180, 420)">
+    <rect x="0" y="0" width="440" height="50" class="card" rx="6"/>
+    <rect x="15" y="10" width="30" height="30" fill="#ef4444" rx="4"/>
+    <text x="30" y="28" text-anchor="middle" class="button-text" font-size="12px">PDF</text>
+    <text x="60" y="22" class="body-text">contract_agreement.pdf</text>
+    <text x="60" y="35" class="small-text">2.4 MB • Uploaded 2 minutes ago • Processing ready</text>
+    
+    <!-- Status -->
+    <rect x="360" y="15" width="60" height="20" fill="#10b981" rx="10"/>
+    <text x="390" y="27" text-anchor="middle" class="button-text" font-size="11px">✓ Ready</text>
+  </g>
+
+  <!-- Upload Features -->
+  <g transform="translate(100, 490)">
+    <text x="300" y="20" text-anchor="middle" class="header-text">Upload Features &amp; Security</text>
+    
+    <rect x="50" y="30" width="160" height="50" fill="#f0fdf4" stroke="#10b981" rx="6"/>
+    <text x="130" y="48" text-anchor="middle" class="body-text" fill="#10b981">📄 PDF Support</text>
+    <text x="130" y="63" text-anchor="middle" class="small-text">Advanced PDF parsing</text>
+    <text x="130" y="75" text-anchor="middle" class="small-text">Text extraction ready</text>
+    
+    <rect x="225" y="30" width="160" height="50" fill="#f0f9ff" stroke="#3b82f6" rx="6"/>
+    <text x="305" y="48" text-anchor="middle" class="body-text" fill="#3b82f6">🔄 Batch Upload</text>
+    <text x="305" y="63" text-anchor="middle" class="small-text">Multiple files at once</text>
+    <text x="305" y="75" text-anchor="middle" class="small-text">Efficient processing</text>
+    
+    <rect x="400" y="30" width="160" height="50" fill="#fef3c7" stroke="#f59e0b" rx="6"/>
+    <text x="480" y="48" text-anchor="middle" class="body-text" fill="#f59e0b">🔒 Secure Transfer</text>
+    <text x="480" y="63" text-anchor="middle" class="small-text">Encrypted file upload</text>
+    <text x="480" y="75" text-anchor="middle" class="small-text">GDPR compliant</text>
+  </g>
+</svg>

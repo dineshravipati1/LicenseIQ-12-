@@ -1,0 +1,16 @@
+transactionDate,transactionId,productName,category,territory,grossAmount,quantity,unitPrice,productCode,notes
+2024-03-15,PS-2024-001,Aurora Flame Maple 5-gallon container,Ornamental Trees & Shrubs,Oregon,4500.00,1000,4.50,GIG-AF-5GAL,Spring season - primary territory
+2024-03-20,PS-2024-002,Pacific Sunset Rose 6-inch pot premium,Premium Roses,Washington,1656.00,1200,1.38,GIG-PS-6IN,Spring +15% premium applied
+2024-04-10,PS-2024-003,Cascade Blue Hydrangea standard,Flowering Shrubs,Northern California,4500.00,2000,2.25,GIG-CB-STD,Tier 3 rate 1-2500 units
+2024-04-15,PS-2024-004,Emerald Crown Hosta 1-gallon specimen,Perennials,Idaho,2405.00,1300,1.85,GIG-EC-1GAL,Specimen grade 1.3x multiplier
+2024-05-01,PS-2024-005,Golden Spire Juniper 3-gallon container,Ornamental Trees & Shrubs,Oregon,5000.00,2000,2.50,GIG-GS-3GAL,Volume discount applied 2000+ units
+2024-05-18,PS-2024-006,Aurora Flame Maple 1-gallon container,Ornamental Trees & Shrubs,Washington,6875.00,6250,1.10,GIG-AF-1GAL,Volume discount 5000+ units achieved
+2024-06-05,PS-2024-007,Pacific Sunset Rose 4-inch pots,Premium Roses,Northern California,862.50,1150,0.75,GIG-PS-4IN,Off-season standard rate
+2024-07-12,PS-2024-008,Cascade Blue Hydrangea standard,Flowering Shrubs,Montana,4875.00,2500,1.95,GIG-CB-STD,Secondary territory - Tier 3 2501-7500 rate
+2024-08-20,PS-2024-009,Golden Spire Juniper 15-gallon specimen,Ornamental Trees & Shrubs,Idaho,2250.00,200,11.25,GIG-GS-15GAL,Volume discount 200+ units
+2024-09-15,PS-2024-010,Aurora Flame Maple 3-gallon container,Ornamental Trees & Shrubs,Nevada,2375.00,1000,2.38,GIG-AF-3GAL,Fall -5% discount secondary territory
+2024-10-10,PS-2024-011,Emerald Crown Hosta 2-gallon mature,Perennials,Oregon,4875.00,1500,3.25,GIG-EC-2GAL,Mature plant 1.5x multiplier
+2024-11-05,PS-2024-012,Pacific Sunset Rose 1-gallon containers,Premium Roses,Wyoming,2664.00,1440,1.85,GIG-PS-1GAL,Secondary territory fall season
+2024-11-22,PS-2024-013,Cascade Blue Hydrangea standard,Flowering Shrubs,Washington,13600.00,8000,1.70,GIG-CB-STD,Tier 3 7501-15000 units rate
+2024-12-10,PS-2024-014,Pacific Sunset Rose 2-gallon gift grade,Premium Roses,Oregon,9750.00,2500,3.90,GIG-PS-2GAL,Holiday +20% premium specimen 1.5x
+2024-12-18,PS-2024-015,Aurora Flame Maple 15-gallon specimen,Ornamental Trees & Shrubs,Northern California,12750.00,1000,12.75,GIG-AF-15GAL,Holiday season large specimens

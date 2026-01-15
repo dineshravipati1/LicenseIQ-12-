@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #6b7280; }
+      .nav-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #374151; }
+      .metric-number { font-family: 'Segoe UI', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1e40af; }
+      .metric-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #6b7280; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .sidebar { fill: #f8fafc; stroke: #e5e7eb; }
+      .card { fill: white; stroke: #e5e7eb; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">Analytics Dashboard</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">Real-Time Contract Management Insights</text>
+
+  <!-- Dashboard Screen -->
+  <g transform="translate(50, 70)">
+    <rect class="screen" width="700" height="380" rx="12"/>
+    
+    <!-- Sidebar -->
+    <rect x="15" y="15" width="100" height="350" class="sidebar" rx="6"/>
+    <text x="65" y="35" text-anchor="middle" class="header-text">📊 Dashboard</text>
+    <text x="65" y="55" text-anchor="middle" class="nav-text">Contracts</text>
+    <text x="65" y="72" text-anchor="middle" class="nav-text">Upload</text>
+    <text x="65" y="89" text-anchor="middle" class="nav-text">Analytics</text>
+    <text x="65" y="106" text-anchor="middle" class="nav-text">Reports</text>
+    <text x="65" y="123" text-anchor="middle" class="nav-text">Users</text>
+    <text x="65" y="140" text-anchor="middle" class="nav-text">Audit Trail</text>
+    
+    <!-- Main Content Area -->
+    <rect x="125" y="15" width="560" height="350" class="card" rx="6"/>
+    
+    <!-- Header -->
+    <text x="405" y="40" text-anchor="middle" class="header-text">Contract Management Overview</text>
+    
+    <!-- Metrics Cards -->
+    <rect x="145" y="55" width="120" height="70" class="card" rx="6"/>
+    <text x="205" y="75" text-anchor="middle" class="metric-number">247</text>
+    <text x="205" y="90" text-anchor="middle" class="metric-label">Total Contracts</text>
+    <text x="205" y="105" text-anchor="middle" class="small-text">+12 this week</text>
+    
+    <rect x="275" y="55" width="120" height="70" class="card" rx="6"/>
+    <text x="335" y="75" text-anchor="middle" class="metric-number">12</text>
+    <text x="335" y="90" text-anchor="middle" class="metric-label">Processing</text>
+    <text x="335" y="105" text-anchor="middle" class="small-text">In progress</text>
+    
+    <rect x="405" y="55" width="120" height="70" class="card" rx="6"/>
+    <text x="465" y="75" text-anchor="middle" class="metric-number">94%</text>
+    <text x="465" y="90" text-anchor="middle" class="metric-label">Accuracy Rate</text>
+    <text x="465" y="105" text-anchor="middle" class="small-text">AI Analysis</text>
+    
+    <rect x="535" y="55" width="120" height="70" class="card" rx="6"/>
+    <text x="595" y="75" text-anchor="middle" class="metric-number">$2.4M</text>
+    <text x="595" y="90" text-anchor="middle" class="metric-label">Total Value</text>
+    <text x="595" y="105" text-anchor="middle" class="small-text">Portfolio</text>
+    
+    <!-- Chart Area -->
+    <rect x="145" y="140" width="510" height="180" fill="#f8fafc" stroke="#e5e7eb" rx="6"/>
+    <text x="400" y="160" text-anchor="middle" class="header-text">Contract Analysis Trends</text>
+    
+    <!-- Chart Lines -->
+    <polyline points="160,290 190,270 220,275 250,250 280,255 310,235 340,240 370,220 400,225 430,205 460,210 490,190 520,195" 
+              stroke="#10b981" stroke-width="3" fill="none"/>
+    <polyline points="160,300 190,285 220,290 250,270 280,275 310,255 340,260 370,240 400,245 430,225 460,230 490,210 520,215" 
+              stroke="#3b82f6" stroke-width="3" fill="none"/>
+    <polyline points="160,310 190,295 220,300 250,280 280,285 310,265 340,270 370,250 400,255 430,235 460,240 490,220 520,225" 
+              stroke="#f59e0b" stroke-width="2" fill="none"/>
+    
+    <!-- Legend -->
+    <rect x="160" y="300" width="12" height="3" fill="#10b981"/>
+    <text x="180" y="307" class="small-text">Completed</text>
+    <rect x="240" y="300" width="12" height="3" fill="#3b82f6"/>
+    <text x="260" y="307" class="small-text">In Progress</text>
+    <rect x="330" y="300" width="12" height="3" fill="#f59e0b"/>
+    <text x="350" y="307" class="small-text">Risk Level</text>
+  </g>
+
+  <!-- Key Insights -->
+  <g transform="translate(100, 470)">
+    <text x="300" y="20" text-anchor="middle" class="header-text">Key Performance Indicators</text>
+    
+    <rect x="50" y="30" width="160" height="50" fill="#f0fdf4" stroke="#10b981" rx="6"/>
+    <text x="130" y="48" text-anchor="middle" class="body-text" fill="#10b981">↑ 15% Efficiency</text>
+    <text x="130" y="63" text-anchor="middle" class="small-text">vs. last month</text>
+    <text x="130" y="75" text-anchor="middle" class="small-text">Contract processing time</text>
+    
+    <rect x="225" y="30" width="160" height="50" fill="#fef3c7" stroke="#f59e0b" rx="6"/>
+    <text x="305" y="48" text-anchor="middle" class="body-text" fill="#f59e0b">⚠ 8 High Risk</text>
+    <text x="305" y="63" text-anchor="middle" class="small-text">Contracts require review</text>
+    <text x="305" y="75" text-anchor="middle" class="small-text">Human validation needed</text>
+    
+    <rect x="400" y="30" width="160" height="50" fill="#f0f9ff" stroke="#3b82f6" rx="6"/>
+    <text x="480" y="48" text-anchor="middle" class="body-text" fill="#3b82f6">⏱ 2.3 min avg</text>
+    <text x="480" y="63" text-anchor="middle" class="small-text">AI processing time</text>
+    <text x="480" y="75" text-anchor="middle" class="small-text">per contract document</text>
+  </g>
+</svg>

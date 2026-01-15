@@ -1,0 +1,253 @@
+{
+  "mappingResults": [
+    {
+      "source_field": "CreationDate",
+      "target_field": "created_at",
+      "transformation_rule": "date format YYYY-MM-DD",
+      "confidence": 90
+    },
+    {
+      "source_field": "LastUpdateDate",
+      "target_field": "updated_at",
+      "transformation_rule": "date format YYYY-MM-DD",
+      "confidence": 90
+    },
+    {
+      "source_field": "ItemNumber",
+      "target_field": "item_number",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "ItemDescription",
+      "target_field": "description",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "ItemClass",
+      "target_field": "item_class",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "ItemType",
+      "target_field": "item_type",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "ItemStatus",
+      "target_field": "item_status",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "ItemNumber",
+      "target_field": "licensor_item_number",
+      "transformation_rule": "direct",
+      "confidence": 80
+    },
+    {
+      "source_field": "OrganizationCode",
+      "target_field": "vendor",
+      "transformation_rule": "direct",
+      "confidence": 80
+    },
+    {
+      "source_field": "ItemNumber",
+      "target_field": "mfg_item_number",
+      "transformation_rule": "direct",
+      "confidence": 70
+    },
+    {
+      "source_field": "ListPrice",
+      "target_field": "price_tier",
+      "transformation_rule": "lowercase",
+      "confidence": 60
+    },
+    {
+      "source_field": "PrimaryUOM",
+      "target_field": "uom",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "PrimaryUOMCode",
+      "target_field": "buy_uom",
+      "transformation_rule": "direct",
+      "confidence": 100
+    },
+    {
+      "source_field": "PrimaryUOMCode",
+      "target_field": "retail_uom",
+      "transformation_rule": "direct",
+      "confidence": 80
+    },
+    {
+      "source_field": "PrimaryUOMCode",
+      "target_field": "sell_uom",
+      "transformation_rule": "direct",
+      "confidence": 80
+    },
+    {
+      "source_field": "UnitVolume",
+      "target_field": "vendor_item_number",
+      "transformation_rule": "direct",
+      "confidence": 60
+    },
+    {
+      "source_field": "UnitWeight",
+      "target_field": "vendor_item_number",
+      "transformation_rule": "direct",
+      "confidence": 60
+    },
+    {
+      "source_field": "VolumeUOMCode",
+      "target_field": "vendor_item_number",
+      "transformation_rule": "direct",
+      "confidence": 60
+    },
+    {
+      "source_field": "WeightUOMCode",
+      "target_field": "vendor_item_number",
+      "transformation_rule": "direct",
+      "confidence": 60
+    },
+    {
+      "source_field": null,
+      "target_field": "additional_category",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "component_item",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "created_by",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "description",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "full_legal_product_name",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "gtin",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "language",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "license_brand",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "license_fee_category",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "license_fee_type",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "license_property",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "price_tier",
+      "transformation_rule": "null",
+      "confidence": 0
+    },
+    {
+      "source_field": null,
+      "target_field": "vendor",
+      "transformation_rule": "null",
+      "confidence": 0
+    }
+  ],
+  "sourceSchema": {
+    "CreationDate": "DATE",
+    "CustomerOrderEnabledFlag": "VARCHAR2(1)",
+    "InventoryItemFlag": "VARCHAR2(1)",
+    "InventoryItemId": "NUMBER",
+    "InvoiceEnabledFlag": "VARCHAR2(1)",
+    "ItemClass": "VARCHAR2(240)",
+    "ItemDescription": "VARCHAR2(240)",
+    "ItemNumber": "VARCHAR2(300)",
+    "ItemStatus": "VARCHAR2(30)",
+    "ItemType": "VARCHAR2(30)",
+    "LastUpdateDate": "DATE",
+    "ListPrice": "NUMBER",
+    "LongDescription": "VARCHAR2(4000)",
+    "OrganizationCode": "VARCHAR2(18)",
+    "OrganizationId": "NUMBER",
+    "PrimaryUOM": "VARCHAR2(25)",
+    "PrimaryUOMCode": "VARCHAR2(3)",
+    "PurchasingEnabledFlag": "VARCHAR2(1)",
+    "UnitVolume": "NUMBER",
+    "UnitWeight": "NUMBER",
+    "VolumeUOMCode": "VARCHAR2(3)",
+    "WeightUOMCode": "VARCHAR2(3)"
+  },
+  "targetSchema": {
+    "additional_category": "string",
+    "buy_uom": "string",
+    "component_item": "boolean",
+    "created_at": "date",
+    "created_by": "string",
+    "description": "string",
+    "full_legal_product_name": "string",
+    "gtin": "string",
+    "item_category": "string",
+    "item_class": "string",
+    "item_id": "string",
+    "item_number": "string",
+    "item_status": "string",
+    "item_type": "string",
+    "language": "string",
+    "license_brand": "string",
+    "license_fee_category": "string",
+    "license_fee_type": "string",
+    "license_property": "string",
+    "licensor_item_number": "string",
+    "mfg_item_number": "string",
+    "price_tier": "string",
+    "retail_uom": "string",
+    "sell_uom": "string",
+    "uom": "string",
+    "updated_at": "date",
+    "updated_by": "string",
+    "vendor": "string",
+    "vendor_item_number": "string"
+  },
+  "entityType": "Items",
+  "erpSystem": "Oracle Fusion Cloud ERP"
+}

@@ -1,0 +1,30 @@
+SCREEN 7: INVOICE GENERATION
+Duration: ~35 seconds
+
+[INTRO]
+Now let's generate professional PDF invoices with one click.
+
+[STEP 1 - INVOICE OPTIONS]
+The system offers two invoice formats:
+1. Detailed Invoice - complete line-by-line breakdown
+2. Summary Invoice - high-level overview with totals
+
+[STEP 2 - DETAILED INVOICE]
+The detailed invoice includes:
+- Every product with quantities and amounts
+- Applied royalty rates and rules
+- Calculation explanations for transparency
+- All contractual terms and payment details
+
+[STEP 3 - SUMMARY INVOICE]
+The summary invoice shows:
+- Total royalty amount: 8,547 dollars
+- Key statistics and metrics
+- Confidence scores for quality assurance
+- Professional branding and formatting
+
+[STEP 4 - DOWNLOAD]
+Simply click the download button to get your PDF invoice, ready to send to vendors.
+
+[TRANSITION]
+Finally, let's explore the intelligent Q&A feature.

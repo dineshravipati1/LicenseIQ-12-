@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font: bold 28px sans-serif; fill: #1e293b; }
+      .subtitle { font: 16px sans-serif; fill: #475569; }
+      .label { font: 14px sans-serif; fill: #334155; }
+      .tech { font: 12px sans-serif; fill: #64748b; }
+      .frontend { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; rx: 8; }
+      .backend { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; rx: 8; }
+      .ai { fill: #f3e8ff; stroke: #a855f7; stroke-width: 2; rx: 8; }
+      .database { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; rx: 8; }
+      .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .data-arrow { stroke: #3b82f6; stroke-width: 3; fill: none; marker-end: url(#bluearrow); stroke-dasharray: 5,5; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#64748b"/>
+    </marker>
+    <marker id="bluearrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <text x="700" y="40" class="title" text-anchor="middle">Data Flow Architecture</text>
+  <text x="700" y="70" class="subtitle" text-anchor="middle">How data moves through the License IQ platform</text>
+
+  <!-- Frontend Layer -->
+  <rect class="frontend" x="50" y="120" width="300" height="600"/>
+  <text x="200" y="150" class="label" text-anchor="middle" font-weight="bold">FRONTEND (React)</text>
+  
+  <rect class="frontend" x="80" y="180" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="205" class="tech" text-anchor="middle">Contract Upload Component</text>
+  <text x="200" y="225" class="tech" text-anchor="middle">→ FormData with PDF file</text>
+  
+  <rect class="frontend" x="80" y="260" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="285" class="tech" text-anchor="middle">Analysis Dashboard</text>
+  <text x="200" y="305" class="tech" text-anchor="middle">← Display AI results</text>
+  
+  <rect class="frontend" x="80" y="340" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="365" class="tech" text-anchor="middle">Sales Import</text>
+  <text x="200" y="385" class="tech" text-anchor="middle">→ CSV/Excel upload</text>
+  
+  <rect class="frontend" x="80" y="420" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="445" class="tech" text-anchor="middle">Calculation Dashboard</text>
+  <text x="200" y="465" class="tech" text-anchor="middle">→ Trigger calculations</text>
+  
+  <rect class="frontend" x="80" y="500" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="525" class="tech" text-anchor="middle">Invoice Download</text>
+  <text x="200" y="545" class="tech" text-anchor="middle">← PDF binary stream</text>
+  
+  <rect class="frontend" x="80" y="580" width="240" height="60" opacity="0.7"/>
+  <text x="200" y="605" class="tech" text-anchor="middle">RAG Q&A Interface</text>
+  <text x="200" y="625" class="tech" text-anchor="middle">→ Questions ← Answers</text>
+
+  <!-- Backend Layer -->
+  <rect class="backend" x="450" y="120" width="400" height="600"/>
+  <text x="650" y="150" class="label" text-anchor="middle" font-weight="bold">BACKEND (Express.js API)</text>
+  
+  <rect class="backend" x="480" y="180" width="340" height="80" opacity="0.7"/>
+  <text x="650" y="210" class="tech" text-anchor="middle" font-weight="bold">/api/contracts/upload</text>
+  <text x="650" y="230" class="tech" text-anchor="middle">Multer → Save file</text>
+  <text x="650" y="248" class="tech" text-anchor="middle">Create contract DB record</text>
+  
+  <rect class="backend" x="480" y="280" width="340" height="80" opacity="0.7"/>
+  <text x="650" y="310" class="tech" text-anchor="middle" font-weight="bold">/api/contracts/:id/analyze</text>
+  <text x="650" y="330" class="tech" text-anchor="middle">Extract PDF text</text>
+  <text x="650" y="348" class="tech" text-anchor="middle">Call AI services</text>
+  
+  <rect class="backend" x="480" y="380" width="340" height="80" opacity="0.7"/>
+  <text x="650" y="410" class="tech" text-anchor="middle" font-weight="bold">/api/contracts/:id/sales/upload</text>
+  <text x="650" y="430" class="tech" text-anchor="middle">Parse CSV/Excel</text>
+  <text x="650" y="448" class="tech" text-anchor="middle">AI semantic matching</text>
+  
+  <rect class="backend" x="480" y="480" width="340" height="80" opacity="0.7"/>
+  <text x="650" y="510" class="tech" text-anchor="middle" font-weight="bold">/api/contracts/:id/calculate</text>
+  <text x="650" y="530" class="tech" text-anchor="middle">Formula interpretation</text>
+  <text x="650" y="548" class="tech" text-anchor="middle">Royalty engine</text>
+  
+  <rect class="backend" x="480" y="580" width="340" height="80" opacity="0.7"/>
+  <text x="650" y="610" class="tech" text-anchor="middle" font-weight="bold">/api/royalty-calculations/:id/invoice</text>
+  <text x="650" y="630" class="tech" text-anchor="middle">PDFKit generation</text>
+  <text x="650" y="648" class="tech" text-anchor="middle">Return PDF buffer</text>
+
+  <!-- AI Services -->
+  <rect class="ai" x="950" y="120" width="200" height="280"/>
+  <text x="1050" y="150" class="label" text-anchor="middle" font-weight="bold">AI SERVICES</text>
+  
+  <rect class="ai" x="970" y="180" width="160" height="80" opacity="0.7"/>
+  <text x="1050" y="210" class="tech" text-anchor="middle" font-weight="bold">Groq LLaMA</text>
+  <text x="1050" y="230" class="tech" text-anchor="middle">Contract analysis</text>
+  <text x="1050" y="245" class="tech" text-anchor="middle">Rule extraction</text>
+  
+  <rect class="ai" x="970" y="280" width="160" height="100" opacity="0.7"/>
+  <text x="1050" y="310" class="tech" text-anchor="middle" font-weight="bold">Hugging Face</text>
+  <text x="1050" y="330" class="tech" text-anchor="middle">Text embeddings</text>
+  <text x="1050" y="345" class="tech" text-anchor="middle">384-dim vectors</text>
+  <text x="1050" y="360" class="tech" text-anchor="middle">Semantic search</text>
+
+  <!-- Database -->
+  <rect class="database" x="950" y="440" width="400" height="280"/>
+  <text x="1150" y="470" class="label" text-anchor="middle" font-weight="bold">DATABASE (PostgreSQL)</text>
+  
+  <rect class="database" x="970" y="490" width="180" height="100" opacity="0.7"/>
+  <text x="1060" y="520" class="tech" text-anchor="middle" font-weight="bold">Contract Data</text>
+  <text x="1060" y="540" class="tech" text-anchor="middle">• contracts</text>
+  <text x="1060" y="555" class="tech" text-anchor="middle">• contract_analysis</text>
+  <text x="1060" y="570" class="tech" text-anchor="middle">• royalty_rules</text>
+  
+  <rect class="database" x="1160" y="490" width="180" height="100" opacity="0.7"/>
+  <text x="1250" y="520" class="tech" text-anchor="middle" font-weight="bold">Sales & Calc Data</text>
+  <text x="1250" y="540" class="tech" text-anchor="middle">• sales_data</text>
+  <text x="1250" y="555" class="tech" text-anchor="middle">• calculations</text>
+  
+  <rect class="database" x="970" y="610" width="370" height="90" opacity="0.7"/>
+  <text x="1155" y="640" class="tech" text-anchor="middle" font-weight="bold">Vector Storage (pgvector)</text>
+  <text x="1155" y="660" class="tech" text-anchor="middle">• contract_embeddings (384-dim vectors)</text>
+  <text x="1155" y="675" class="tech" text-anchor="middle">• HNSW index for cosine similarity search</text>
+
+  <!-- Data Flow Arrows -->
+  <path class="data-arrow" d="M 350 210 L 480 210"/>
+  <path class="data-arrow" d="M 480 290 L 350 290"/>
+  
+  <path class="data-arrow" d="M 350 370 L 480 410"/>
+  <path class="data-arrow" d="M 350 450 L 480 510"/>
+  <path class="data-arrow" d="M 480 620 L 350 530"/>
+  
+  <path class="data-arrow" d="M 850 310 L 950 230"/>
+  <path class="data-arrow" d="M 850 410 L 950 320"/>
+  
+  <path class="data-arrow" d="M 850 220 L 850 180 L 970 540"/>
+  <path class="data-arrow" d="M 850 320 L 900 320 L 900 650 L 970 650"/>
+  <path class="data-arrow" d="M 850 420 L 920 420 L 920 540 L 1160 540"/>
+  <path class="data-arrow" d="M 850 520 L 940 520 L 940 540 L 1160 540"/>
+  <path class="data-arrow" d="M 850 620 L 880 620 L 880 540 L 970 540"/>
+
+  <!-- Legend -->
+  <rect class="frontend" x="50" y="750" width="30" height="20"/>
+  <text x="90" y="765" class="tech">Frontend (React)</text>
+  
+  <rect class="backend" x="220" y="750" width="30" height="20"/>
+  <text x="260" y="765" class="tech">Backend (Express.js)</text>
+  
+  <rect class="ai" x="400" y="750" width="30" height="20"/>
+  <text x="440" y="765" class="tech">AI Services (Groq + HF)</text>
+  
+  <rect class="database" x="600" y="750" width="30" height="20"/>
+  <text x="640" y="765" class="tech">Database (PostgreSQL + pgvector)</text>
+  
+  <path class="data-arrow" d="M 850 760 L 950 760"/>
+  <text x="960" y="765" class="tech">Data Flow</text>
+</svg>

@@ -1,0 +1,21 @@
+transactionDate,transactionId,variety,productName,size,category,territory,season,organic,units,unitPrice,grossAmount,netAmount,tier,baseRate,discountThreshold,discountRate,currency
+2024-01-15,TXN-2024-001,Aurora Flame Maple,Aurora Flame Maple Tree,1-gallon,Ornamental Trees & Shrubs,Primary,Spring,false,6200,24.99,154938.00,154938.00,1,1.25,5000,1.10,USD
+2024-01-20,TXN-2024-002,Aurora Flame Maple,Aurora Flame Maple Tree,5-gallon,Ornamental Trees & Shrubs,Primary,Off-Season,false,1100,89.99,98989.00,98989.00,1,4.50,1000,3.95,USD
+2024-02-05,TXN-2024-003,Golden Spire Juniper,Golden Spire Juniper Shrub,3-gallon,Ornamental Trees & Shrubs,Secondary,Fall,false,1800,54.99,98982.00,98982.00,1,2.85,2000,2.65,USD
+2024-02-12,TXN-2024-004,Pacific Sunset Rose,Pacific Sunset Rose Bush,6-inch,Perennials,Primary,Spring,false,3000,18.99,56970.00,56970.00,2,0.65,4000,0.55,USD
+2024-03-01,TXN-2024-005,Cascade Blue Hydrangea,Cascade Blue Hydrangea,1-gallon,Ornamental Trees & Shrubs,Primary,Spring,true,2800,29.99,83972.00,83972.00,1,1.25,5000,1.10,USD
+2024-03-15,TXN-2024-006,Ruby Jewel Rhododendron,Ruby Jewel Rhododendron,2-gallon,Ornamental Trees & Shrubs,Primary,Spring,false,950,44.99,42740.50,42740.50,1,2.10,1500,1.85,USD
+2024-04-10,TXN-2024-007,Sunset Blaze Azalea,Sunset Blaze Azalea,1-gallon,Ornamental Trees & Shrubs,Primary,Spring,false,5500,27.99,153945.00,153945.00,1,1.25,5000,1.10,USD
+2024-04-22,TXN-2024-008,Silver Mist Lavender,Silver Mist Lavender,4-inch,Perennials,Primary,Spring,true,8000,12.99,103920.00,103920.00,2,0.45,6000,0.38,USD
+2024-05-05,TXN-2024-009,Emerald Dream Boxwood,Emerald Dream Boxwood,1-gallon,Ornamental Trees & Shrubs,Primary,Spring,false,4200,32.99,138558.00,138558.00,1,1.25,5000,1.10,USD
+2024-05-18,TXN-2024-010,Golden Sunrise Maple,Golden Sunrise Maple,5-gallon,Ornamental Trees & Shrubs,Primary,Spring,false,1500,94.99,142485.00,142485.00,1,4.50,1000,3.95,USD
+2024-06-03,TXN-2024-011,Aurora Flame Maple,Aurora Flame Maple Tree,1-gallon,Ornamental Trees & Shrubs,Secondary,Summer,false,3200,24.99,79968.00,79968.00,1,1.25,5000,1.10,USD
+2024-06-15,TXN-2024-012,Crimson Cascade Weigela,Crimson Cascade Weigela,2-gallon,Ornamental Trees & Shrubs,Primary,Summer,false,1200,39.99,47988.00,47988.00,1,2.10,1500,1.85,USD
+2024-07-08,TXN-2024-013,Pacific Sunset Rose,Pacific Sunset Rose Bush,1-gallon,Perennials,Primary,Summer,false,5800,22.99,133342.00,133342.00,2,0.95,4000,0.80,USD
+2024-07-20,TXN-2024-014,Golden Spire Juniper,Golden Spire Juniper Shrub,1-gallon,Ornamental Trees & Shrubs,Primary,Summer,false,3800,26.99,102562.00,102562.00,1,1.25,5000,1.10,USD
+2024-08-05,TXN-2024-015,Blue Heaven Salvia,Blue Heaven Salvia,4-inch,Perennials,Primary,Fall,true,6500,11.99,77935.00,77935.00,2,0.45,6000,0.38,USD
+2024-08-18,TXN-2024-016,Autumn Blaze Cherry,Autumn Blaze Cherry Tree,7-gallon,Ornamental Trees & Shrubs,Primary,Fall,false,450,129.99,58495.50,58495.50,1,5.25,500,4.75,USD
+2024-09-02,TXN-2024-017,Ruby Jewel Rhododendron,Ruby Jewel Rhododendron,1-gallon,Ornamental Trees & Shrubs,Primary,Fall,false,6800,31.99,217532.00,217532.00,1,1.25,5000,1.10,USD
+2024-09-15,TXN-2024-018,Emerald Dream Boxwood,Emerald Dream Boxwood,3-gallon,Ornamental Trees & Shrubs,Secondary,Fall,false,2200,64.99,142978.00,142978.00,1,2.85,2000,2.65,USD
+2024-10-01,TXN-2024-019,Silver Mist Lavender,Silver Mist Lavender,1-gallon,Perennials,Primary,Fall,true,4500,19.99,89955.00,89955.00,2,0.95,4000,0.80,USD
+2024-10-12,TXN-2024-020,Aurora Flame Maple,Aurora Flame Maple Tree,2-gallon,Ornamental Trees & Shrubs,Primary,Fall,false,2400,49.99,119976.00,119976.00,1,2.10,1500,1.85,USD

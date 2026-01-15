@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License IQ - Architecture Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1e293b;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            display: none;
+            flex: 1;
+            padding: 40px;
+            background: white;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 30px 0 20px 0;
+            color: #764ba2;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+            color: #475569;
+        }
+
+        p, li {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #334155;
+            margin: 10px 0;
+        }
+
+        ul {
+            margin-left: 40px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .feature-box p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 20px;
+            border-left: 4px solid #f59e0b;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tech-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .flow-diagram {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step h3 {
+            color: #667eea;
+            margin: 0 0 10px 0;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #667eea;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .layer-box {
+            background: white;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .layer-box h4 {
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1 style="font-size: 4em; margin-bottom: 30px;">License IQ</h1>
+                <h2 style="color: #764ba2; margin-bottom: 40px;">End-to-End Architecture</h2>
+                <p style="font-size: 1.5em; color: #64748b; max-width: 800px;">
+                    AI-Powered Contract Intelligence System<br>
+                    From Upload to Invoice in Minutes
+                </p>
+                <div class="tech-stack" style="margin-top: 50px;">
+                    <span class="tech-badge">React + TypeScript</span>
+                    <span class="tech-badge">Express.js</span>
+                    <span class="tech-badge">PostgreSQL + pgvector</span>
+                    <span class="tech-badge">Groq LLaMA (FREE)</span>
+                    <span class="tech-badge">Hugging Face (FREE)</span>
+                    <span class="tech-badge">PDFKit</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: System Overview -->
+        <div class="slide">
+            <h1>System Overview</h1>
+            <div class="grid-2">
+                <div class="feature-box">
+                    <h3>🤖 100% FREE AI</h3>
+                    <p>Groq LLaMA for analysis and Hugging Face for embeddings - zero cost AI infrastructure</p>
+                </div>
+                <div class="feature-box">
+                    <h3>📊 Intelligent Processing</h3>
+                    <p>Automated contract analysis, rule extraction, and semantic sales matching</p>
+                </div>
+                <div class="feature-box">
+                    <h3>💰 Dynamic Calculations</h3>
+                    <p>Complex royalty formulas with volume tiers, seasonal adjustments, territory premiums</p>
+                </div>
+                <div class="feature-box">
+                    <h3>📄 Professional Invoices</h3>
+                    <p>Detailed and summary PDF invoices with complete calculation transparency</p>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 30px;">
+                <h3>Key Innovation</h3>
+                <p>The entire pipeline is AI-powered, eliminating manual data entry and reducing errors by 95%</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Complete Flow -->
+        <div class="slide">
+            <h1>End-to-End System Flow</h1>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>1. Contract Upload</h3>
+                    <p>User uploads PDF contract → Multer file storage → Database record created</p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">
+                    <h3>2. AI Analysis (Groq LLaMA)</h3>
+                    <p>Extract text → Analyze contract → Extract terms, risks, royalty rules → Generate embeddings (Hugging Face)</p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">
+                    <h3>3. Sales Data Import</h3>
+                    <p>Upload CSV/Excel → Parse data → Store transactions</p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">
+                    <h3>4. AI Semantic Matching</h3>
+                    <p>Generate embeddings → pgvector similarity search → LLM validation → Auto-match if confidence >60%</p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">
+                    <h3>5. Royalty Calculation</h3>
+                    <p>Load rules → Formula interpreter → Calculate per sale → Generate breakdown</p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">
+                    <h3>6. PDF Invoice Generation (PDFKit)</h3>
+                    <p>Detailed invoice (line items) + Summary invoice (totals) → Download</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Architecture Layers -->
+        <div class="slide">
+            <h1>Architecture Layers</h1>
+            <div class="layer-box" style="background: #dbeafe;">
+                <h4>FRONTEND - React + TypeScript</h4>
+                <p>Contract Upload • Analysis Dashboard • Sales Import • Calculation Dashboard • Invoice Download • RAG Q&A</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="layer-box" style="background: #fef3c7;">
+                <h4>API LAYER - Express.js Routes</h4>
+                <p>/api/contracts/* • /api/analyze • /api/sales/* • /api/calculate-royalties • /api/rag/ask</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="layer-box" style="background: #fef3c7;">
+                <h4>SERVICE LAYER - Business Logic</h4>
+                <p>File Service • Analysis Service • Embedding Service • Matching Service • Calculation Service • PDF Service • RAG Service</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="layer-box" style="background: #dcfce7;">
+                <h4>DATA LAYER - PostgreSQL + Drizzle ORM</h4>
+                <p>Storage Interface • DB Operations • pgvector Search • ACID Transactions</p>
+            </div>
+            <div class="layer-box" style="background: #f3e8ff; margin-top: 20px;">
+                <h4>EXTERNAL SERVICES - 100% FREE AI</h4>
+                <p>Groq LLaMA (Analysis & Validation) • Hugging Face (Embeddings 384-dim) • Neon DB (Serverless PostgreSQL)</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: AI Analysis Pipeline -->
+        <div class="slide">
+            <h1>AI Analysis Pipeline</h1>
+            <h2>Groq LLaMA 3.1 8B Instant</h2>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>Step 1: PDF Text Extraction</h3>
+                    <p>Read PDF file → Extract all text using pdf-parse → Clean and format text</p>
+                </div>
+                <div class="flow-step">
+                    <h3>Step 2: Contract Analysis</h3>
+                    <p>• Summary generation<br>• Key terms extraction<br>• Risk analysis<br>• Strategic insights<br>• Confidence scoring (0-100)</p>
+                </div>
+                <div class="flow-step">
+                    <h3>Step 3: Royalty Rule Extraction</h3>
+                    <p>• Volume tiers: 0-4999 gallons = 1.25%, 5000+ = 1.10%<br>• Seasonal adjustments: Spring = 1.10x<br>• Territory premiums: Secondary = 1.10x<br>• Product categories and applicability</p>
+                </div>
+                <div class="flow-step">
+                    <h3>Step 4: Embedding Generation (Hugging Face)</h3>
+                    <p>Generate 384-dimensional vectors for summary, terms, and insights → Store in pgvector for RAG Q&A</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Semantic Matching -->
+        <div class="slide">
+            <h1>AI-Driven Sales Matching</h1>
+            <div class="highlight">
+                <h3>Zero Manual Matching Required</h3>
+                <p>AI automatically matches sales transactions to contracts using semantic understanding</p>
+            </div>
+            <h2>Matching Pipeline:</h2>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>1. Generate Sales Embedding</h3>
+                    <p>Combine: product name + category + territory → Hugging Face → 384-dim vector</p>
+                </div>
+                <div class="flow-step">
+                    <h3>2. pgvector Similarity Search</h3>
+                    <p>Find top 5 similar contracts using cosine distance on HNSW index</p>
+                </div>
+                <div class="flow-step">
+                    <h3>3. LLM Validation (Groq)</h3>
+                    <p>Validate best match with confidence score and reasoning</p>
+                </div>
+                <div class="flow-step">
+                    <h3>4. Auto-Match Decision</h3>
+                    <p>If confidence >60%: Auto-match | If confidence <60%: Flag for human review</p>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 20px;">
+                <p><strong>Performance:</strong> 95%+ accuracy • 2-3 seconds per row • 60% confidence threshold</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Royalty Calculation -->
+        <div class="slide">
+            <h1>Royalty Calculation Engine</h1>
+            <h2>Formula Interpreter System</h2>
+            <p>Evaluates FormulaNode expression trees to calculate complex royalties</p>
+            <div class="highlight">
+                <h3>Example Calculation:</h3>
+                <p style="font-size: 1.3em; line-height: 2;">
+                    <strong>Sale:</strong> 6,000 gallons × $25/gal = $150,000 (Secondary territory)<br>
+                    <strong>Volume Tier:</strong> 6000 gallons → 1.10% (tier 2)<br>
+                    <strong>Territory Premium:</strong> Secondary → 1.10× multiplier<br>
+                    <strong>Royalty:</strong> $150,000 × (1.10/100) × 1.10 = <span style="color: #16a34a; font-weight: bold;">$1,815</span>
+                </p>
+            </div>
+            <h2>Supported Formula Types:</h2>
+            <ul>
+                <li><strong>Volume Tiers</strong> - Quantity-based rate calculation</li>
+                <li><strong>Seasonal Multipliers</strong> - Date-based adjustments</li>
+                <li><strong>Territory Premiums</strong> - Geographic rate variations</li>
+                <li><strong>Product Categories</strong> - SKU-based filtering</li>
+                <li><strong>Container Sizes</strong> - Packaging-based rates</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: PDF Invoices -->
+        <div class="slide">
+            <h1>PDF Invoice Generation</h1>
+            <div class="grid-2">
+                <div class="feature-box">
+                    <h3>📄 Detailed Invoice</h3>
+                    <ul style="margin-top: 15px; color: white;">
+                        <li>Complete line-by-line breakdown</li>
+                        <li>Product details table</li>
+                        <li>Calculation explanations</li>
+                        <li>Rule references</li>
+                        <li>Comprehensive audit trail</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>📊 Summary Invoice</h3>
+                    <ul style="margin-top: 15px; color: white;">
+                        <li>High-level totals</li>
+                        <li>Top products by royalty</li>
+                        <li>Statistical summaries</li>
+                        <li>Confidence scores</li>
+                        <li>Executive overview</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 style="margin-top: 30px;">Technology: PDFKit</h2>
+            <p>Pure Node.js PDF generation - no browser dependencies</p>
+            <ul>
+                <li>Generate PDF buffers in-memory</li>
+                <li>Professional table layouts</li>
+                <li>Custom branding and styling</li>
+                <li>Fast generation (less than 2 seconds)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: RAG Q&A -->
+        <div class="slide">
+            <h1>RAG-Powered Document Q&A</h1>
+            <h2>Intelligent Contract Assistant</h2>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>1. Question Processing</h3>
+                    <p>User asks: "What are the royalty rates for organic products?"</p>
+                </div>
+                <div class="flow-step">
+                    <h3>2. Generate Query Embedding</h3>
+                    <p>Convert question to 384-dim vector using Hugging Face</p>
+                </div>
+                <div class="flow-step">
+                    <h3>3. Semantic Search (pgvector)</h3>
+                    <p>Find relevant contract sections using cosine similarity</p>
+                </div>
+                <div class="flow-step">
+                    <h3>4. Context Retrieval</h3>
+                    <p>Extract top matching contract content as context</p>
+                </div>
+                <div class="flow-step">
+                    <h3>5. AI Answer Generation (Groq)</h3>
+                    <p>LLaMA generates answer from retrieved context with citations</p>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 20px;">
+                <h3>Features:</h3>
+                <p>Contract filtering • Confidence scoring • Source citations • Complete audit trail</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Database -->
+        <div class="slide">
+            <h1>Database Architecture</h1>
+            <h2>PostgreSQL + pgvector</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Contract Management</h3>
+                    <ul>
+                        <li><strong>contracts</strong> - File metadata and status</li>
+                        <li><strong>contract_analysis</strong> - AI analysis results</li>
+                        <li><strong>royalty_rules</strong> - Extracted formulas</li>
+                        <li><strong>contract_embeddings</strong> - Vector storage (384-dim)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Royalty System</h3>
+                    <ul>
+                        <li><strong>sales_data</strong> - Matched transactions</li>
+                        <li><strong>contract_royalty_calculations</strong> - Results</li>
+                        <li><strong>audit_trail</strong> - Complete activity log</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 style="margin-top: 30px;">pgvector Integration:</h2>
+            <ul>
+                <li><strong>HNSW Index</strong> - Fast approximate nearest neighbor search</li>
+                <li><strong>Cosine Distance</strong> - Similarity metric for embeddings</li>
+                <li><strong>384 Dimensions</strong> - Hugging Face BAAI/bge-small-en-v1.5</li>
+                <li><strong>Sub-second Queries</strong> - Optimized for real-time search</li>
+            </ul>
+        </div>
+
+        <!-- Slide 11: Deployment -->
+        <div class="slide">
+            <h1>Deployment on Vercel</h1>
+            <h2>Serverless Architecture</h2>
+            <ul>
+                <li>Serverless functions for API endpoints</li>
+                <li>Automatic scaling based on traffic</li>
+                <li>Global CDN for static assets</li>
+                <li>Environment variable management</li>
+            </ul>
+            <h2 style="margin-top: 30px;">Required Environment Variables:</h2>
+            <div class="highlight">
+                <ul>
+                    <li><strong>DATABASE_URL</strong> - Neon PostgreSQL connection string</li>
+                    <li><strong>GROQ_API_KEY</strong> - Free Groq LLaMA API key</li>
+                    <li><strong>HUGGINGFACE_API_KEY</strong> - Free Hugging Face API key</li>
+                    <li><strong>SESSION_SECRET</strong> - Random 32+ character string</li>
+                </ul>
+            </div>
+            <h2 style="margin-top: 30px;">Cost Breakdown:</h2>
+            <ul>
+                <li><strong>AI Services:</strong> $0 (100% FREE - Groq + Hugging Face)</li>
+                <li><strong>Database:</strong> Free tier on Neon (sufficient for most cases)</li>
+                <li><strong>Hosting:</strong> Free tier on Vercel (100GB bandwidth/month)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 12: Thank You -->
+        <div class="slide">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1 style="font-size: 4em; margin-bottom: 30px;">Thank You</h1>
+                <h2 style="color: #764ba2; margin-bottom: 40px;">License IQ Research Platform</h2>
+                <p style="font-size: 1.5em; color: #64748b; max-width: 800px; margin-bottom: 50px;">
+                    AI-Powered Contract Intelligence<br>
+                    100% FREE AI Services • Production-Ready • Scalable
+                </p>
+                <div class="highlight" style="max-width: 600px;">
+                    <h3>Documentation Available:</h3>
+                    <ul style="text-align: left;">
+                        <li>ARCHITECTURE_END_TO_END.md</li>
+                        <li>VERCEL_DEPLOYMENT_GUIDE.md</li>
+                        <li>database_backup_local.sql</li>
+                        <li>end-to-end-arch/ (Diagrams)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-number" id="slideNumber">1 / 12</div>
+            <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

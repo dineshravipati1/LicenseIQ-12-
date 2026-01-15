@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 20px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #6b7280; }
+      .button-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: 600; fill: white; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .card { fill: white; stroke: #e5e7eb; }
+      .progress-bar { fill: #3b82f6; }
+      .progress-bg { fill: #e5e7eb; }
+      .success { fill: #10b981; }
+      .processing { fill: #3b82f6; }
+      .pending { fill: #e5e7eb; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">AI Analysis Processing</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">LLaMA 3.1 8B Instant Model Contract Analysis</text>
+
+  <!-- Processing Screen -->
+  <g transform="translate(150, 80)">
+    <rect class="screen" width="500" height="300" rx="12"/>
+    
+    <!-- Header -->
+    <text x="250" y="25" text-anchor="middle" class="header-text">AI Analysis in Progress</text>
+    <text x="250" y="45" text-anchor="middle" class="body-text">Processing: contract_agreement.pdf</text>
+    
+    <!-- Main Progress Section -->
+    <rect x="30" y="60" width="440" height="110" class="card" rx="8"/>
+    
+    <!-- AI Icon -->
+    <g transform="translate(250, 90)">
+      <circle cx="0" cy="0" r="18" fill="#3b82f6"/>
+      <text x="0" y="5" text-anchor="middle" class="button-text" font-size="14px">🤖</text>
+    </g>
+    
+    <text x="250" y="125" text-anchor="middle" class="header-text">Analyzing Contract Content...</text>
+    
+    <!-- Overall Progress Bar -->
+    <rect x="60" y="140" width="380" height="10" class="progress-bg" rx="5"/>
+    <rect x="60" y="140" width="266" height="10" class="progress-bar" rx="5"/>
+    <text x="250" y="160" text-anchor="middle" class="body-text">70% Complete</text>
+    
+    <!-- Processing Steps -->
+    <rect x="30" y="185" width="440" height="95" class="card" rx="8"/>
+    <text x="45" y="205" class="header-text">Processing Steps:</text>
+    
+    <!-- Step 1 -->
+    <circle cx="55" cy="220" r="7" class="success"/>
+    <text x="53" y="224" text-anchor="middle" class="button-text" font-size="9px">✓</text>
+    <text x="75" y="225" class="body-text">Document Text Extraction</text>
+    <text x="350" y="225" class="small-text">Completed</text>
+    
+    <!-- Step 2 -->
+    <circle cx="55" cy="240" r="7" class="processing"/>
+    <text x="53" y="244" text-anchor="middle" class="button-text" font-size="9px">⟳</text>
+    <text x="75" y="245" class="body-text">AI Content Analysis</text>
+    <text x="350" y="245" class="small-text">In Progress...</text>
+    
+    <!-- Step 3 -->
+    <circle cx="55" cy="260" r="7" class="pending"/>
+    <text x="75" y="265" class="body-text">Risk Assessment Generation</text>
+    <text x="350" y="265" class="small-text">Pending</text>
+  </g>
+
+  <!-- Time and Performance Info -->
+  <g transform="translate(200, 400)">
+    <rect x="0" y="0" width="400" height="50" fill="#f0f9ff" stroke="#3b82f6" rx="8"/>
+    <text x="200" y="20" text-anchor="middle" class="body-text" fill="#3b82f6">⏱️ Estimated time remaining: 45 seconds</text>
+    <text x="200" y="35" text-anchor="middle" class="small-text" fill="#3b82f6">Processing with 94% average accuracy • Groq API integration</text>
+  </g>
+
+  <!-- AI Features -->
+  <g transform="translate(50, 470)">
+    <text x="350" y="20" text-anchor="middle" class="header-text">AI Analysis Capabilities</text>
+    
+    <rect x="40" y="30" width="160" height="60" class="card" rx="6"/>
+    <text x="120" y="48" text-anchor="middle" class="body-text">🧠 Smart Extraction</text>
+    <text x="120" y="62" text-anchor="middle" class="small-text">Key terms, dates, amounts</text>
+    <text x="120" y="75" text-anchor="middle" class="small-text">Parties and obligations</text>
+
+    <rect x="220" y="30" width="160" height="60" class="card" rx="6"/>
+    <text x="300" y="48" text-anchor="middle" class="body-text">⚡ Fast Processing</text>
+    <text x="300" y="62" text-anchor="middle" class="small-text">Average: 2.3 minutes</text>
+    <text x="300" y="75" text-anchor="middle" class="small-text">99.9% uptime</text>
+    
+    <rect x="400" y="30" width="160" height="60" class="card" rx="6"/>
+    <text x="480" y="48" text-anchor="middle" class="body-text">🎯 High Accuracy</text>
+    <text x="480" y="62" text-anchor="middle" class="small-text">94% confidence score</text>
+    <text x="480" y="75" text-anchor="middle" class="small-text">Continuous learning</text>
+    
+    <rect x="580" y="30" width="160" height="60" class="card" rx="6"/>
+    <text x="660" y="48" text-anchor="middle" class="body-text">🔄 Real-time Updates</text>
+    <text x="660" y="62" text-anchor="middle" class="small-text">Live progress tracking</text>
+    <text x="660" y="75" text-anchor="middle" class="small-text">Instant notifications</text>
+  </g>
+</svg>

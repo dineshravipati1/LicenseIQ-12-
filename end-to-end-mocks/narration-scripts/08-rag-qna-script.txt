@@ -1,0 +1,32 @@
+SCREEN 8: RAG-POWERED CONTRACT Q&A
+Duration: ~45 seconds
+
+[INTRO]
+Meet your AI contract assistant - ask any question about your contracts.
+
+[STEP 1 - INTERFACE]
+This is a RAG-powered system - Retrieval Augmented Generation.
+See the example questions? You can ask about territories, payment terms, exclusivity, or any contract detail.
+
+[STEP 2 - ASK A QUESTION]
+Let me ask: "What are the payment terms and when are royalties due?"
+
+[STEP 3 - AI PROCESSING]
+Watch the system work:
+- It searches through contract embeddings
+- Finds relevant sections using semantic search
+- Generates an accurate answer using Groq LLaMA
+
+[STEP 4 - ANSWER WITH SOURCES]
+Here's the answer: "Royalties are due quarterly within 30 days of quarter end, with detailed accounting reports."
+
+Notice the source citations - the AI shows exactly which contract sections were used.
+
+[STEP 5 - CONFIDENCE]
+The 94% confidence score tells you how reliable this answer is.
+
+[STEP 6 - AUDIT TRAIL]
+Every Q&A interaction is logged for compliance and review.
+
+[CONCLUSION]
+And that's License IQ - AI-powered contract intelligence, completely free to run!

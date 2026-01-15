@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font: bold 28px sans-serif; fill: #1e293b; }
+      .subtitle { font: 16px sans-serif; fill: #475569; }
+      .label { font: 14px sans-serif; fill: #334155; }
+      .tech { font: 12px sans-serif; fill: #64748b; }
+      .layer { fill: none; stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 10,5; rx: 12; }
+      .component { fill: #ffffff; stroke: #3b82f6; stroke-width: 2; rx: 6; }
+      .service { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; rx: 6; }
+      .data { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; rx: 6; }
+      .external { fill: #f3e8ff; stroke: #a855f7; stroke-width: 2; rx: 6; }
+      .arrow { stroke: #94a3b8; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <text x="800" y="40" class="title" text-anchor="middle">Component Architecture</text>
+  <text x="800" y="70" class="subtitle" text-anchor="middle">Layered system design with service-oriented architecture</text>
+
+  <!-- Presentation Layer -->
+  <rect class="layer" x="30" y="100" width="1540" height="180"/>
+  <text x="50" y="130" class="label" font-weight="bold">PRESENTATION LAYER (React + TypeScript)</text>
+  
+  <rect class="component" x="60" y="150" width="180" height="100"/>
+  <text x="150" y="180" class="tech" text-anchor="middle" font-weight="bold">Contract Upload</text>
+  <text x="150" y="200" class="tech" text-anchor="middle">• File dropzone</text>
+  <text x="150" y="215" class="tech" text-anchor="middle">• Validation</text>
+  <text x="150" y="230" class="tech" text-anchor="middle">• Progress UI</text>
+  
+  <rect class="component" x="260" y="150" width="180" height="100"/>
+  <text x="350" y="180" class="tech" text-anchor="middle" font-weight="bold">Analysis Dashboard</text>
+  <text x="350" y="200" class="tech" text-anchor="middle">• AI results display</text>
+  <text x="350" y="215" class="tech" text-anchor="middle">• Rule viewer</text>
+  <text x="350" y="230" class="tech" text-anchor="middle">• Charts</text>
+  
+  <rect class="component" x="460" y="150" width="180" height="100"/>
+  <text x="550" y="180" class="tech" text-anchor="middle" font-weight="bold">Sales Import</text>
+  <text x="550" y="200" class="tech" text-anchor="middle">• CSV/Excel upload</text>
+  <text x="550" y="215" class="tech" text-anchor="middle">• Data preview</text>
+  <text x="550" y="230" class="tech" text-anchor="middle">• Matching UI</text>
+  
+  <rect class="component" x="660" y="150" width="180" height="100"/>
+  <text x="750" y="180" class="tech" text-anchor="middle" font-weight="bold">Calc Dashboard</text>
+  <text x="750" y="200" class="tech" text-anchor="middle">• Formula preview</text>
+  <text x="750" y="215" class="tech" text-anchor="middle">• Trigger calc</text>
+  <text x="750" y="230" class="tech" text-anchor="middle">• Visualizations</text>
+  
+  <rect class="component" x="860" y="150" width="180" height="100"/>
+  <text x="950" y="180" class="tech" text-anchor="middle" font-weight="bold">Calc History</text>
+  <text x="950" y="200" class="tech" text-anchor="middle">• Results table</text>
+  <text x="950" y="215" class="tech" text-anchor="middle">• Invoice download</text>
+  <text x="950" y="230" class="tech" text-anchor="middle">• Approval flow</text>
+  
+  <rect class="component" x="1060" y="150" width="180" height="100"/>
+  <text x="1150" y="180" class="tech" text-anchor="middle" font-weight="bold">RAG Q&A</text>
+  <text x="1150" y="200" class="tech" text-anchor="middle">• Chat interface</text>
+  <text x="1150" y="215" class="tech" text-anchor="middle">• Citations</text>
+  <text x="1150" y="230" class="tech" text-anchor="middle">• Confidence</text>
+  
+  <rect class="component" x="1260" y="150" width="180" height="100"/>
+  <text x="1350" y="180" class="tech" text-anchor="middle" font-weight="bold">Analytics</text>
+  <text x="1350" y="200" class="tech" text-anchor="middle">• Metrics cards</text>
+  <text x="1350" y="215" class="tech" text-anchor="middle">• Charts</text>
+  <text x="1350" y="230" class="tech" text-anchor="middle">• Reports</text>
+
+  <!-- API Layer -->
+  <rect class="layer" x="30" y="320" width="1540" height="120"/>
+  <text x="50" y="350" class="label" font-weight="bold">API LAYER (Express.js Routes)</text>
+  
+  <rect class="component" x="60" y="370" width="220" height="50"/>
+  <text x="170" y="400" class="tech" text-anchor="middle">/api/contracts/* (CRUD + upload)</text>
+  
+  <rect class="component" x="300" y="370" width="220" height="50"/>
+  <text x="410" y="400" class="tech" text-anchor="middle">/api/contracts/:id/analyze</text>
+  
+  <rect class="component" x="540" y="370" width="220" height="50"/>
+  <text x="650" y="400" class="tech" text-anchor="middle">/api/sales/* (upload + match)</text>
+  
+  <rect class="component" x="780" y="370" width="220" height="50"/>
+  <text x="890" y="400" class="tech" text-anchor="middle">/api/calculate-royalties</text>
+  
+  <rect class="component" x="1020" y="370" width="220" height="50"/>
+  <text x="1130" y="400" class="tech" text-anchor="middle">/api/royalty-calculations/*</text>
+  
+  <rect class="component" x="1260" y="370" width="220" height="50"/>
+  <text x="1370" y="400" class="tech" text-anchor="middle">/api/rag/ask</text>
+
+  <!-- Service Layer -->
+  <rect class="layer" x="30" y="480" width="1540" height="180"/>
+  <text x="50" y="510" class="label" font-weight="bold">SERVICE LAYER (Business Logic)</text>
+  
+  <rect class="service" x="60" y="530" width="200" height="100"/>
+  <text x="160" y="560" class="tech" text-anchor="middle" font-weight="bold">File Service</text>
+  <text x="160" y="580" class="tech" text-anchor="middle">• Multer upload</text>
+  <text x="160" y="595" class="tech" text-anchor="middle">• PDF parsing</text>
+  <text x="160" y="610" class="tech" text-anchor="middle">• Text extraction</text>
+  
+  <rect class="service" x="280" y="530" width="200" height="100"/>
+  <text x="380" y="560" class="tech" text-anchor="middle" font-weight="bold">Analysis Service</text>
+  <text x="380" y="580" class="tech" text-anchor="middle">• Groq integration</text>
+  <text x="380" y="595" class="tech" text-anchor="middle">• Rule extraction</text>
+  <text x="380" y="610" class="tech" text-anchor="middle">• Result parsing</text>
+  
+  <rect class="service" x="500" y="530" width="200" height="100"/>
+  <text x="600" y="560" class="tech" text-anchor="middle" font-weight="bold">Embedding Service</text>
+  <text x="600" y="580" class="tech" text-anchor="middle">• HF integration</text>
+  <text x="600" y="595" class="tech" text-anchor="middle">• Vector generation</text>
+  <text x="600" y="610" class="tech" text-anchor="middle">• Storage</text>
+  
+  <rect class="service" x="720" y="530" width="200" height="100"/>
+  <text x="820" y="560" class="tech" text-anchor="middle" font-weight="bold">Matching Service</text>
+  <text x="820" y="580" class="tech" text-anchor="middle">• Semantic search</text>
+  <text x="820" y="595" class="tech" text-anchor="middle">• LLM validation</text>
+  <text x="820" y="610" class="tech" text-anchor="middle">• Confidence scoring</text>
+  
+  <rect class="service" x="940" y="530" width="200" height="100"/>
+  <text x="1040" y="560" class="tech" text-anchor="middle" font-weight="bold">Calculation Service</text>
+  <text x="1040" y="580" class="tech" text-anchor="middle">• Formula interpreter</text>
+  <text x="1040" y="595" class="tech" text-anchor="middle">• Tier evaluation</text>
+  <text x="1040" y="610" class="tech" text-anchor="middle">• Breakdown gen</text>
+  
+  <rect class="service" x="1160" y="530" width="200" height="100"/>
+  <text x="1260" y="560" class="tech" text-anchor="middle" font-weight="bold">PDF Service</text>
+  <text x="1260" y="580" class="tech" text-anchor="middle">• PDFKit</text>
+  <text x="1260" y="595" class="tech" text-anchor="middle">• Invoice templates</text>
+  <text x="1260" y="610" class="tech" text-anchor="middle">• Buffer generation</text>
+  
+  <rect class="service" x="1380" y="530" width="180" height="100"/>
+  <text x="1470" y="560" class="tech" text-anchor="middle" font-weight="bold">RAG Service</text>
+  <text x="1470" y="580" class="tech" text-anchor="middle">• Query processing</text>
+  <text x="1470" y="595" class="tech" text-anchor="middle">• Context retrieval</text>
+  <text x="1470" y="610" class="tech" text-anchor="middle">• Answer gen</text>
+
+  <!-- Data Layer -->
+  <rect class="layer" x="30" y="700" width="900" height="150"/>
+  <text x="50" y="730" class="label" font-weight="bold">DATA LAYER (PostgreSQL + Drizzle ORM)</text>
+  
+  <rect class="data" x="60" y="750" width="160" height="70"/>
+  <text x="140" y="780" class="tech" text-anchor="middle" font-weight="bold">Storage Interface</text>
+  <text x="140" y="800" class="tech" text-anchor="middle">• IStorage</text>
+  
+  <rect class="data" x="240" y="750" width="160" height="70"/>
+  <text x="320" y="780" class="tech" text-anchor="middle" font-weight="bold">DB Storage</text>
+  <text x="320" y="800" class="tech" text-anchor="middle">• Drizzle queries</text>
+  
+  <rect class="data" x="420" y="750" width="160" height="70"/>
+  <text x="500" y="780" class="tech" text-anchor="middle" font-weight="bold">Vector Ops</text>
+  <text x="500" y="800" class="tech" text-anchor="middle">• pgvector search</text>
+  
+  <rect class="data" x="600" y="750" width="160" height="70"/>
+  <text x="680" y="780" class="tech" text-anchor="middle" font-weight="bold">Transactions</text>
+  <text x="680" y="800" class="tech" text-anchor="middle">• ACID operations</text>
+  
+  <rect class="data" x="780" y="750" width="130" height="70"/>
+  <text x="845" y="780" class="tech" text-anchor="middle" font-weight="bold">Migrations</text>
+  <text x="845" y="800" class="tech" text-anchor="middle">• db:push</text>
+
+  <!-- External Services -->
+  <rect class="layer" x="970" y="700" width="600" height="150"/>
+  <text x="990" y="730" class="label" font-weight="bold">EXTERNAL SERVICES (100% FREE AI)</text>
+  
+  <rect class="external" x="1000" y="750" width="180" height="70"/>
+  <text x="1090" y="780" class="tech" text-anchor="middle" font-weight="bold">Groq LLaMA</text>
+  <text x="1090" y="800" class="tech" text-anchor="middle">Analysis & Validation</text>
+  
+  <rect class="external" x="1200" y="750" width="180" height="70"/>
+  <text x="1290" y="780" class="tech" text-anchor="middle" font-weight="bold">Hugging Face</text>
+  <text x="1290" y="800" class="tech" text-anchor="middle">Embeddings (384-dim)</text>
+  
+  <rect class="external" x="1400" y="750" width="150" height="70"/>
+  <text x="1475" y="780" class="tech" text-anchor="middle" font-weight="bold">Neon DB</text>
+  <text x="1475" y="800" class="tech" text-anchor="middle">Serverless Postgres</text>
+
+  <!-- Arrows showing layer communication -->
+  <path class="arrow" d="M 150 250 L 150 280 L 170 280 L 170 370"/>
+  <path class="arrow" d="M 350 250 L 350 280 L 410 280 L 410 370"/>
+  <path class="arrow" d="M 550 250 L 550 280 L 650 280 L 650 370"/>
+  <path class="arrow" d="M 750 250 L 750 280 L 890 280 L 890 370"/>
+  <path class="arrow" d="M 950 250 L 950 280 L 1130 280 L 1130 370"/>
+  <path class="arrow" d="M 1150 250 L 1150 280 L 1370 280 L 1370 370"/>
+  
+  <path class="arrow" d="M 170 420 L 170 450 L 160 450 L 160 530"/>
+  <path class="arrow" d="M 410 420 L 410 450 L 380 450 L 380 530"/>
+  <path class="arrow" d="M 650 420 L 650 450 L 600 450 L 600 530"/>
+  <path class="arrow" d="M 890 420 L 890 450 L 820 450 L 820 530"/>
+  <path class="arrow" d="M 1130 420 L 1130 450 L 1040 450 L 1040 530"/>
+  <path class="arrow" d="M 1370 420 L 1370 450 L 1470 450 L 1470 530"/>
+  
+  <path class="arrow" d="M 160 630 L 160 670 L 140 670 L 140 750"/>
+  <path class="arrow" d="M 380 630 L 380 670 L 320 670 L 320 750"/>
+  <path class="arrow" d="M 600 630 L 600 670 L 500 670 L 500 750"/>
+  <path class="arrow" d="M 820 630 L 820 670 L 680 670 L 680 750"/>
+  
+  <path class="arrow" d="M 380 630 L 380 650 L 1090 650 L 1090 750"/>
+  <path class="arrow" d="M 600 630 L 600 660 L 1290 660 L 1290 750"/>
+  <path class="arrow" d="M 500 750 L 500 680 L 1475 680 L 1475 750"/>
+
+  <!-- Legend -->
+  <text x="50" y="880" class="tech" font-weight="bold">Legend:</text>
+  <rect class="component" x="150" y="865" width="80" height="20"/>
+  <text x="240" y="880" class="tech">UI Component</text>
+  <rect class="service" x="350" y="865" width="80" height="20"/>
+  <text x="440" y="880" class="tech">Service</text>
+  <rect class="data" x="550" y="865" width="80" height="20"/>
+  <text x="640" y="880" class="tech">Data Layer</text>
+  <rect class="external" x="750" y="865" width="80" height="20"/>
+  <text x="840" y="880" class="tech">External Service</text>
+</svg>

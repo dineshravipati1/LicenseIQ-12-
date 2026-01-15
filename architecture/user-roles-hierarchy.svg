@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="700" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <rect x="50" y="20" width="900" height="60" rx="15" fill="#667eea" filter="url(#shadow)"/>
+  <text x="500" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">
+    User Roles &amp; Access Control Hierarchy
+  </text>
+  
+  <!-- Owner Level -->
+  <rect x="350" y="120" width="300" height="80" rx="15" fill="#ffecd2" stroke="#f59e0b" stroke-width="3" filter="url(#shadow)"/>
+  <circle cx="390" cy="160" r="25" fill="#f59e0b"/>
+  <text x="390" y="168" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white" font-weight="bold">1</text>
+  <text x="440" y="150" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#92400e">OWNER</text>
+  <text x="440" y="170" font-family="Arial, sans-serif" font-size="14" fill="#92400e">Full system control</text>
+  <text x="440" y="185" font-family="Arial, sans-serif" font-size="12" fill="#92400e">All permissions + User management</text>
+  
+  <!-- Admin Level -->
+  <rect x="100" y="250" width="280" height="80" rx="15" fill="#a8edea" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="135" cy="290" r="22" fill="#10b981"/>
+  <text x="135" y="298" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">2</text>
+  <text x="175" y="280" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#065f46">ADMIN</text>
+  <text x="175" y="300" font-family="Arial, sans-serif" font-size="12" fill="#065f46">Contract management</text>
+  <text x="175" y="315" font-family="Arial, sans-serif" font-size="11" fill="#065f46">Create, edit, delete, analyze</text>
+  
+  <rect x="620" y="250" width="280" height="80" rx="15" fill="#a8edea" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="655" cy="290" r="22" fill="#10b981"/>
+  <text x="655" y="298" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">2</text>
+  <text x="695" y="280" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#065f46">ADMIN</text>
+  <text x="695" y="300" font-family="Arial, sans-serif" font-size="12" fill="#065f46">Contract management</text>
+  <text x="695" y="315" font-family="Arial, sans-serif" font-size="11" fill="#065f46">Create, edit, delete, analyze</text>
+  
+  <!-- Editor Level -->
+  <rect x="150" y="380" width="250" height="80" rx="15" fill="#d299c2" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="180" cy="420" r="20" fill="#8b5cf6"/>
+  <text x="180" y="428" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white" font-weight="bold">3</text>
+  <text x="215" y="410" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#581c87">EDITOR</text>
+  <text x="215" y="430" font-family="Arial, sans-serif" font-size="11" fill="#581c87">Create &amp; edit contracts</text>
+  <text x="215" y="445" font-family="Arial, sans-serif" font-size="10" fill="#581c87">Cannot delete or manage users</text>
+  
+  <rect x="600" y="380" width="250" height="80" rx="15" fill="#d299c2" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="630" cy="420" r="20" fill="#8b5cf6"/>
+  <text x="630" y="428" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white" font-weight="bold">3</text>
+  <text x="665" y="410" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#581c87">EDITOR</text>
+  <text x="665" y="430" font-family="Arial, sans-serif" font-size="11" fill="#581c87">Create &amp; edit contracts</text>
+  <text x="665" y="445" font-family="Arial, sans-serif" font-size="10" fill="#581c87">Cannot delete or manage users</text>
+  
+  <!-- Viewer Level -->
+  <rect x="70" y="510" width="220" height="70" rx="15" fill="#89f7fe" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="100" cy="545" r="18" fill="#3b82f6"/>
+  <text x="100" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">4</text>
+  <text x="130" y="535" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e40af">VIEWER</text>
+  <text x="130" y="550" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">Read-only access</text>
+  <text x="130" y="565" font-family="Arial, sans-serif" font-size="9" fill="#1e40af">View contracts &amp; analysis</text>
+  
+  <rect x="320" y="510" width="220" height="70" rx="15" fill="#89f7fe" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="350" cy="545" r="18" fill="#3b82f6"/>
+  <text x="350" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">4</text>
+  <text x="380" y="535" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e40af">VIEWER</text>
+  <text x="380" y="550" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">Read-only access</text>
+  <text x="380" y="565" font-family="Arial, sans-serif" font-size="9" fill="#1e40af">View contracts &amp; analysis</text>
+  
+  <rect x="570" y="510" width="220" height="70" rx="15" fill="#89f7fe" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="600" cy="545" r="18" fill="#3b82f6"/>
+  <text x="600" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">4</text>
+  <text x="630" y="535" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e40af">VIEWER</text>
+  <text x="630" y="550" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">Read-only access</text>
+  <text x="630" y="565" font-family="Arial, sans-serif" font-size="9" fill="#1e40af">View contracts &amp; analysis</text>
+  
+  <!-- Auditor Level -->
+  <rect x="810" y="380" width="140" height="200" rx="15" fill="#fdbb2d" stroke="#ef4444" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="880" cy="420" r="20" fill="#ef4444"/>
+  <text x="880" y="428" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white" font-weight="bold">5</text>
+  <text x="880" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#991b1b">AUDITOR</text>
+  <text x="880" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#991b1b">Special access</text>
+  <text x="880" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#991b1b">View all activity</text>
+  <text x="880" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#991b1b">Access audit trails</text>
+  <text x="880" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#991b1b">Read-only for</text>
+  <text x="880" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#991b1b">compliance</text>
+  <text x="880" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#991b1b">monitoring</text>
+  
+  <!-- Hierarchy Lines -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+     refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4b5563" />
+    </marker>
+  </defs>
+  
+  <!-- Owner to Admins -->
+  <path d="M 450 200 L 240 250" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 550 200 L 760 250" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Admins to Editors -->
+  <path d="M 240 330 L 275 380" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 760 330 L 725 380" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Editors to Viewers -->
+  <path d="M 225 460 L 180 510" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 275 460 L 430 510" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 725 460 L 680 510" stroke="#4b5563" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Owner to Auditor (special relationship) -->
+  <path d="M 600 160 L 810 420" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Permissions Table -->
+  <rect x="50" y="620" width="900" height="70" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="70" y="645" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e293b">Permission Matrix</text>
+  
+  <text x="70" y="665" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">OWNER: Full system access + user management + all contract operations</text>
+  <text x="70" y="680" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">ADMIN: All contract operations (create, edit, delete, analyze) + export data</text>
+  
+  <text x="500" y="665" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">EDITOR: Create &amp; edit contracts + upload files + view analysis</text>
+  <text x="500" y="680" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">VIEWER: Read-only access to contracts and analysis results</text>
+  
+  <text x="750" y="672" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">AUDITOR: Special compliance access to audit trails</text>
+</svg>

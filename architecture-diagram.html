@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ Architecture Diagram</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f7fafc;
+        }
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        .legend-item {
+            display: inline-block;
+            margin-right: 30px;
+            margin-bottom: 10px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 LicenseIQ Platform Architecture</h1>
+        <p class="subtitle">AI-Powered Contract Management & Royalty Calculation Platform</p>
+        
+        <svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Layers -->
+            <rect x="0" y="0" width="1200" height="900" fill="#f7fafc"/>
+            
+            <!-- Layer Labels -->
+            <text x="20" y="40" font-size="18" font-weight="bold" fill="#2d3748">Client Layer</text>
+            <text x="20" y="240" font-size="18" font-weight="bold" fill="#2d3748">API Layer</text>
+            <text x="20" y="440" font-size="18" font-weight="bold" fill="#2d3748">Business Logic</text>
+            <text x="20" y="640" font-size="18" font-weight="bold" fill="#2d3748">Data Layer</text>
+            <text x="920" y="40" font-size="18" font-weight="bold" fill="#2d3748">External AI</text>
+            
+            <!-- Client Layer -->
+            <g id="client-layer">
+                <!-- React Frontend -->
+                <rect x="50" y="60" width="280" height="140" rx="8" fill="#61dafb" stroke="#0088ce" stroke-width="2"/>
+                <text x="190" y="90" text-anchor="middle" font-size="16" font-weight="bold" fill="#000">React Frontend</text>
+                <text x="190" y="115" text-anchor="middle" font-size="12" fill="#000">TypeScript + Vite</text>
+                <text x="190" y="135" text-anchor="middle" font-size="11" fill="#000">• TanStack Query</text>
+                <text x="190" y="150" text-anchor="middle" font-size="11" fill="#000">• React Hook Form</text>
+                <text x="190" y="165" text-anchor="middle" font-size="11" fill="#000">• shadcn/ui + Tailwind</text>
+                <text x="190" y="180" text-anchor="middle" font-size="11" fill="#000">• Wouter Router</text>
+                
+                <!-- Pages -->
+                <rect x="380" y="60" width="220" height="140" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+                <text x="490" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565c0">14 Pages</text>
+                <text x="490" y="110" text-anchor="middle" font-size="10" fill="#1976d2">Dashboard • Contracts</text>
+                <text x="490" y="125" text-anchor="middle" font-size="10" fill="#1976d2">Upload • Analytics</text>
+                <text x="490" y="140" text-anchor="middle" font-size="10" fill="#1976d2">Royalty Calculator • Sales</text>
+                <text x="490" y="155" text-anchor="middle" font-size="10" fill="#1976d2">Rules • Q&A Chat</text>
+                <text x="490" y="170" text-anchor="middle" font-size="10" fill="#1976d2">User Mgmt • Audit</text>
+                <text x="490" y="185" text-anchor="middle" font-size="10" fill="#1976d2">RAG Dashboard</text>
+            </g>
+            
+            <!-- API Layer -->
+            <g id="api-layer">
+                <!-- Express Server -->
+                <rect x="50" y="260" width="280" height="140" rx="8" fill="#90ee90" stroke="#228b22" stroke-width="2"/>
+                <text x="190" y="290" text-anchor="middle" font-size="16" font-weight="bold" fill="#000">Express.js Server</text>
+                <text x="190" y="315" text-anchor="middle" font-size="12" fill="#000">Node.js 20 + TypeScript</text>
+                <text x="190" y="335" text-anchor="middle" font-size="11" fill="#000">• REST API Routes</text>
+                <text x="190" y="350" text-anchor="middle" font-size="11" fill="#000">• Session Authentication</text>
+                <text x="190" y="365" text-anchor="middle" font-size="11" fill="#000">• 5-Tier RBAC</text>
+                <text x="190" y="380" text-anchor="middle" font-size="11" fill="#000">• Zod Validation</text>
+                
+                <!-- Middleware -->
+                <rect x="380" y="260" width="220" height="140" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                <text x="490" y="290" text-anchor="middle" font-size="14" font-weight="bold" fill="#856404">Middleware Pipeline</text>
+                <text x="490" y="315" text-anchor="middle" font-size="11" fill="#856404">🔐 Passport.js Auth</text>
+                <text x="490" y="335" text-anchor="middle" font-size="11" fill="#856404">✅ Input Validation</text>
+                <text x="490" y="355" text-anchor="middle" font-size="11" fill="#856404">🛡️ Permission Checks</text>
+                <text x="490" y="375" text-anchor="middle" font-size="11" fill="#856404">📝 Audit Logging</text>
+            </g>
+            
+            <!-- Business Logic Layer -->
+            <g id="logic-layer">
+                <!-- Storage Interface -->
+                <rect x="50" y="460" width="180" height="140" rx="8" fill="#e1bee7" stroke="#9c27b0" stroke-width="2"/>
+                <text x="140" y="490" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a148c">Storage Interface</text>
+                <text x="140" y="515" text-anchor="middle" font-size="11" fill="#6a1b9a">IStorage Pattern</text>
+                <text x="140" y="535" text-anchor="middle" font-size="10" fill="#6a1b9a">• CRUD Operations</text>
+                <text x="140" y="550" text-anchor="middle" font-size="10" fill="#6a1b9a">• Type-Safe Queries</text>
+                <text x="140" y="565" text-anchor="middle" font-size="10" fill="#6a1b9a">• Transaction Mgmt</text>
+                <text x="140" y="580" text-anchor="middle" font-size="10" fill="#6a1b9a">• Drizzle ORM</text>
+                
+                <!-- Calculation Engine -->
+                <rect x="260" y="460" width="180" height="140" rx="8" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+                <text x="350" y="490" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Calculation Engine</text>
+                <text x="350" y="515" text-anchor="middle" font-size="11" fill="#ef6c00">Formula Interpreter</text>
+                <text x="350" y="535" text-anchor="middle" font-size="10" fill="#ef6c00">• Volume Tiers</text>
+                <text x="350" y="550" text-anchor="middle" font-size="10" fill="#ef6c00">• Seasonal Adjust</text>
+                <text x="350" y="565" text-anchor="middle" font-size="10" fill="#ef6c00">• Multi-Party Splits</text>
+                <text x="350" y="580" text-anchor="middle" font-size="10" fill="#ef6c00">• FormulaNode Trees</text>
+                
+                <!-- PDF Generator -->
+                <rect x="470" y="460" width="180" height="140" rx="8" fill="#ffccbc" stroke="#ff5722" stroke-width="2"/>
+                <text x="560" y="490" text-anchor="middle" font-size="14" font-weight="bold" fill="#bf360c">PDF Generator</text>
+                <text x="560" y="515" text-anchor="middle" font-size="11" fill="#d84315">html-pdf-node</text>
+                <text x="560" y="535" text-anchor="middle" font-size="10" fill="#d84315">• Detailed Invoices</text>
+                <text x="560" y="550" text-anchor="middle" font-size="10" fill="#d84315">• Summary Reports</text>
+                <text x="560" y="565" text-anchor="middle" font-size="10" fill="#d84315">• Branded Templates</text>
+                <text x="560" y="580" text-anchor="middle" font-size="10" fill="#d84315">• Calculation Breakdown</text>
+            </g>
+            
+            <!-- Data Layer -->
+            <g id="data-layer">
+                <!-- PostgreSQL -->
+                <rect x="50" y="660" width="220" height="180" rx="8" fill="#b3e5fc" stroke="#0277bd" stroke-width="2"/>
+                <text x="160" y="690" text-anchor="middle" font-size="16" font-weight="bold" fill="#01579b">PostgreSQL 15+</text>
+                <text x="160" y="715" text-anchor="middle" font-size="12" fill="#0277bd">Neon Serverless</text>
+                <text x="160" y="740" text-anchor="middle" font-size="11" fill="#0277bd">📊 Drizzle ORM</text>
+                <text x="160" y="760" text-anchor="middle" font-size="11" fill="#0277bd">🔍 pgvector Extension</text>
+                <text x="160" y="780" text-anchor="middle" font-size="11" fill="#0277bd">⚡ HNSW Index</text>
+                <text x="160" y="800" text-anchor="middle" font-size="11" fill="#0277bd">🔐 Session Store</text>
+                <text x="160" y="820" text-anchor="middle" font-size="10" fill="#0277bd">384-dim Vector Search</text>
+                
+                <!-- File System -->
+                <rect x="300" y="660" width="200" height="180" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="400" y="690" text-anchor="middle" font-size="16" font-weight="bold" fill="#1b5e20">File System</text>
+                <text x="400" y="715" text-anchor="middle" font-size="12" fill="#2e7d32">Server Storage</text>
+                <text x="400" y="740" text-anchor="middle" font-size="11" fill="#2e7d32">📄 Contract PDFs</text>
+                <text x="400" y="760" text-anchor="middle" font-size="11" fill="#2e7d32">📤 Multer Upload</text>
+                <text x="400" y="780" text-anchor="middle" font-size="11" fill="#2e7d32">✅ Type Validation</text>
+                <text x="400" y="800" text-anchor="middle" font-size="11" fill="#2e7d32">📏 Size Limits (10MB)</text>
+                <text x="400" y="820" text-anchor="middle" font-size="10" fill="#2e7d32">/uploads directory</text>
+                
+                <!-- Redis Cache (Future) -->
+                <rect x="530" y="660" width="180" height="180" rx="8" fill="#f0f0f0" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="620" y="690" text-anchor="middle" font-size="14" font-weight="bold" fill="#666">Future: Redis</text>
+                <text x="620" y="715" text-anchor="middle" font-size="11" fill="#666">Session Cache</text>
+                <text x="620" y="735" text-anchor="middle" font-size="10" fill="#666">• Query Caching</text>
+                <text x="620" y="750" text-anchor="middle" font-size="10" fill="#666">• Rate Limiting</text>
+                <text x="620" y="765" text-anchor="middle" font-size="10" fill="#666">• Real-time Events</text>
+                <text x="620" y="790" text-anchor="middle" font-size="9" fill="#999">(Planned Enhancement)</text>
+            </g>
+            
+            <!-- External AI Services -->
+            <g id="ai-services">
+                <!-- Groq LLaMA -->
+                <rect x="950" y="60" width="220" height="160" rx="8" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+                <text x="1060" y="90" text-anchor="middle" font-size="16" font-weight="bold" fill="#880e4f">Groq API</text>
+                <text x="1060" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#ad1457">LLaMA 3.1 8B Instant</text>
+                <text x="1060" y="140" text-anchor="middle" font-size="11" fill="#c2185b">🧠 Contract Analysis</text>
+                <text x="1060" y="155" text-anchor="middle" font-size="11" fill="#c2185b">📝 Rule Extraction</text>
+                <text x="1060" y="170" text-anchor="middle" font-size="11" fill="#c2185b">✅ Match Validation</text>
+                <text x="1060" y="185" text-anchor="middle" font-size="11" fill="#c2185b">💬 RAG Answers</text>
+                <text x="1060" y="205" text-anchor="middle" font-size="10" fill="#d81b60">⚡ 500+ tokens/sec</text>
+                
+                <!-- Hugging Face -->
+                <rect x="950" y="250" width="220" height="160" rx="8" fill="#fff9c4" stroke="#f57f17" stroke-width="2"/>
+                <text x="1060" y="280" text-anchor="middle" font-size="16" font-weight="bold" fill="#f57f17">Hugging Face</text>
+                <text x="1060" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#f9a825">bge-small-en-v1.5</text>
+                <text x="1060" y="330" text-anchor="middle" font-size="11" fill="#f9a825">🔢 Embeddings (384-dim)</text>
+                <text x="1060" y="345" text-anchor="middle" font-size="11" fill="#f9a825">📊 Contract Vectors</text>
+                <text x="1060" y="360" text-anchor="middle" font-size="11" fill="#f9a825">🛒 Sales Vectors</text>
+                <text x="1060" y="375" text-anchor="middle" font-size="11" fill="#f9a825">❓ Question Vectors</text>
+                <text x="1060" y="395" text-anchor="middle" font-size="10" fill="#f57f17">🆓 Free Unlimited</text>
+            </g>
+            
+            <!-- Connection Lines -->
+            <!-- Client to API -->
+            <line x1="190" y1="200" x2="190" y2="260" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <text x="210" y="235" font-size="10" fill="#4a5568">REST API</text>
+            
+            <!-- API to Logic -->
+            <line x1="190" y1="400" x2="190" y2="460" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+            
+            <!-- Logic to Data -->
+            <line x1="140" y1="600" x2="140" y2="660" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+            
+            <!-- API to Groq -->
+            <line x1="600" y1="300" x2="950" y2="140" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead-ai)"/>
+            <text x="740" y="200" font-size="10" fill="#e91e63">AI Analysis</text>
+            
+            <!-- API to HuggingFace -->
+            <line x1="600" y1="320" x2="950" y2="330" stroke="#fbc02d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead-ai)"/>
+            <text x="740" y="330" font-size="10" fill="#fbc02d">Embeddings</text>
+            
+            <!-- Arrow markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#4a5568"/>
+                </marker>
+                <marker id="arrowhead-ai" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#e91e63"/>
+                </marker>
+            </defs>
+            
+            <!-- Key Metrics Box -->
+            <rect x="730" y="460" width="440" height="180" rx="8" fill="#f0f4f8" stroke="#cbd5e0" stroke-width="2"/>
+            <text x="950" y="490" text-anchor="middle" font-size="16" font-weight="bold" fill="#2d3748">🎯 Key Metrics</text>
+            
+            <text x="760" y="520" font-size="12" font-weight="bold" fill="#1a202c">Performance:</text>
+            <text x="760" y="540" font-size="11" fill="#4a5568">• Contract Upload: &lt;1s (file save)</text>
+            <text x="760" y="555" font-size="11" fill="#4a5568">• AI Analysis: 10-30s (async)</text>
+            <text x="760" y="570" font-size="11" fill="#4a5568">• Vector Search: &lt;50ms (HNSW)</text>
+            <text x="760" y="585" font-size="11" fill="#4a5568">• Royalty Calc: &lt;2s</text>
+            
+            <text x="950" y="520" font-size="12" font-weight="bold" fill="#1a202c">Scale:</text>
+            <text x="950" y="540" font-size="11" fill="#4a5568">• Concurrent Users: 100+</text>
+            <text x="950" y="555" font-size="11" fill="#4a5568">• Contracts: 10,000+</text>
+            <text x="950" y="570" font-size="11" fill="#4a5568">• Sales Records: 1M+</text>
+            <text x="950" y="585" font-size="11" fill="#4a5568">• Embeddings: 100K+</text>
+            
+            <text x="760" y="615" font-size="12" font-weight="bold" fill="#1a202c">Value:</text>
+            <text x="760" y="630" font-size="11" fill="#16a34a">✓ 95% time reduction (10-40h → 30min)</text>
+        </svg>
+        
+        <div class="legend">
+            <h3>Technology Stack Legend</h3>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #61dafb;"></span>
+                <span>Frontend (React)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #90ee90;"></span>
+                <span>Backend (Express)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #e1bee7;"></span>
+                <span>Business Logic</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #b3e5fc;"></span>
+                <span>Database (PostgreSQL)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #fce4ec;"></span>
+                <span>AI Services (Groq)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #fff9c4;"></span>
+                <span>Embeddings (HF)</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ Technical Implementation Roadmap - From Vision to Reality</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #10b981;
+            --accent-secondary: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%);
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --section-bg: #f0fdf4;
+            --section-bg-alt: #eff6ff;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .hero .meta {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 30px 0 15px;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--accent-secondary);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            font-size: 1rem;
+            color: var(--text);
+            margin: 15px 0 8px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-green {
+            background: var(--section-bg);
+            padding: 50px 40px;
+            margin: 0 -40px 50px;
+        }
+
+        .section-blue {
+            background: var(--section-bg-alt);
+            padding: 50px 40px;
+            margin: 0 -40px 50px;
+        }
+
+        .toc {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .toc ol {
+            margin-left: 25px;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .status-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+        }
+
+        .status-card.done {
+            border-color: var(--success);
+        }
+
+        .status-card.partial {
+            border-color: var(--warning);
+        }
+
+        .status-card.planned {
+            border-color: var(--info);
+        }
+
+        .status-card.future {
+            border-color: var(--text-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .status-badge.done {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.partial {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge.planned {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.future {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tech-table th, .tech-table td {
+            padding: 15px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tech-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .tech-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .tech-table code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        .phase-block {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+        }
+
+        .phase-block.phase1 {
+            border-color: var(--success);
+        }
+
+        .phase-block.phase2 {
+            border-color: var(--warning);
+        }
+
+        .phase-block.phase3 {
+            border-color: var(--info);
+        }
+
+        .phase-block.phase4 {
+            border-color: #8b5cf6;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .phase-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .phase1 .phase-number { background: var(--success); }
+        .phase2 .phase-number { background: var(--warning); }
+        .phase3 .phase-number { background: var(--info); }
+        .phase4 .phase-number { background: #8b5cf6; }
+
+        .model-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .model-card h4 {
+            color: #60a5fa;
+            margin-top: 0;
+        }
+
+        .model-card ul {
+            margin-left: 20px;
+        }
+
+        .model-card li {
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .model-card code {
+            background: rgba(255,255,255,0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .infra-diagram {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .checklist {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .checklist h5 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--text-light);
+        }
+
+        .checklist li.done::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--warning);
+            margin: 20px 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .code-block .comment {
+            color: #64748b;
+        }
+
+        .code-block .keyword {
+            color: #f472b6;
+        }
+
+        .code-block .string {
+            color: #a5f3fc;
+        }
+
+        .code-block .function {
+            color: #fbbf24;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 25px 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+        }
+
+        @media print {
+            .phase-block, .status-card, .model-card {
+                break-inside: avoid;
+            }
+            body {
+                font-size: 10pt;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>Technical Implementation Roadmap</h1>
+        <p class="subtitle">From Current State to World-Class AI Calculation Platform</p>
+        <p class="meta">LicenseIQ Research Platform | Comprehensive Technical Strategy</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#current-state">Current State Assessment</a></li>
+            <li><a href="#ai-ml">AI/ML Model Strategy</a></li>
+            <li><a href="#infrastructure">Infrastructure Architecture</a></li>
+            <li><a href="#data-layer">Data Layer & Database</a></li>
+            <li><a href="#integration">Integration Framework</a></li>
+            <li><a href="#security">Security & Compliance</a></li>
+            <li><a href="#scalability">Scalability & Performance</a></li>
+            <li><a href="#implementation">Implementation Phases</a></li>
+            <li><a href="#monitoring">Monitoring & Observability</a></li>
+            <li><a href="#cost">Cost Optimization</a></li>
+        </ol>
+    </div>
+
+    <section id="current-state" class="section">
+        <h2>1. Current State Assessment</h2>
+        <p>Analysis of existing LicenseIQ platform capabilities and technical foundation:</p>
+
+        <h3>Existing Features (Production Ready)</h3>
+        <div class="status-grid">
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>AI Contract Reading & Analysis</h4>
+                <p>Automated term extraction, risk assessment using Groq API with LLaMA 3.3 70B model.</p>
+            </div>
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>Multi-Tenant Architecture</h4>
+                <p>3-level hierarchy: Companies → Business Units → Locations with full RBAC enforcement.</p>
+            </div>
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>Dynamic Rule Engine</h4>
+                <p>FormulaNode JSON expression trees for payment calculations with AI extraction.</p>
+            </div>
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>RAG-Powered Q&A (liQ AI)</h4>
+                <p>Document Q&A with source citations using HuggingFace embeddings.</p>
+            </div>
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>ERP Integration Hub</h4>
+                <p>Universal connector framework with AI field mapping, version control, approval workflows.</p>
+            </div>
+            <div class="status-card done">
+                <span class="status-badge done">Complete</span>
+                <h4>Payment Calculator</h4>
+                <p>Centralized calculation engine with run history and PDF invoice generation.</p>
+            </div>
+        </div>
+
+        <h3>Partially Implemented Features</h3>
+        <div class="status-grid">
+            <div class="status-card partial">
+                <span class="status-badge partial">In Progress</span>
+                <h4>AI Sales Matching</h4>
+                <p>Semantic matching against contract embeddings. Needs enhanced accuracy and batch processing.</p>
+            </div>
+            <div class="status-card partial">
+                <span class="status-badge partial">In Progress</span>
+                <h4>Knowledge Graph</h4>
+                <p>Database schema supports relationships. Full graph traversal and visualization needed.</p>
+            </div>
+            <div class="status-card partial">
+                <span class="status-badge partial">In Progress</span>
+                <h4>Real-Time ERP Sync</h4>
+                <p>Manual import works. Scheduled sync and webhook triggers needed.</p>
+            </div>
+        </div>
+
+        <h3>Current Technology Stack</h3>
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Layer</th>
+                    <th>Technology</th>
+                    <th>Status</th>
+                    <th>Next Steps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Frontend</td>
+                    <td>React, TypeScript, Vite, TailwindCSS, shadcn/ui</td>
+                    <td>✅ Production</td>
+                    <td>Add real-time collaboration</td>
+                </tr>
+                <tr>
+                    <td>Backend</td>
+                    <td>Express.js, TypeScript, Node.js</td>
+                    <td>✅ Production</td>
+                    <td>Add message queue, workers</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>PostgreSQL (Neon), Drizzle ORM, pgvector</td>
+                    <td>✅ Production</td>
+                    <td>Add Redis cache, read replicas</td>
+                </tr>
+                <tr>
+                    <td>AI/LLM</td>
+                    <td>Groq API (LLaMA 3.3 70B), HuggingFace embeddings</td>
+                    <td>✅ Production</td>
+                    <td>Add fine-tuned models, fallbacks</td>
+                </tr>
+                <tr>
+                    <td>Auth</td>
+                    <td>Passport.js, session-based</td>
+                    <td>✅ Production</td>
+                    <td>Add SSO, OAuth2 providers</td>
+                </tr>
+                <tr>
+                    <td>File Storage</td>
+                    <td>Multer, local filesystem</td>
+                    <td>⚠️ Basic</td>
+                    <td>Migrate to S3/R2 object storage</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="ai-ml" class="section-green">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2>2. AI/ML Model Strategy</h2>
+            <p>Comprehensive approach to building, training, and deploying AI models for the universal calculation platform.</p>
+
+            <h3>2.1 Model Architecture Overview</h3>
+            <div class="model-card">
+                <h4>Multi-Model Ensemble Design</h4>
+                <p>LicenseIQ requires specialized models for different tasks rather than relying on a single general-purpose LLM:</p>
+                <ul>
+                    <li><strong>Document Understanding Model:</strong> Extract structured data from contracts (PDFs, images, scans)</li>
+                    <li><strong>Entity Extraction Model:</strong> Identify parties, dates, amounts, territories, products</li>
+                    <li><strong>Rule Generation Model:</strong> Convert natural language to executable calculation logic</li>
+                    <li><strong>Semantic Search Model:</strong> Vector embeddings for contract similarity and Q&A</li>
+                    <li><strong>Anomaly Detection Model:</strong> Identify unusual calculations, fraud patterns</li>
+                    <li><strong>Classification Model:</strong> Contract type, risk level, industry categorization</li>
+                </ul>
+            </div>
+
+            <h3>2.2 Current AI Implementation</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Current Implementation</th>
+                        <th>Model</th>
+                        <th>Limitations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Contract Analysis</td>
+                        <td>Zero-shot prompting</td>
+                        <td><code>llama-3.3-70b-versatile</code></td>
+                        <td>No domain fine-tuning, prompt engineering required</td>
+                    </tr>
+                    <tr>
+                        <td>Document Q&A</td>
+                        <td>RAG with embeddings</td>
+                        <td><code>sentence-transformers</code></td>
+                        <td>Generic embeddings, not optimized for legal/financial</td>
+                    </tr>
+                    <tr>
+                        <td>Field Mapping</td>
+                        <td>LLM-based matching</td>
+                        <td><code>llama-3.3-70b-versatile</code></td>
+                        <td>Expensive, could use smaller specialized model</td>
+                    </tr>
+                    <tr>
+                        <td>Risk Assessment</td>
+                        <td>Rule + LLM hybrid</td>
+                        <td><code>llama-3.3-70b-versatile</code></td>
+                        <td>Needs training data for domain-specific risks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2.3 Model Development Roadmap</h3>
+
+            <div class="phase-block phase1">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <div>
+                        <h4 style="margin: 0;">Foundation Models (Months 1-6)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Optimize existing capabilities</p>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Prompt Engineering Library:</strong> Curated prompts for each extraction type with version control</li>
+                    <li><strong>Domain-Specific Embeddings:</strong> Fine-tune embedding model on legal/financial corpus</li>
+                    <li><strong>Evaluation Framework:</strong> Build test suites with ground truth for accuracy measurement</li>
+                    <li><strong>Fallback Chain:</strong> Primary → Secondary → Tertiary model fallbacks for reliability</li>
+                </ul>
+                <div class="code-block">
+                    <span class="comment">// Example: Model fallback chain</span><br>
+                    <span class="keyword">const</span> <span class="function">extractContractTerms</span> = <span class="keyword">async</span> (document) => {<br>
+                    &nbsp;&nbsp;<span class="keyword">try</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return await</span> groqClient.extract(document); <span class="comment">// Primary: Groq LLaMA</span><br>
+                    &nbsp;&nbsp;} <span class="keyword">catch</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return await</span> openaiClient.extract(document); <span class="comment">// Fallback: OpenAI</span><br>
+                    &nbsp;&nbsp;}<br>
+                    };
+                </div>
+            </div>
+
+            <div class="phase-block phase2">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <div>
+                        <h4 style="margin: 0;">Fine-Tuned Models (Months 6-12)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Domain-specific optimization</p>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Contract Entity Extractor:</strong> Fine-tune LayoutLM or Donut for document structure understanding</li>
+                    <li><strong>Calculation Rule Generator:</strong> Train model to output FormulaNode JSON from natural language</li>
+                    <li><strong>Industry Classifier:</strong> Multi-label classification for contract categorization</li>
+                    <li><strong>Risk Scorer:</strong> Regression model for contract risk assessment</li>
+                </ul>
+                <div class="highlight-box">
+                    <h5>Training Data Strategy</h5>
+                    <ul>
+                        <li><strong>Synthetic Data Generation:</strong> Use GPT-4 to generate labeled contract examples</li>
+                        <li><strong>Customer Data (Anonymized):</strong> Build datasets from opt-in customer contracts</li>
+                        <li><strong>Public Legal Datasets:</strong> SEC filings, court documents, published agreements</li>
+                        <li><strong>Active Learning:</strong> Human-in-the-loop corrections feed back into training</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="phase-block phase3">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <div>
+                        <h4 style="margin: 0;">Advanced Models (Year 2+)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Proprietary AI advantages</p>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Calculation Intent Language (CIL) Compiler:</strong> Custom model converting natural language to CIL</li>
+                    <li><strong>Autonomous Negotiation Agent:</strong> RL-based agent for contract term optimization</li>
+                    <li><strong>Predictive Analytics:</strong> Time-series models for revenue forecasting</li>
+                    <li><strong>Multi-Modal Understanding:</strong> Process images, handwritten notes, voice recordings</li>
+                </ul>
+            </div>
+
+            <h3>2.4 Model Training Infrastructure</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Tool/Service</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Compute</td>
+                        <td>Modal, RunPod, or AWS SageMaker</td>
+                        <td>On-demand GPU for training</td>
+                    </tr>
+                    <tr>
+                        <td>Experiment Tracking</td>
+                        <td>Weights & Biases or MLflow</td>
+                        <td>Track runs, compare models</td>
+                    </tr>
+                    <tr>
+                        <td>Data Versioning</td>
+                        <td>DVC or LakeFS</td>
+                        <td>Version control for datasets</td>
+                    </tr>
+                    <tr>
+                        <td>Model Registry</td>
+                        <td>HuggingFace Hub or MLflow</td>
+                        <td>Store and version models</td>
+                    </tr>
+                    <tr>
+                        <td>Fine-Tuning</td>
+                        <td>Unsloth, Axolotl, or LoRA</td>
+                        <td>Efficient fine-tuning of LLMs</td>
+                    </tr>
+                    <tr>
+                        <td>Evaluation</td>
+                        <td>LangSmith, Promptfoo, or custom</td>
+                        <td>LLM output evaluation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2.5 Inference Architecture</h3>
+            <div class="model-card">
+                <h4>Production Inference Strategy</h4>
+                <ul>
+                    <li><strong>API Gateway:</strong> Unified endpoint routing to appropriate model based on task</li>
+                    <li><strong>Load Balancing:</strong> Distribute requests across model replicas</li>
+                    <li><strong>Caching Layer:</strong> Redis cache for repeated identical queries</li>
+                    <li><strong>Queue System:</strong> Bull/BullMQ for async batch processing</li>
+                    <li><strong>Fallback Chain:</strong> Automatic failover between providers (Groq → OpenAI → Anthropic)</li>
+                    <li><strong>Cost Optimization:</strong> Route simple tasks to cheaper/faster models</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+                <span class="comment">// Inference routing example</span><br>
+                <span class="keyword">const</span> <span class="function">routeToModel</span> = (task, complexity) => {<br>
+                &nbsp;&nbsp;<span class="keyword">if</span> (task === <span class="string">'classification'</span> && complexity === <span class="string">'low'</span>) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">'llama-3.1-8b-instant'</span>; <span class="comment">// Fast, cheap</span><br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="keyword">if</span> (task === <span class="string">'extraction'</span> && complexity === <span class="string">'high'</span>) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">'llama-3.3-70b-versatile'</span>; <span class="comment">// Most capable</span><br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="keyword">return</span> <span class="string">'llama-3.1-70b-versatile'</span>; <span class="comment">// Default</span><br>
+                };
+            </div>
+        </div>
+    </section>
+
+    <section id="infrastructure" class="section">
+        <h2>3. Infrastructure Architecture</h2>
+
+        <h3>3.1 Current Architecture</h3>
+        <div class="infra-diagram">
+            <h4 style="margin-top: 0;">Current Setup (Development/MVP)</h4>
+            <pre style="font-family: monospace; font-size: 0.9rem;">
+┌─────────────────────────────────────────────────────────────────┐
+│                        Replit Environment                        │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
+│  │   Vite      │  │   Express   │  │   PostgreSQL (Neon)     │ │
+│  │  Frontend   │──│   Backend   │──│   + pgvector            │ │
+│  │  Port 5000  │  │   API       │  │   Serverless            │ │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
+│                          │                                       │
+│                          ▼                                       │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │              External AI Services                         │  │
+│  │  ┌─────────┐  ┌───────────────┐  ┌─────────────────────┐ │  │
+│  │  │  Groq   │  │  HuggingFace  │  │  OpenAI (Optional)  │ │  │
+│  │  │  LLaMA  │  │  Embeddings   │  │  Fallback           │ │  │
+│  │  └─────────┘  └───────────────┘  └─────────────────────┘ │  │
+│  └──────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <h3>3.2 Target Production Architecture</h3>
+        <div class="infra-diagram">
+            <h4 style="margin-top: 0;">Production Architecture (Hostinger VPS + Cloud Services)</h4>
+            <pre style="font-family: monospace; font-size: 0.85rem;">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CDN (Cloudflare)                                │
+│                          qa.licenseiq.ai, *.licenseiq.ai                     │
+└───────────────────────────────────┬─────────────────────────────────────────┘
+                                    │
+┌───────────────────────────────────▼─────────────────────────────────────────┐
+│                          Load Balancer (Nginx)                               │
+│                          SSL Termination, Rate Limiting                      │
+└───────────────────────────────────┬─────────────────────────────────────────┘
+                                    │
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐          ┌───────────────┐          ┌───────────────┐
+│   Frontend    │          │   API Server  │          │   API Server  │
+│   (Static)    │          │   Instance 1  │          │   Instance 2  │
+│   Nginx/CDN   │          │   Node.js     │          │   Node.js     │
+└───────────────┘          └───────┬───────┘          └───────┬───────┘
+                                   │                           │
+        ┌──────────────────────────┴───────────────────────────┘
+        │
+        ▼
+┌───────────────────────────────────────────────────────────────────┐
+│                         Data Layer                                 │
+├─────────────────┬─────────────────┬─────────────────┬─────────────┤
+│   PostgreSQL    │     Redis       │   Object Store  │   Queue     │
+│   (Neon/RDS)    │    (Cache)      │   (S3/R2)       │   (BullMQ)  │
+│   Primary +     │   Session,      │   Documents,    │   Async     │
+│   Read Replica  │   Cache, Pub/Sub│   Exports       │   Jobs      │
+└─────────────────┴─────────────────┴─────────────────┴─────────────┘
+                                   │
+                                   ▼
+┌───────────────────────────────────────────────────────────────────┐
+│                      AI/ML Services Layer                          │
+├─────────────────┬─────────────────┬─────────────────┬─────────────┤
+│   Groq API      │   OpenAI        │   HuggingFace   │   Custom    │
+│   (Primary)     │   (Fallback)    │   (Embeddings)  │   (Future)  │
+└─────────────────┴─────────────────┴─────────────────┴─────────────┘
+            </pre>
+        </div>
+
+        <h3>3.3 Infrastructure Components</h3>
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Current</th>
+                    <th>Target</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Compute</td>
+                    <td>Replit (development)</td>
+                    <td>Hostinger VPS / AWS EC2</td>
+                    <td>🔴 High</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>Neon PostgreSQL</td>
+                    <td>Neon Pro + Read Replicas</td>
+                    <td>🟡 Medium</td>
+                </tr>
+                <tr>
+                    <td>Cache</td>
+                    <td>None (in-memory)</td>
+                    <td>Redis (Upstash or self-hosted)</td>
+                    <td>🔴 High</td>
+                </tr>
+                <tr>
+                    <td>File Storage</td>
+                    <td>Local filesystem</td>
+                    <td>Cloudflare R2 / AWS S3</td>
+                    <td>🔴 High</td>
+                </tr>
+                <tr>
+                    <td>Queue</td>
+                    <td>Synchronous</td>
+                    <td>BullMQ with Redis</td>
+                    <td>🟡 Medium</td>
+                </tr>
+                <tr>
+                    <td>CDN</td>
+                    <td>None</td>
+                    <td>Cloudflare</td>
+                    <td>🟡 Medium</td>
+                </tr>
+                <tr>
+                    <td>Monitoring</td>
+                    <td>Console logs</td>
+                    <td>Grafana + Prometheus / Datadog</td>
+                    <td>🟡 Medium</td>
+                </tr>
+                <tr>
+                    <td>CI/CD</td>
+                    <td>Manual deploy</td>
+                    <td>GitHub Actions + Docker</td>
+                    <td>🔴 High</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.4 Deployment Strategy</h3>
+        <div class="checklist">
+            <h5>Hostinger VPS Deployment Checklist</h5>
+            <ul>
+                <li>Set up VPS with Ubuntu 22.04 LTS</li>
+                <li>Install Node.js 20 LTS, PM2 process manager</li>
+                <li>Configure Nginx as reverse proxy</li>
+                <li>Set up SSL with Let's Encrypt (Certbot)</li>
+                <li>Configure PostgreSQL connection pooling (PgBouncer)</li>
+                <li>Set up Redis for session store and caching</li>
+                <li>Configure firewall (UFW) with only necessary ports</li>
+                <li>Set up automated backups</li>
+                <li>Configure monitoring with Netdata or similar</li>
+                <li>Set up CI/CD pipeline with GitHub Actions</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="data-layer" class="section-blue">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2>4. Data Layer & Database</h2>
+
+            <h3>4.1 Current Schema Overview</h3>
+            <p>LicenseIQ uses PostgreSQL with Drizzle ORM. Key table groups:</p>
+
+            <div class="status-grid">
+                <div class="status-card done">
+                    <h4>Core Entities</h4>
+                    <ul style="font-size: 0.9rem;">
+                        <li><code>users</code> - User accounts</li>
+                        <li><code>companies</code> - Top-level organizations</li>
+                        <li><code>business_units</code> - Mid-level hierarchy</li>
+                        <li><code>locations</code> - Operational locations</li>
+                        <li><code>contracts</code> - Agreement records</li>
+                    </ul>
+                </div>
+                <div class="status-card done">
+                    <h4>AI/Analysis</h4>
+                    <ul style="font-size: 0.9rem;">
+                        <li><code>contract_analysis</code> - AI extraction results</li>
+                        <li><code>royalty_rules</code> - Calculation rules</li>
+                        <li><code>embeddings</code> - Vector storage (pgvector)</li>
+                        <li><code>chat_sessions</code> - Q&A history</li>
+                    </ul>
+                </div>
+                <div class="status-card done">
+                    <h4>ERP Integration</h4>
+                    <ul style="font-size: 0.9rem;">
+                        <li><code>erp_systems</code> - ERP configurations</li>
+                        <li><code>erp_entities</code> - Data entities</li>
+                        <li><code>erp_fields</code> - Entity fields</li>
+                        <li><code>master_data_mappings</code> - Field mappings</li>
+                        <li><code>imported_erp_records</code> - Imported data</li>
+                    </ul>
+                </div>
+                <div class="status-card done">
+                    <h4>Calculations</h4>
+                    <ul style="font-size: 0.9rem;">
+                        <li><code>sales_data</code> - Revenue records</li>
+                        <li><code>calculation_runs</code> - Execution history</li>
+                        <li><code>calculation_results</code> - Output data</li>
+                        <li><code>invoices</code> - Generated invoices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>4.2 Database Enhancements Needed</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Enhancement</th>
+                        <th>Description</th>
+                        <th>Impact</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Read Replicas</td>
+                        <td>Separate read/write traffic for analytics queries</td>
+                        <td>Performance</td>
+                        <td>🟡 Medium</td>
+                    </tr>
+                    <tr>
+                        <td>Connection Pooling</td>
+                        <td>PgBouncer for efficient connection management</td>
+                        <td>Scalability</td>
+                        <td>🔴 High</td>
+                    </tr>
+                    <tr>
+                        <td>Partitioning</td>
+                        <td>Partition large tables by date/tenant</td>
+                        <td>Performance</td>
+                        <td>🟢 Future</td>
+                    </tr>
+                    <tr>
+                        <td>Audit Tables</td>
+                        <td>Comprehensive change tracking for compliance</td>
+                        <td>Compliance</td>
+                        <td>🔴 High</td>
+                    </tr>
+                    <tr>
+                        <td>Vector Indexing</td>
+                        <td>Optimize pgvector with IVFFlat/HNSW indexes</td>
+                        <td>AI Performance</td>
+                        <td>🟡 Medium</td>
+                    </tr>
+                    <tr>
+                        <td>Materialized Views</td>
+                        <td>Pre-computed aggregations for dashboards</td>
+                        <td>Performance</td>
+                        <td>🟡 Medium</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>4.3 New Tables for Vision Features</h3>
+            <div class="model-card">
+                <h4>Calculation Genome (Universal Rules Library)</h4>
+                <ul>
+                    <li><code>calculation_templates</code> - Reusable calculation patterns</li>
+                    <li><code>template_versions</code> - Version history for templates</li>
+                    <li><code>industry_categories</code> - Industry classification</li>
+                    <li><code>template_usage_stats</code> - Analytics on template adoption</li>
+                </ul>
+            </div>
+            <div class="model-card">
+                <h4>Enhanced AI Capabilities</h4>
+                <ul>
+                    <li><code>model_predictions</code> - Store AI predictions with confidence scores</li>
+                    <li><code>human_corrections</code> - Track corrections for active learning</li>
+                    <li><code>prompt_templates</code> - Versioned prompt management</li>
+                    <li><code>ai_evaluation_runs</code> - Model accuracy tracking</li>
+                </ul>
+            </div>
+            <div class="model-card">
+                <h4>Advanced Analytics</h4>
+                <ul>
+                    <li><code>revenue_forecasts</code> - Predictive analytics results</li>
+                    <li><code>anomaly_detections</code> - Flagged unusual calculations</li>
+                    <li><code>benchmark_comparisons</code> - Industry benchmark data</li>
+                    <li><code>simulation_scenarios</code> - What-if analysis storage</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="integration" class="section">
+        <h2>5. Integration Framework</h2>
+
+        <h3>5.1 Current ERP Integration Capabilities</h3>
+        <div class="highlight-box">
+            <h5>What's Already Built</h5>
+            <ul>
+                <li class="done">Universal ERP Catalog System (frontend-managed)</li>
+                <li class="done">AI-powered field mapping with schema auto-population</li>
+                <li class="done">OAuth2, API Key, and Basic Auth support</li>
+                <li class="done">Import job management with version history</li>
+                <li class="done">Pre-import data filtering with complex criteria</li>
+                <li class="done">Approval workflows for production imports</li>
+            </ul>
+        </div>
+
+        <h3>5.2 Integration Roadmap</h3>
+        <div class="phase-block phase1">
+            <div class="phase-header">
+                <div class="phase-number">1</div>
+                <div>
+                    <h4 style="margin: 0;">Scheduled Sync (Next 3 Months)</h4>
+                </div>
+            </div>
+            <ul>
+                <li><strong>Cron-based Scheduling:</strong> Run imports on configurable schedules (hourly, daily, weekly)</li>
+                <li><strong>Delta Detection:</strong> Only import changed records since last sync</li>
+                <li><strong>Webhook Triggers:</strong> Accept webhooks from ERPs for real-time updates</li>
+                <li><strong>Conflict Resolution:</strong> Smart merge strategies when data conflicts</li>
+            </ul>
+        </div>
+
+        <div class="phase-block phase2">
+            <div class="phase-header">
+                <div class="phase-number">2</div>
+                <div>
+                    <h4 style="margin: 0;">Bi-Directional Sync (Months 4-6)</h4>
+                </div>
+            </div>
+            <ul>
+                <li><strong>Write-back to ERP:</strong> Push calculated payments back to source systems</li>
+                <li><strong>Status Updates:</strong> Mark invoices as paid, contracts as renewed</li>
+                <li><strong>Audit Trail Sync:</strong> Propagate audit logs to ERP audit tables</li>
+            </ul>
+        </div>
+
+        <div class="phase-block phase3">
+            <div class="phase-header">
+                <div class="phase-number">3</div>
+                <div>
+                    <h4 style="margin: 0;">Pre-Built Connectors (Months 6-12)</h4>
+                </div>
+            </div>
+            <ul>
+                <li><strong>Oracle Fusion Cloud:</strong> Complete integration with all modules</li>
+                <li><strong>SAP S/4HANA:</strong> OData API integration</li>
+                <li><strong>NetSuite:</strong> SuiteTalk/REST API</li>
+                <li><strong>Microsoft Dynamics 365:</strong> Dataverse API</li>
+                <li><strong>Salesforce:</strong> For CRM data integration</li>
+                <li><strong>QuickBooks:</strong> For SMB market</li>
+            </ul>
+        </div>
+
+        <h3>5.3 Integration Architecture</h3>
+        <div class="infra-diagram">
+            <pre style="font-family: monospace; font-size: 0.85rem;">
+┌─────────────────────────────────────────────────────────────────┐
+│                    Integration Layer                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐          │
+│  │  Scheduler  │    │   Webhook   │    │   Manual    │          │
+│  │  (Cron)     │    │   Handler   │    │   Trigger   │          │
+│  └──────┬──────┘    └──────┬──────┘    └──────┬──────┘          │
+│         │                  │                   │                 │
+│         └──────────────────┼───────────────────┘                 │
+│                            ▼                                     │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                    Job Queue (BullMQ)                        ││
+│  │   - Rate limiting per ERP                                    ││
+│  │   - Retry with exponential backoff                           ││
+│  │   - Priority queues (real-time vs batch)                     ││
+│  └─────────────────────────────────────────────────────────────┘│
+│                            │                                     │
+│                            ▼                                     │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                 Connector Framework                          ││
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐            ││
+│  │  │ Oracle  │ │  SAP    │ │NetSuite │ │ Generic │            ││
+│  │  │Connector│ │Connector│ │Connector│ │REST/SOAP│            ││
+│  │  └────┬────┘ └────┬────┘ └────┬────┘ └────┬────┘            ││
+│  └───────┼───────────┼───────────┼───────────┼──────────────────┘│
+│          │           │           │           │                   │
+│          └───────────┴───────────┴───────────┘                   │
+│                            │                                     │
+│                            ▼                                     │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │              AI Field Mapper                                 ││
+│  │   - Schema discovery                                         ││
+│  │   - Semantic field matching                                  ││
+│  │   - Data type conversion                                     ││
+│  └─────────────────────────────────────────────────────────────┘│
+│                            │                                     │
+│                            ▼                                     │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │              LicenseIQ Canonical Schema                      ││
+│  │   - Customers, Products, Territories, Transactions           ││
+│  └─────────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+    </section>
+
+    <section id="security" class="section-green">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2>6. Security & Compliance</h2>
+
+            <h3>6.1 Current Security Implementation</h3>
+            <div class="status-grid">
+                <div class="status-card done">
+                    <span class="status-badge done">Complete</span>
+                    <h4>Authentication</h4>
+                    <p>Passport.js with session-based auth, PostgreSQL session store, secure cookies.</p>
+                </div>
+                <div class="status-card done">
+                    <span class="status-badge done">Complete</span>
+                    <h4>Authorization (RBAC)</h4>
+                    <p>5-tier role system with hierarchical access control across Company/BU/Location.</p>
+                </div>
+                <div class="status-card done">
+                    <span class="status-badge done">Complete</span>
+                    <h4>Data Isolation</h4>
+                    <p>Multi-tenant filtering on all queries. Admin bypass with audit logging.</p>
+                </div>
+                <div class="status-card partial">
+                    <span class="status-badge partial">Partial</span>
+                    <h4>Audit Logging</h4>
+                    <p>Basic logging in place. Needs comprehensive change tracking.</p>
+                </div>
+            </div>
+
+            <h3>6.2 Security Enhancements Needed</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SSO/SAML</td>
+                        <td>Enterprise SSO with Okta, Azure AD, Google Workspace</td>
+                        <td>🔴 High</td>
+                        <td>Q1 2025</td>
+                    </tr>
+                    <tr>
+                        <td>MFA</td>
+                        <td>Two-factor authentication via TOTP or SMS</td>
+                        <td>🔴 High</td>
+                        <td>Q1 2025</td>
+                    </tr>
+                    <tr>
+                        <td>API Keys</td>
+                        <td>API key management for external integrations</td>
+                        <td>🟡 Medium</td>
+                        <td>Q1 2025</td>
+                    </tr>
+                    <tr>
+                        <td>Encryption at Rest</td>
+                        <td>Column-level encryption for sensitive data</td>
+                        <td>🔴 High</td>
+                        <td>Q2 2025</td>
+                    </tr>
+                    <tr>
+                        <td>SOC 2 Compliance</td>
+                        <td>Audit controls for Type II certification</td>
+                        <td>🟡 Medium</td>
+                        <td>Q3 2025</td>
+                    </tr>
+                    <tr>
+                        <td>GDPR Tools</td>
+                        <td>Data export, deletion, consent management</td>
+                        <td>🟡 Medium</td>
+                        <td>Q2 2025</td>
+                    </tr>
+                    <tr>
+                        <td>IP Allowlisting</td>
+                        <td>Restrict access by IP range for enterprise</td>
+                        <td>🟢 Low</td>
+                        <td>Q3 2025</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.3 Compliance Roadmap</h3>
+            <div class="checklist">
+                <h5>SOC 2 Type II Preparation</h5>
+                <ul>
+                    <li>Implement comprehensive audit logging</li>
+                    <li>Document security policies and procedures</li>
+                    <li>Set up vulnerability scanning (Dependabot, Snyk)</li>
+                    <li>Implement change management process</li>
+                    <li>Create incident response plan</li>
+                    <li>Conduct penetration testing</li>
+                    <li>Implement access reviews (quarterly)</li>
+                    <li>Document vendor management process</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="scalability" class="section">
+        <h2>7. Scalability & Performance</h2>
+
+        <h3>7.1 Performance Targets</h3>
+        <div class="metric-grid">
+            <div class="metric-item">
+                <div class="metric-value">&lt;200ms</div>
+                <div class="metric-label">API Response (P95)</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">&lt;3s</div>
+                <div class="metric-label">AI Extraction</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.9%</div>
+                <div class="metric-label">Uptime SLA</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">10K</div>
+                <div class="metric-label">Concurrent Users</div>
+            </div>
+        </div>
+
+        <h3>7.2 Scaling Strategy</h3>
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Scaling Approach</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>API Servers</td>
+                    <td>Horizontal scaling behind load balancer</td>
+                    <td>PM2 cluster mode → Docker Swarm → Kubernetes</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>Vertical + Read replicas + Connection pooling</td>
+                    <td>Neon Pro → RDS with PgBouncer</td>
+                </tr>
+                <tr>
+                    <td>AI Processing</td>
+                    <td>Async queue with worker pools</td>
+                    <td>BullMQ with dedicated worker processes</td>
+                </tr>
+                <tr>
+                    <td>File Storage</td>
+                    <td>Object storage with CDN</td>
+                    <td>Cloudflare R2 with caching</td>
+                </tr>
+                <tr>
+                    <td>Real-time</td>
+                    <td>WebSocket with Redis pub/sub</td>
+                    <td>Socket.io with Redis adapter</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>7.3 Performance Optimizations</h3>
+        <div class="checklist">
+            <h5>Immediate Optimizations</h5>
+            <ul>
+                <li>Add Redis caching for frequently accessed data</li>
+                <li>Implement database query optimization (indexes, EXPLAIN ANALYZE)</li>
+                <li>Add response compression (gzip/brotli)</li>
+                <li>Implement frontend code splitting</li>
+                <li>Add image optimization pipeline</li>
+                <li>Cache AI embeddings to avoid regeneration</li>
+                <li>Batch database operations where possible</li>
+                <li>Implement connection pooling (PgBouncer)</li>
+            </ul>
+        </div>
+
+        <div class="checklist">
+            <h5>Long-term Optimizations</h5>
+            <ul>
+                <li>Move to edge computing for global latency</li>
+                <li>Implement GraphQL for efficient data fetching</li>
+                <li>Add materialized views for analytics</li>
+                <li>Implement CQRS pattern for read-heavy workloads</li>
+                <li>Use streaming for large file processing</li>
+                <li>Implement predictive caching based on user patterns</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="implementation" class="section-blue">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2>8. Implementation Phases</h2>
+
+            <div class="phase-block phase1">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <div>
+                        <h4 style="margin: 0;">Phase 1: Production Hardening (Months 1-3)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Prepare for production deployment</p>
+                    </div>
+                </div>
+                <h5>Infrastructure</h5>
+                <ul>
+                    <li>Set up Hostinger VPS with production configuration</li>
+                    <li>Configure Nginx, SSL, firewall</li>
+                    <li>Implement CI/CD pipeline with GitHub Actions</li>
+                    <li>Set up Redis for caching and sessions</li>
+                    <li>Configure database connection pooling</li>
+                </ul>
+                <h5>Application</h5>
+                <ul>
+                    <li>Migrate file storage to object storage (R2/S3)</li>
+                    <li>Add comprehensive error handling and logging</li>
+                    <li>Implement API rate limiting</li>
+                    <li>Add health check endpoints</li>
+                    <li>Create database migration strategy</li>
+                </ul>
+                <h5>AI/ML</h5>
+                <ul>
+                    <li>Build prompt versioning system</li>
+                    <li>Implement model fallback chains</li>
+                    <li>Create AI evaluation test suite</li>
+                    <li>Add caching for embeddings</li>
+                </ul>
+            </div>
+
+            <div class="phase-block phase2">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <div>
+                        <h4 style="margin: 0;">Phase 2: Enterprise Features (Months 4-6)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Features for enterprise adoption</p>
+                    </div>
+                </div>
+                <h5>Security</h5>
+                <ul>
+                    <li>Implement SSO/SAML integration</li>
+                    <li>Add multi-factor authentication</li>
+                    <li>Create comprehensive audit logging</li>
+                    <li>Implement API key management</li>
+                </ul>
+                <h5>Integration</h5>
+                <ul>
+                    <li>Build scheduled sync capability</li>
+                    <li>Implement bi-directional ERP sync</li>
+                    <li>Create pre-built Oracle Fusion connector</li>
+                    <li>Add webhook handling for real-time updates</li>
+                </ul>
+                <h5>Analytics</h5>
+                <ul>
+                    <li>Build advanced analytics dashboard</li>
+                    <li>Implement real-time calculation monitoring</li>
+                    <li>Add anomaly detection alerts</li>
+                    <li>Create executive reporting</li>
+                </ul>
+            </div>
+
+            <div class="phase-block phase3">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <div>
+                        <h4 style="margin: 0;">Phase 3: AI Enhancement (Months 7-12)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Advanced AI capabilities</p>
+                    </div>
+                </div>
+                <h5>Model Development</h5>
+                <ul>
+                    <li>Fine-tune domain-specific embedding model</li>
+                    <li>Train contract entity extraction model</li>
+                    <li>Build rule generation model</li>
+                    <li>Implement active learning pipeline</li>
+                </ul>
+                <h5>Features</h5>
+                <ul>
+                    <li>Launch Calculation Genome marketplace</li>
+                    <li>Implement predictive analytics</li>
+                    <li>Build scenario simulation (digital twin)</li>
+                    <li>Add conversational rule builder</li>
+                </ul>
+                <h5>Scale</h5>
+                <ul>
+                    <li>Migrate to containerized deployment (Docker/K8s)</li>
+                    <li>Implement global edge deployment</li>
+                    <li>Add real-time collaboration features</li>
+                    <li>Build multi-region failover</li>
+                </ul>
+            </div>
+
+            <div class="phase-block phase4">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <div>
+                        <h4 style="margin: 0;">Phase 4: Platform Expansion (Year 2+)</h4>
+                        <p style="margin: 0; color: var(--text-light);">Universal calculation platform</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>Expand to additional industries (rebates, commissions, etc.)</li>
+                    <li>Build partner/developer ecosystem</li>
+                    <li>Implement Calculation Intent Language (CIL)</li>
+                    <li>Launch autonomous calculation agents</li>
+                    <li>Add cross-company settlement network</li>
+                    <li>Implement blockchain-anchored audit trail</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="monitoring" class="section">
+        <h2>9. Monitoring & Observability</h2>
+
+        <h3>9.1 Monitoring Stack</h3>
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Metrics</td>
+                    <td>Prometheus + Grafana</td>
+                    <td>System and application metrics</td>
+                </tr>
+                <tr>
+                    <td>Logs</td>
+                    <td>Loki or ELK Stack</td>
+                    <td>Centralized log aggregation</td>
+                </tr>
+                <tr>
+                    <td>Tracing</td>
+                    <td>Jaeger or Tempo</td>
+                    <td>Distributed request tracing</td>
+                </tr>
+                <tr>
+                    <td>APM</td>
+                    <td>Datadog or New Relic</td>
+                    <td>Application performance monitoring</td>
+                </tr>
+                <tr>
+                    <td>Uptime</td>
+                    <td>Better Uptime or UptimeRobot</td>
+                    <td>External uptime monitoring</td>
+                </tr>
+                <tr>
+                    <td>Error Tracking</td>
+                    <td>Sentry</td>
+                    <td>Error aggregation and alerting</td>
+                </tr>
+                <tr>
+                    <td>AI Monitoring</td>
+                    <td>LangSmith or custom</td>
+                    <td>LLM performance and cost tracking</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>9.2 Key Metrics to Track</h3>
+        <div class="status-grid">
+            <div class="status-card done">
+                <h4>Application Metrics</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li>Request latency (P50, P95, P99)</li>
+                    <li>Error rate by endpoint</li>
+                    <li>Active users (DAU, MAU)</li>
+                    <li>Feature adoption rates</li>
+                </ul>
+            </div>
+            <div class="status-card done">
+                <h4>Infrastructure Metrics</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li>CPU, Memory, Disk utilization</li>
+                    <li>Database connections</li>
+                    <li>Queue depth and processing time</li>
+                    <li>Network I/O</li>
+                </ul>
+            </div>
+            <div class="status-card done">
+                <h4>AI Metrics</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li>Model accuracy by task</li>
+                    <li>Token usage and cost</li>
+                    <li>Latency by model</li>
+                    <li>Fallback trigger rate</li>
+                </ul>
+            </div>
+            <div class="status-card done">
+                <h4>Business Metrics</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li>Contracts processed</li>
+                    <li>Calculations executed</li>
+                    <li>ERP syncs completed</li>
+                    <li>User engagement scores</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="cost" class="section-green">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2>10. Cost Optimization</h2>
+
+            <h3>10.1 Current Cost Structure</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Current Cost</th>
+                        <th>At Scale (1000 users)</th>
+                        <th>Optimization Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Groq API</td>
+                        <td>Free tier</td>
+                        <td>~$500/month</td>
+                        <td>Cache responses, use smaller models for simple tasks</td>
+                    </tr>
+                    <tr>
+                        <td>HuggingFace</td>
+                        <td>Free tier</td>
+                        <td>~$200/month</td>
+                        <td>Self-host embedding model</td>
+                    </tr>
+                    <tr>
+                        <td>Neon PostgreSQL</td>
+                        <td>Free tier</td>
+                        <td>~$100/month</td>
+                        <td>Connection pooling, query optimization</td>
+                    </tr>
+                    <tr>
+                        <td>Hostinger VPS</td>
+                        <td>~$15/month</td>
+                        <td>~$80/month</td>
+                        <td>Right-size instances, auto-scaling</td>
+                    </tr>
+                    <tr>
+                        <td>Object Storage</td>
+                        <td>$0</td>
+                        <td>~$50/month</td>
+                        <td>Use Cloudflare R2 (egress-free)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>~$15/month</strong></td>
+                        <td><strong>~$930/month</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>10.2 Cost Optimization Strategies</h3>
+            <div class="highlight-box">
+                <h5>AI Cost Reduction</h5>
+                <ul>
+                    <li><strong>Response Caching:</strong> Cache identical AI requests (same document, same prompt)</li>
+                    <li><strong>Model Routing:</strong> Use cheaper/faster models for simple tasks</li>
+                    <li><strong>Batch Processing:</strong> Combine multiple extractions into single API calls</li>
+                    <li><strong>Self-Hosted Embeddings:</strong> Run embedding model locally for high-volume use</li>
+                    <li><strong>Prompt Optimization:</strong> Shorter prompts = fewer tokens = lower cost</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h5>Infrastructure Cost Reduction</h5>
+                <ul>
+                    <li><strong>Reserved Instances:</strong> Commit to 1-year for significant savings</li>
+                    <li><strong>Spot Instances:</strong> Use for non-critical batch processing</li>
+                    <li><strong>Right-Sizing:</strong> Monitor and adjust instance sizes</li>
+                    <li><strong>CDN Caching:</strong> Reduce origin server load</li>
+                    <li><strong>Database Optimization:</strong> Proper indexing, query optimization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Summary: Technical Priorities</h2>
+        
+        <div class="metric-grid">
+            <div class="metric-item">
+                <div class="metric-value">🔴</div>
+                <div class="metric-label">Production Deploy</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">🔴</div>
+                <div class="metric-label">Redis Cache</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">🔴</div>
+                <div class="metric-label">CI/CD Pipeline</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">🔴</div>
+                <div class="metric-label">Object Storage</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>Next 90 Days: Critical Path</h4>
+            <ol>
+                <li><strong>Week 1-2:</strong> Set up Hostinger VPS with production configuration</li>
+                <li><strong>Week 3-4:</strong> Implement CI/CD pipeline and staging environment</li>
+                <li><strong>Week 5-6:</strong> Add Redis caching layer and connection pooling</li>
+                <li><strong>Week 7-8:</strong> Migrate to object storage (Cloudflare R2)</li>
+                <li><strong>Week 9-10:</strong> Implement comprehensive monitoring</li>
+                <li><strong>Week 11-12:</strong> Production launch at qa.licenseiq.ai</li>
+            </ol>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Key Technical Risks</h4>
+            <ul>
+                <li><strong>AI API Rate Limits:</strong> Groq free tier has limits. Plan for OpenAI fallback.</li>
+                <li><strong>Database Scaling:</strong> Neon free tier has connection limits. Budget for Pro tier.</li>
+                <li><strong>Single Point of Failure:</strong> Current architecture lacks redundancy.</li>
+                <li><strong>Data Migration:</strong> Moving from Replit to VPS requires careful data handling.</li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<div class="footer">
+    <h3 style="margin-bottom: 20px; font-size: 1.5rem;">LicenseIQ Technical Roadmap</h3>
+    <p>Version 1.0 | December 2024</p>
+    <p style="margin-top: 10px;">Confidential & Proprietary</p>
+</div>
+
+</body>
+</html>

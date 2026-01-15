@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1e40af; }
+      .subtitle-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #6b7280; }
+      .header-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #1f2937; }
+      .body-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #374151; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #6b7280; }
+      .button-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: white; }
+      
+      .screen { stroke: #e5e7eb; stroke-width: 2; fill: white; }
+      .primary-btn { fill: #3b82f6; stroke: none; }
+      .secondary-btn { fill: #e5e7eb; stroke: #d1d5db; }
+      .card { fill: white; stroke: #e5e7eb; }
+      .success { fill: #10b981; }
+      .edit-panel { fill: #f0f9ff; stroke: #3b82f6; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9fafb"/>
+
+  <!-- Main Title -->
+  <text x="400" y="30" text-anchor="middle" class="title-text">User Management System</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle-text">Popup-Free Inline Editing &amp; Role-Based Access Control</text>
+
+  <!-- User Management Screen -->
+  <g transform="translate(100, 80)">
+    <rect class="screen" width="600" height="340" rx="12"/>
+    
+    <!-- Header -->
+    <text x="30" y="30" class="header-text">👥 User Management</text>
+    
+    <!-- Create User Button -->
+    <rect x="450" y="10" width="120" height="30" class="primary-btn" rx="6"/>
+    <text x="510" y="27" text-anchor="middle" class="button-text">+ Create New User</text>
+    
+    <!-- Table Header -->
+    <rect x="30" y="50" width="540" height="25" fill="#f8fafc" stroke="#e5e7eb" rx="4"/>
+    <text x="40" y="65" class="body-text" font-weight="600">Name</text>
+    <text x="160" y="65" class="body-text" font-weight="600">Role</text>
+    <text x="240" y="65" class="body-text" font-weight="600">Email</text>
+    <text x="400" y="65" class="body-text" font-weight="600">Status</text>
+    <text x="500" y="65" class="body-text" font-weight="600">Actions</text>
+    
+    <!-- User Row 1 -->
+    <rect x="30" y="75" width="540" height="30" class="card" rx="4"/>
+    <text x="40" y="92" class="body-text">John Smith</text>
+    <text x="160" y="92" class="small-text">Admin</text>
+    <text x="240" y="92" class="small-text">john@company.com</text>
+    <circle cx="420" cy="89" r="3" class="success"/>
+    <text x="430" y="92" class="small-text">Active</text>
+    <rect x="520" y="83" width="35" height="15" class="primary-btn" rx="3"/>
+    <text x="537" y="92" text-anchor="middle" class="button-text">Edit</text>
+    
+    <!-- Inline Editing Panel (Expanded) -->
+    <rect x="30" y="105" width="540" height="80" class="edit-panel" rx="4"/>
+    <text x="40" y="120" class="body-text" font-weight="600">✨ Popup-Free Editing: Sarah Johnson</text>
+    
+    <!-- Edit Tabs -->
+    <rect x="40" y="130" width="50" height="18" class="primary-btn" rx="3"/>
+    <text x="65" y="141" text-anchor="middle" class="button-text">Profile</text>
+    
+    <rect x="95" y="130" width="55" height="18" class="secondary-btn" rx="3"/>
+    <text x="122" y="141" text-anchor="middle" class="small-text">Password</text>
+    
+    <rect x="155" y="130" width="45" height="18" class="secondary-btn" rx="3"/>
+    <text x="177" y="141" text-anchor="middle" class="small-text">Delete</text>
+    
+    <!-- Inline Form Fields -->
+    <rect x="40" y="155" width="100" height="20" fill="white" stroke="#d1d5db" rx="3"/>
+    <text x="45" y="167" class="small-text">First Name: Sarah</text>
+    
+    <rect x="150" y="155" width="100" height="20" fill="white" stroke="#d1d5db" rx="3"/>
+    <text x="155" y="167" class="small-text">Last Name: Johnson</text>
+    
+    <rect x="260" y="155" width="140" height="20" fill="white" stroke="#d1d5db" rx="3"/>
+    <text x="265" y="167" class="small-text">Email: sarah@company.com</text>
+    
+    <!-- Save Button -->
+    <rect x="420" y="155" width="40" height="20" class="primary-btn" rx="3"/>
+    <text x="440" y="167" text-anchor="middle" class="button-text">Save</text>
+    
+    <rect x="470" y="155" width="30" height="20" class="secondary-btn" rx="3"/>
+    <text x="485" y="167" text-anchor="middle" class="small-text">ESC</text>
+    
+    <!-- User Row 2 -->
+    <rect x="30" y="190" width="540" height="30" class="card" rx="4"/>
+    <text x="40" y="207" class="body-text">Mike Wilson</text>
+    <text x="160" y="207" class="small-text">Editor</text>
+    <text x="240" y="207" class="small-text">mike@company.com</text>
+    <circle cx="420" cy="204" r="3" class="success"/>
+    <text x="430" y="207" class="small-text">Active</text>
+    <rect x="520" y="198" width="35" height="15" class="primary-btn" rx="3"/>
+    <text x="537" y="207" text-anchor="middle" class="button-text">Edit</text>
+    
+    <!-- User Row 3 -->
+    <rect x="30" y="225" width="540" height="30" class="card" rx="4"/>
+    <text x="40" y="242" class="body-text">Lisa Davis</text>
+    <text x="160" y="242" class="small-text">Viewer</text>
+    <text x="240" y="242" class="small-text">lisa@company.com</text>
+    <circle cx="420" cy="239" r="3" class="success"/>
+    <text x="430" y="242" class="small-text">Active</text>
+    <rect x="520" y="233" width="35" height="15" class="primary-btn" rx="3"/>
+    <text x="537" y="242" text-anchor="middle" class="button-text">Edit</text>
+    
+    <!-- User Row 4 -->
+    <rect x="30" y="260" width="540" height="30" class="card" rx="4"/>
+    <text x="40" y="277" class="body-text">Tom Brown</text>
+    <text x="160" y="277" class="small-text">Auditor</text>
+    <text x="240" y="277" class="small-text">tom@company.com</text>
+    <circle cx="420" cy="274" r="3" fill="#f59e0b"/>
+    <text x="430" y="277" class="small-text">Pending</text>
+    <rect x="520" y="268" width="35" height="15" class="primary-btn" rx="3"/>
+    <text x="537" y="277" text-anchor="middle" class="button-text">Edit</text>
+    
+    <!-- Success Message -->
+    <rect x="30" y="300" width="540" height="25" fill="#f0fdf4" stroke="#10b981" rx="4"/>
+    <text x="300" y="315" text-anchor="middle" class="body-text" fill="#10b981">✓ No Popup Dialogs - Smooth User Experience with Inline Editing</text>
+  </g>
+
+  <!-- Key Features -->
+  <g transform="translate(50, 440)">
+    <text x="350" y="20" text-anchor="middle" class="header-text">User Management Features</text>
+    
+    <rect x="40" y="30" width="150" height="55" fill="#f0fdf4" stroke="#10b981" rx="6"/>
+    <text x="115" y="48" text-anchor="middle" class="body-text" fill="#10b981">✨ Inline Editing</text>
+    <text x="115" y="62" text-anchor="middle" class="small-text">No popup dialogs</text>
+    <text x="115" y="75" text-anchor="middle" class="small-text">Smooth UX experience</text>
+    
+    <rect x="210" y="30" width="150" height="55" fill="#f0f9ff" stroke="#3b82f6" rx="6"/>
+    <text x="285" y="48" text-anchor="middle" class="body-text" fill="#3b82f6">🔐 Role-Based Security</text>
+    <text x="285" y="62" text-anchor="middle" class="small-text">Admin, Editor, Viewer</text>
+    <text x="285" y="75" text-anchor="middle" class="small-text">Granular permissions</text>
+    
+    <rect x="380" y="30" width="150" height="55" fill="#fef3c7" stroke="#f59e0b" rx="6"/>
+    <text x="455" y="48" text-anchor="middle" class="body-text" fill="#f59e0b">📊 Activity Tracking</text>
+    <text x="455" y="62" text-anchor="middle" class="small-text">Complete audit trail</text>
+    <text x="455" y="75" text-anchor="middle" class="small-text">Login/action history</text>
+    
+    <rect x="550" y="30" width="150" height="55" fill="#fdf2f8" stroke="#ec4899" rx="6"/>
+    <text x="625" y="48" text-anchor="middle" class="body-text" fill="#ec4899">⚡ Real-time Updates</text>
+    <text x="625" y="62" text-anchor="middle" class="small-text">Instant synchronization</text>
+    <text x="625" y="75" text-anchor="middle" class="small-text">Live status updates</text>
+  </g>
+
+  <!-- Innovation Badge -->
+  <g transform="translate(250, 520)">
+    <rect x="0" y="0" width="300" height="40" fill="#f0f9ff" stroke="#3b82f6" rx="20"/>
+    <text x="150" y="23" text-anchor="middle" class="body-text" fill="#3b82f6">🚀 Innovation: Zero Popup Dialogs - Industry First</text>
+  </g>
+</svg>

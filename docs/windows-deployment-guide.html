@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicenseIQ Research Platform - Windows Deployment Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 15px;
+        }
+        main {
+            padding: 40px;
+        }
+        .toc {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .toc h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .toc ol {
+            margin-left: 20px;
+        }
+        .toc li {
+            margin: 8px 0;
+        }
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        section {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #1a1a2e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+        h3 {
+            color: #444;
+            font-size: 1.2em;
+            margin: 20px 0 15px 0;
+        }
+        h4 {
+            color: #555;
+            font-size: 1.05em;
+            margin: 15px 0 10px 0;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        pre {
+            background: #1a1a2e;
+            color: #e8e8e8;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        code {
+            background: #e8e8e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e8e8e8;
+        }
+        .comment {
+            color: #6a9955;
+        }
+        .keyword {
+            color: #569cd6;
+        }
+        .string {
+            color: #ce9178;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        .warning::before {
+            content: "⚠️ ";
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        .success::before {
+            content: "✅ ";
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #17a2b8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        .info::before {
+            content: "ℹ️ ";
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        .error::before {
+            content: "❌ ";
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px 10px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .file-content {
+            background: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .file-header {
+            background: #1a1a1a;
+            color: #aaa;
+            padding: 10px 15px;
+            font-size: 0.85em;
+            border-bottom: 1px solid #444;
+        }
+        .file-content pre {
+            margin: 0;
+            border-radius: 0;
+        }
+        footer {
+            background: #1a1a2e;
+            color: #aaa;
+            padding: 30px;
+            text-align: center;
+        }
+        footer p {
+            color: #aaa;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+            pre {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LicenseIQ Research Platform</h1>
+            <p>Windows Local Deployment Guide</p>
+            <span class="badge">Version 1.0 | December 2024</span>
+        </header>
+        
+        <main>
+            <nav class="toc">
+                <h2>Table of Contents</h2>
+                <ol>
+                    <li><a href="#prerequisites">Prerequisites</a></li>
+                    <li><a href="#postgresql">PostgreSQL Installation</a></li>
+                    <li><a href="#database-setup">Database Setup</a></li>
+                    <li><a href="#project-setup">Project Setup</a></li>
+                    <li><a href="#environment">Environment Configuration</a></li>
+                    <li><a href="#install-deps">Install Dependencies</a></li>
+                    <li><a href="#database-migration">Database Migration</a></li>
+                    <li><a href="#run-app">Running the Application</a></li>
+                    <li><a href="#verify">Verification</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#api-keys">API Keys Setup</a></li>
+                </ol>
+            </nav>
+
+            <section id="prerequisites">
+                <h2>1. Prerequisites</h2>
+                <p>Before starting, ensure you have the following installed on your Windows system:</p>
+                
+                <h3>Node.js (v20 or higher)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Download Node.js</strong>
+                    <p>Visit <a href="https://nodejs.org" target="_blank">https://nodejs.org</a> and download the LTS version (v20.x or higher).</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Install Node.js</strong>
+                    <p>Run the installer and follow the wizard. Accept default options and ensure "Add to PATH" is checked.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Verify Installation</strong>
+                    <p>Open Command Prompt or PowerShell and run:</p>
+                    <pre><code>node --version
+npm --version</code></pre>
+                    <p>You should see version numbers (e.g., v20.10.0 and 10.2.4).</p>
+                </div>
+
+                <h3>Git (Optional but Recommended)</h3>
+                <p>Download from <a href="https://git-scm.com/download/win" target="_blank">https://git-scm.com/download/win</a></p>
+            </section>
+
+            <section id="postgresql">
+                <h2>2. PostgreSQL Installation</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Download PostgreSQL</strong>
+                    <p>Visit <a href="https://www.postgresql.org/download/windows/" target="_blank">https://www.postgresql.org/download/windows/</a></p>
+                    <p>Click "Download the installer" and select the latest version (PostgreSQL 16+).</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Run the Installer</strong>
+                    <p>Double-click the downloaded <code>.exe</code> file (requires administrator privileges).</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Installation Settings</strong>
+                    <ul>
+                        <li><strong>Installation Directory:</strong> Keep default (<code>C:\Program Files\PostgreSQL\16</code>)</li>
+                        <li><strong>Components:</strong> Select all (PostgreSQL Server, pgAdmin 4, Command Line Tools)</li>
+                        <li><strong>Data Directory:</strong> Keep default</li>
+                        <li><strong>Password:</strong> Set a secure password for the <code>postgres</code> superuser</li>
+                        <li><strong>Port:</strong> Keep default <code>5432</code></li>
+                        <li><strong>Locale:</strong> Keep default</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <strong>Important:</strong> Remember your PostgreSQL superuser password! You'll need it for database setup.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Add PostgreSQL to PATH</strong>
+                    <ol>
+                        <li>Press <code>Win + R</code>, type <code>sysdm.cpl</code>, press Enter</li>
+                        <li>Go to <strong>Advanced</strong> tab → <strong>Environment Variables</strong></li>
+                        <li>Under <strong>System variables</strong>, select <strong>Path</strong> → <strong>Edit</strong></li>
+                        <li>Click <strong>New</strong> and add: <code>C:\Program Files\PostgreSQL\16\bin</code></li>
+                        <li>Click <strong>OK</strong> on all dialogs</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Verify PostgreSQL Installation</strong>
+                    <p>Open a new Command Prompt (important: must be new window after PATH change) and run:</p>
+                    <pre><code>psql --version</code></pre>
+                    <p>Expected output: <code>psql (PostgreSQL) 16.x</code></p>
+                </div>
+            </section>
+
+            <section id="database-setup">
+                <h2>3. Database Setup</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Open PostgreSQL Command Line</strong>
+                    <p>Open Command Prompt as Administrator and connect to PostgreSQL:</p>
+                    <pre><code>psql -U postgres</code></pre>
+                    <p>Enter your superuser password when prompted.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Create Database and User</strong>
+                    <p>Run these SQL commands in the psql prompt:</p>
+                    <div class="file-content">
+                        <div class="file-header">PostgreSQL Commands</div>
+                        <pre><code><span class="comment">-- Create the database</span>
+CREATE DATABASE licenseiq;
+
+<span class="comment">-- Create a dedicated user (replace 'YourSecurePassword123!' with your own)</span>
+CREATE USER licenseiq_user WITH PASSWORD 'YourSecurePassword123!';
+
+<span class="comment">-- Grant all privileges</span>
+GRANT ALL PRIVILEGES ON DATABASE licenseiq TO licenseiq_user;
+
+<span class="comment">-- Connect to the new database</span>
+\c licenseiq
+
+<span class="comment">-- Grant schema privileges</span>
+GRANT ALL ON SCHEMA public TO licenseiq_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO licenseiq_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO licenseiq_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO licenseiq_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO licenseiq_user;
+
+<span class="comment">-- Enable required extensions</span>
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "vector";
+
+<span class="comment">-- Exit psql</span>
+\q</code></pre>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <strong>Note:</strong> The <code>vector</code> extension is required for AI embeddings. If it fails, you may need to install pgvector separately.
+                </div>
+
+                <h3>Installing pgvector Extension (if needed)</h3>
+                <p>If the <code>CREATE EXTENSION vector</code> command fails:</p>
+                <ol>
+                    <li>Download pgvector from <a href="https://github.com/pgvector/pgvector/releases" target="_blank">GitHub releases</a></li>
+                    <li>Follow the Windows installation instructions in the repository</li>
+                    <li>Or use the Stack Builder (installed with PostgreSQL) to add extensions</li>
+                </ol>
+            </section>
+
+            <section id="project-setup">
+                <h2>4. Project Setup</h2>
+
+                <h3>Option A: Download from Replit</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Export Project</strong>
+                    <p>In Replit, click the three dots menu → "Download as zip"</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Extract Files</strong>
+                    <p>Extract the ZIP to a folder, e.g., <code>C:\Projects\licenseiq</code></p>
+                </div>
+
+                <h3>Option B: Clone from Git (if available)</h3>
+                <pre><code>cd C:\Projects
+git clone [your-repository-url] licenseiq
+cd licenseiq</code></pre>
+
+                <h3>Navigate to Project Directory</h3>
+                <pre><code>cd C:\Projects\licenseiq</code></pre>
+            </section>
+
+            <section id="environment">
+                <h2>5. Environment Configuration</h2>
+                
+                <div class="info">
+                    <strong>Copy from Replit:</strong> Your API keys are already configured in your Replit project. To copy them:
+                    <ol style="margin-top: 10px;">
+                        <li>Open your Replit project</li>
+                        <li>Click the <strong>Tools</strong> menu in the left sidebar</li>
+                        <li>Click <strong>Secrets</strong></li>
+                        <li>Copy each secret value to your local <code>.env</code> file</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Create Environment File</strong>
+                    <p>Create a file named <code>.env</code> in the project root directory with the following content:</p>
+                </div>
+
+                <div class="file-content">
+                    <div class="file-header">.env</div>
+                    <pre><code><span class="comment"># ============================================</span>
+<span class="comment"># DATABASE CONFIGURATION (Local PostgreSQL)</span>
+<span class="comment"># ============================================</span>
+<span class="comment"># Format: postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE</span>
+DATABASE_URL=postgresql://licenseiq_user:YourSecurePassword123!@localhost:5432/licenseiq
+
+<span class="comment"># Individual PostgreSQL Settings</span>
+PGHOST=localhost
+PGPORT=5432
+PGUSER=licenseiq_user
+PGPASSWORD=YourSecurePassword123!
+PGDATABASE=licenseiq
+
+<span class="comment"># ============================================</span>
+<span class="comment"># APPLICATION SETTINGS</span>
+<span class="comment"># ============================================</span>
+NODE_ENV=development
+PORT=5000
+SESSION_SECRET=generate-a-random-32-character-string-here
+
+<span class="comment"># ============================================</span>
+<span class="comment"># AI SERVICES - COPY FROM REPLIT SECRETS</span>
+<span class="comment"># ============================================</span>
+<span class="comment"># Groq API Key (REQUIRED for AI contract analysis)</span>
+<span class="comment"># Get from: https://console.groq.com/keys</span>
+<span class="comment"># Copy from Replit Secrets → GROQ_API_KEY</span>
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+<span class="comment"># OpenAI API Key (Optional - for enhanced features)</span>
+<span class="comment"># Get from: https://platform.openai.com/api-keys</span>
+<span class="comment"># Copy from Replit Secrets → OPENAI_API_KEY</span>
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+<span class="comment"># HuggingFace API Key (REQUIRED for embeddings/RAG)</span>
+<span class="comment"># Get from: https://huggingface.co/settings/tokens</span>
+<span class="comment"># Copy from Replit Secrets → HUGGINGFACE_API_KEY</span>
+HUGGINGFACE_API_KEY=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+<span class="comment"># ============================================</span>
+<span class="comment"># EMAIL CONFIGURATION (Optional)</span>
+<span class="comment"># ============================================</span>
+<span class="comment"># Zoho Mail credentials for sending notifications</span>
+ZOHO_EMAIL=
+ZOHO_PASSWORD=</code></pre>
+                </div>
+
+                <div class="warning">
+                    <strong>Security:</strong> Never commit the <code>.env</code> file to version control. Add it to <code>.gitignore</code>.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Update Database URL</strong>
+                    <p>Replace <code>YourSecurePassword123!</code> with the actual password you set for <code>licenseiq_user</code> in Step 3.</p>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Copy API Keys from Replit</strong>
+                    <p>In your Replit project, go to <strong>Tools → Secrets</strong> and copy these values:</p>
+                    <table>
+                        <tr>
+                            <th>Replit Secret Name</th>
+                            <th>.env Variable</th>
+                            <th>Required?</th>
+                        </tr>
+                        <tr>
+                            <td><code>GROQ_API_KEY</code></td>
+                            <td><code>GROQ_API_KEY</code></td>
+                            <td>Yes - AI Analysis</td>
+                        </tr>
+                        <tr>
+                            <td><code>HUGGINGFACE_API_KEY</code></td>
+                            <td><code>HUGGINGFACE_API_KEY</code></td>
+                            <td>Yes - Embeddings</td>
+                        </tr>
+                        <tr>
+                            <td><code>OPENAI_API_KEY</code></td>
+                            <td><code>OPENAI_API_KEY</code></td>
+                            <td>Optional</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Generate Session Secret</strong>
+                    <p>Generate a random 32+ character string for <code>SESSION_SECRET</code>. You can use PowerShell:</p>
+                    <pre><code>[System.Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Minimum 0 -Maximum 256 }))</code></pre>
+                </div>
+            </section>
+
+            <section id="install-deps">
+                <h2>6. Install Dependencies</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Open Command Prompt in Project Directory</strong>
+                    <pre><code>cd C:\Projects\licenseiq</code></pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Install Node.js Dependencies</strong>
+                    <pre><code>npm install</code></pre>
+                    <p>This may take several minutes as it installs all required packages.</p>
+                </div>
+
+                <div class="success">
+                    Wait for the installation to complete. You should see "added XXX packages" message.
+                </div>
+            </section>
+
+            <section id="database-migration">
+                <h2>7. Database Migration</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Push Database Schema</strong>
+                    <p>Run the Drizzle migration to create all database tables:</p>
+                    <pre><code>npm run db:push</code></pre>
+                </div>
+
+                <div class="info">
+                    <strong>Note:</strong> If you encounter any errors, try running with force flag:
+                    <pre><code>npx drizzle-kit push --force</code></pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Verify Tables Were Created</strong>
+                    <p>Connect to the database and check tables:</p>
+                    <pre><code>psql -U licenseiq_user -d licenseiq -h localhost
+
+<span class="comment">-- List all tables</span>
+\dt
+
+<span class="comment">-- Exit</span>
+\q</code></pre>
+                </div>
+
+                <p>You should see tables like <code>users</code>, <code>contracts</code>, <code>companies</code>, <code>business_units</code>, <code>locations</code>, etc.</p>
+            </section>
+
+            <section id="run-app">
+                <h2>8. Running the Application</h2>
+
+                <h3>Development Mode</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Start the Development Server</strong>
+                    <pre><code>npm run dev</code></pre>
+                </div>
+
+                <div class="success">
+                    You should see output like:
+                    <pre><code>✓ pgvector extension enabled
+✓ HNSW index created for vector similarity search
+🌱 Seeding LicenseIQ Schema Catalog...
+✓ All LicenseIQ schema entities already exist
+🌱 Seeding Master Data...
+✅ Master Data seeding complete
+[express] serving on port 5000</code></pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Access the Application</strong>
+                    <p>Open your browser and navigate to:</p>
+                    <pre><code>http://localhost:5000</code></pre>
+                </div>
+
+                <h3>Production Mode</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Build for Production</strong>
+                    <pre><code>npm run build</code></pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Start Production Server</strong>
+                    <pre><code>npm start</code></pre>
+                </div>
+
+                <h3>Running as a Windows Service (Optional)</h3>
+                <p>To run the application as a background service:</p>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Install PM2 Globally</strong>
+                    <pre><code>npm install -g pm2
+npm install -g pm2-windows-startup</code></pre>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Start with PM2</strong>
+                    <pre><code>pm2 start npm --name "licenseiq" -- run dev
+pm2 save
+pm2-startup install</code></pre>
+                </div>
+            </section>
+
+            <section id="verify">
+                <h2>9. Verification</h2>
+                
+                <h3>Health Checks</h3>
+                <table>
+                    <tr>
+                        <th>Check</th>
+                        <th>URL/Command</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>Application Running</td>
+                        <td><code>http://localhost:5000</code></td>
+                        <td>Login page displays</td>
+                    </tr>
+                    <tr>
+                        <td>API Health</td>
+                        <td><code>http://localhost:5000/api/user</code></td>
+                        <td>Returns JSON (401 if not logged in)</td>
+                    </tr>
+                    <tr>
+                        <td>Database Connection</td>
+                        <td>Check server console</td>
+                        <td>No database errors in logs</td>
+                    </tr>
+                </table>
+
+                <h3>Default Login (After Seeding)</h3>
+                <p>The application seeds a default System Admin user:</p>
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><code>admin</code></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><code>admin123</code></td>
+                    </tr>
+                </table>
+                <div class="warning">
+                    <strong>Important:</strong> Change the default admin password immediately after first login!
+                </div>
+            </section>
+
+            <section id="troubleshooting">
+                <h2>10. Troubleshooting</h2>
+
+                <h3>Common Issues</h3>
+                
+                <div class="error">
+                    <strong>Error: ECONNREFUSED - Cannot connect to database</strong>
+                </div>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Ensure PostgreSQL service is running:
+                        <pre><code>sc query postgresql-x64-16</code></pre>
+                    </li>
+                    <li>Start the service if stopped:
+                        <pre><code>net start postgresql-x64-16</code></pre>
+                    </li>
+                    <li>Verify your <code>DATABASE_URL</code> in <code>.env</code> is correct</li>
+                </ol>
+
+                <div class="error">
+                    <strong>Error: Password authentication failed</strong>
+                </div>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Verify the password in <code>DATABASE_URL</code> matches what you set for the user</li>
+                    <li>Reset user password in psql:
+                        <pre><code>psql -U postgres
+ALTER USER licenseiq_user WITH PASSWORD 'NewPassword123!';</code></pre>
+                    </li>
+                </ol>
+
+                <div class="error">
+                    <strong>Error: Extension "vector" is not available</strong>
+                </div>
+                <p><strong>Solution:</strong></p>
+                <p>Install pgvector extension:</p>
+                <ol>
+                    <li>Download from <a href="https://github.com/pgvector/pgvector" target="_blank">pgvector GitHub</a></li>
+                    <li>Follow Windows installation instructions</li>
+                    <li>Restart PostgreSQL service</li>
+                </ol>
+
+                <div class="error">
+                    <strong>Error: Port 5000 is already in use</strong>
+                </div>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Find the process using port 5000:
+                        <pre><code>netstat -ano | findstr :5000</code></pre>
+                    </li>
+                    <li>Kill the process (replace PID with actual number):
+                        <pre><code>taskkill /PID [PID] /F</code></pre>
+                    </li>
+                    <li>Or change port in <code>.env</code>: <code>PORT=3000</code></li>
+                </ol>
+
+                <div class="error">
+                    <strong>Error: npm install fails with permission errors</strong>
+                </div>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Run Command Prompt as Administrator</li>
+                    <li>Or try: <code>npm cache clean --force</code></li>
+                </ol>
+
+                <h3>Logs Location</h3>
+                <p>Application logs are printed to the console. For PM2 logs:</p>
+                <pre><code>pm2 logs licenseiq</code></pre>
+            </section>
+
+            <section id="api-keys">
+                <h2>11. API Keys Setup</h2>
+                <p>LicenseIQ uses free AI services. Here's how to get your API keys:</p>
+
+                <h3>Groq API Key (Required for AI Analysis)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Sign Up for Groq</strong>
+                    <p>Visit <a href="https://console.groq.com" target="_blank">https://console.groq.com</a></p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Generate API Key</strong>
+                    <p>Go to API Keys section → Create new key → Copy the key</p>
+                </div>
+                <div class="info">
+                    <strong>Free Tier:</strong> Groq offers generous free usage with their llama-3.3-70b-versatile model.
+                </div>
+
+                <h3>HuggingFace API Key (Required for Embeddings)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Sign Up for HuggingFace</strong>
+                    <p>Visit <a href="https://huggingface.co/join" target="_blank">https://huggingface.co/join</a></p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Generate Token</strong>
+                    <p>Go to Settings → Access Tokens → New Token → Create (read permissions)</p>
+                </div>
+
+                <h3>OpenAI API Key (Optional - for enhanced features)</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Sign Up for OpenAI</strong>
+                    <p>Visit <a href="https://platform.openai.com" target="_blank">https://platform.openai.com</a></p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Generate API Key</strong>
+                    <p>Go to API Keys → Create new secret key</p>
+                </div>
+                <div class="warning">
+                    OpenAI is a paid service. The application works without it using Groq as the primary AI provider.
+                </div>
+            </section>
+
+            <section>
+                <h2>Quick Reference Commands</h2>
+                <table>
+                    <tr>
+                        <th>Action</th>
+                        <th>Command</th>
+                    </tr>
+                    <tr>
+                        <td>Start Development Server</td>
+                        <td><code>npm run dev</code></td>
+                    </tr>
+                    <tr>
+                        <td>Build for Production</td>
+                        <td><code>npm run build</code></td>
+                    </tr>
+                    <tr>
+                        <td>Start Production Server</td>
+                        <td><code>npm start</code></td>
+                    </tr>
+                    <tr>
+                        <td>Push Database Schema</td>
+                        <td><code>npm run db:push</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check TypeScript</td>
+                        <td><code>npm run check</code></td>
+                    </tr>
+                    <tr>
+                        <td>Start PostgreSQL</td>
+                        <td><code>net start postgresql-x64-16</code></td>
+                    </tr>
+                    <tr>
+                        <td>Stop PostgreSQL</td>
+                        <td><code>net stop postgresql-x64-16</code></td>
+                    </tr>
+                    <tr>
+                        <td>Connect to Database</td>
+                        <td><code>psql -U licenseiq_user -d licenseiq -h localhost</code></td>
+                    </tr>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>LicenseIQ Research Platform</strong></p>
+            <p>Windows Deployment Guide v1.0 | December 2024</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">For support, contact your system administrator.</p>
+        </footer>
+    </div>
+</body>
+</html>

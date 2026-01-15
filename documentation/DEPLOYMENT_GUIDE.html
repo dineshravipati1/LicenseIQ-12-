@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPLOYMENT_GUIDE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-size: 10pt; 
+                line-height: 1.3;
+            }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            h1, h2 { page-break-after: avoid; }
+            table { page-break-inside: avoid; }
+            .doc-table { font-size: 8pt; }
+            .print-btn { display: none !important; }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 30px 25px;
+            background: #ffffff;
+            font-size: 13px;
+        }
+        
+        /* Improved Typography Hierarchy */
+        h1 { 
+            color: #1a202c;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 { 
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 2rem 0 0.75rem 0;
+            line-height: 1.2;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 { 
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        h4 { 
+            color: #718096;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        /* Optimized Paragraphs and Text */
+        p {
+            margin: 0.5rem 0;
+            text-align: justify;
+            orphans: 2;
+            widows: 2;
+            line-height: 1.4;
+        }
+        
+        /* Compact Code Styling */
+        code { 
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            color: #e53e3e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        pre { 
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.3;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-size: 0.8rem;
+        }
+        
+        /* Compact Enhanced Tables */
+        .doc-table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #ffffff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .doc-table th { 
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        
+        .doc-table td { 
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            line-height: 1.3;
+            font-size: 0.9rem;
+        }
+        
+        .doc-table tr:nth-child(even) {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        }
+        
+        /* Compact Enhanced Lists */
+        ul, ol { 
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        li { 
+            margin: 0.25rem 0;
+            line-height: 1.4;
+        }
+        
+        li.checked {
+            color: #38a169;
+            font-weight: 500;
+        }
+        
+        li.unchecked {
+            color: #a0aec0;
+        }
+        
+        /* Links */
+        a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            color: #2c5282;
+            border-bottom-color: #3182ce;
+        }
+        
+        /* Compact Blockquotes */
+        blockquote { 
+            border-left: 3px solid #4299e1;
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-style: italic;
+            position: relative;
+            line-height: 1.4;
+        }
+        
+        /* Compact Document Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .doc-header h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            line-height: 1.1;
+        }
+        
+        .doc-header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .doc-header .date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.75rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        /* Compact Document Footer */
+        .doc-footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0.5rem;
+            color: #718096;
+            line-height: 1.3;
+        }
+        
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Special Elements */
+        .highlight {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Status indicators */
+        .status-complete::before { content: "✅ "; }
+        .status-progress::before { content: "🔄 "; }
+        .status-planned::before { content: "📋 "; }
+        
+        /* Compact spacing for specific elements */
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body { 
+                padding: 15px 10px; 
+                font-size: 12px;
+            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            .doc-table { font-size: 0.7rem; }
+            .doc-table th, .doc-table td { padding: 0.5rem 0.75rem; }
+            .print-btn { 
+                bottom: 25px; 
+                top: auto; 
+                right: 15px; 
+            }
+        }</style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 Print to PDF</button>
+    
+    <div class="doc-header">
+        <h1>DEPLOYMENT GUIDE</h1>
+        <div class="subtitle">Licence IQ Research Platform Documentation</div>
+        <div class="date">Generated on September 7, 2025</div>
+    </div>
+    
+    <div class="content">
+        <h1>Licence IQ Research Platform - Deployment Guide</h1><h2>Deployment Overview</h2><br>This guide covers the complete deployment process for the Licence IQ Research Platform from development to production.</p><h2>Environment Setup</h2><h3>Development Environment (Current)</h3><br><ul><li><strong>Platform:</strong> Replit</li></ul><br><ul><li><strong>Database:</strong> Neon PostgreSQL</li></ul><br><ul><li><strong>Runtime:</strong> Node.js with npm</li></ul><br><ul><li><strong>Build:</strong> Vite development server</li></ul><br><ul><li><strong>Storage:</strong> Local filesystem</li></ul><h3>Production Environment Requirements</h3><br><ul><li><strong>Infrastructure:</strong> Cloud platform (AWS, GCP, Azure)</li></ul><br><ul><li><strong>Container:</strong> Docker containerization</li></ul><br><ul><li><strong>Database:</strong> Managed PostgreSQL service</li></ul><br><ul><li><strong>Storage:</strong> Cloud object storage</li></ul><br><ul><li><strong>CDN:</strong> Global content delivery network</li></ul><h2>Pre-Deployment Checklist</h2><h3>✅ Code Readiness</h3><br><ul><li class="unchecked">⬜ All features tested and working<br><li class="unchecked">⬜ No console errors or warnings<br><li class="unchecked">⬜ TypeScript compilation successful<br><li class="unchecked">⬜ Security vulnerabilities addressed<br><li class="unchecked">⬜ Performance optimization completed</p><h3>✅ Database Readiness</h3><br><li class="unchecked">⬜ Database schema finalized<br><li class="unchecked">⬜ Migrations tested<br><li class="unchecked">⬜ Indexes optimized<br><li class="unchecked">⬜ Backup strategy implemented<br><li class="unchecked">⬜ Connection pooling configured</p><h3>✅ Security Hardening</h3><br><li class="unchecked">⬜ Environment variables secured<br><li class="unchecked">⬜ API keys rotated for production<br><li class="unchecked">⬜ Session security configured<br><li class="unchecked">⬜ Input validation comprehensive<br><li class="unchecked">⬜ File upload restrictions in place</p><h3>✅ Monitoring Setup</h3><br><li class="unchecked">⬜ Application logging configured<br><li class="unchecked">⬜ Error tracking implemented<br><li class="unchecked">⬜ Performance monitoring active<br><li class="unchecked">⬜ Health checks defined<br><li class="unchecked">⬜ Alerting rules established</p><h2>Docker Configuration</h2><h3>Dockerfile</h3><br><pre><code>dockerfile<br><h1>Production Dockerfile</h1><br>FROM node:18-alpine AS base</p><h1>Install dependencies only when needed</h1><br>FROM base AS deps<br>WORKDIR /app<br>COPY package*.json ./<br>RUN npm ci --only=production</p><h1>Rebuild the source code only when needed</h1><br>FROM base AS builder<br>WORKDIR /app<br>COPY package*.json ./<br>RUN npm ci<br>COPY . .</p><h1>Build client</h1><br>RUN npm run build:client</p><h1>Production image</h1><br>FROM base AS runner<br>WORKDIR /app</p><p>ENV NODE_ENV=production</p><p>RUN addgroup --system --gid 1001 nodejs<br>RUN adduser --system --uid 1001 nextjs</p><h1>Copy built application</h1><br>COPY --from=builder /app/dist ./dist<br>COPY --from=builder /app/client/dist ./client/dist<br>COPY --from=deps /app/node_modules ./node_modules<br>COPY --from=builder /app/package.json ./package.json</p><p>USER nextjs</p><p>EXPOSE 5000</p><p>ENV PORT 5000<br>ENV HOSTNAME "0.0.0.0"</p><p>CMD ["npm", "start"]<br></code></pre></p><h3>Docker Compose (Development)</h3><br><pre><code>yaml<br>version: '3.8'</p><p>services:<br>  app:<br>    build: .<br>    ports:<br>      - "5000:5000"<br>    environment:<br>      - NODE_ENV=development<br>      - DATABASE_URL=${DATABASE_URL}<br>      - GROQ_API_KEY=${GROQ_API_KEY}<br>      - SESSION_SECRET=${SESSION_SECRET}<br>    depends_on:<br>      - postgres<br>    volumes:<br>      - ./uploads:/app/uploads</p><p>  postgres:<br>    image: postgres:15<br>    environment:<br>      POSTGRES_DB: licenceiq<br>      POSTGRES_USER: ${POSTGRES_USER}<br>      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}<br>    ports:<br>      - "5432:5432"<br>    volumes:<br>      - postgres_data:/var/lib/postgresql/data</p><p>  redis:<br>    image: redis:7-alpine<br>    ports:<br>      - "6379:6379"</p><p>volumes:<br>  postgres_data:<br></code></pre></p><h2>Cloud Deployment Options</h2><h3>AWS Deployment</h3><p>#### Infrastructure Components<br><pre><code>bash<br><h1>AWS Services Required</h1><br><li>EC2 or ECS for application hosting</li></ul><br><ul><li>RDS PostgreSQL for database</li></ul><br><ul><li>S3 for file storage</li></ul><br><ul><li>CloudFront for CDN</li></ul><br><ul><li>Application Load Balancer</li></ul><br><ul><li>Route 53 for DNS</li></ul><br><ul><li>CloudWatch for monitoring</li></ul><br></code></pre></p><p>#### Terraform Configuration<br><pre><code>hcl<br><h1>terraform/main.tf</h1><br>provider "aws" {<br>  region = var.aws_region<br>}</p><h1>Application Load Balancer</h1><br>resource "aws_lb" "app_lb" {<br>  name               = "licenceiq-lb"<br>  internal           = false<br>  load_balancer_type = "application"<br>  security_groups    = [aws_security_group.lb_sg.id]<br>  subnets           = var.public_subnets</p><p>  enable_deletion_protection = false<br>}</p><h1>ECS Cluster</h1><br>resource "aws_ecs_cluster" "main" {<br>  name = "licenceiq-cluster"</p><p>  setting {<br>    name  = "containerInsights"<br>    value = "enabled"<br>  }<br>}</p><h1>RDS PostgreSQL</h1><br>resource "aws_db_instance" "postgres" {<br>  identifier             = "licenceiq-postgres"<br>  engine                 = "postgres"<br>  engine_version         = "15.3"<br>  instance_class         = "db.t3.micro"<br>  allocated_storage      = 20<br>  storage_encrypted      = true<br>  <br>  db_name  = var.db_name<br>  username = var.db_username<br>  password = var.db_password<br>  <br>  vpc_security_group_ids = [aws_security_group.rds_sg.id]<br>  db_subnet_group_name   = aws_db_subnet_group.postgres.name<br>  <br>  backup_retention_period = 7<br>  backup_window          = "03:00-04:00"<br>  maintenance_window     = "sun:04:00-sun:05:00"<br>  <br>  skip_final_snapshot = true<br>}</p><h1>S3 Bucket for file storage</h1><br>resource "aws_s3_bucket" "files" {<br>  bucket = "licenceiq-files-${random_string.bucket_suffix.result}"<br>}</p><p>resource "aws_s3_bucket_versioning" "files" {<br>  bucket = aws_s3_bucket.files.id<br>  versioning_configuration {<br>    status = "Enabled"<br>  }<br>}<br></code></pre></p><h3>Google Cloud Platform Deployment</h3><p>#### Infrastructure Components<br><pre><code>bash<br><h1>GCP Services Required</h1><br><ul><li>Cloud Run for containerized application</li></ul><br><ul><li>Cloud SQL for PostgreSQL</li></ul><br><ul><li>Cloud Storage for file storage</li></ul><br><ul><li>Cloud CDN for global delivery</li></ul><br><ul><li>Cloud Load Balancing</li></ul><br><ul><li>Cloud DNS for domain management</li></ul><br><ul><li>Cloud Monitoring and Logging</li></ul><br></code></pre></p><p>#### GCP Configuration<br><pre><code>yaml<br><h1>cloudbuild.yaml</h1><br>steps:<br>  # Build the container image<br>  - name: 'gcr.io/cloud-builders/docker'<br>    args: ['build', '-t', 'gcr.io/$PROJECT_ID/licenceiq:$COMMIT_SHA', '.']<br>  <br>  # Push the container image to Container Registry<br>  - name: 'gcr.io/cloud-builders/docker'<br>    args: ['push', 'gcr.io/$PROJECT_ID/licenceiq:$COMMIT_SHA']<br>  <br>  # Deploy container image to Cloud Run<br>  - name: 'gcr.io/cloud-builders/gcloud'<br>    args:<br>    - 'run'<br>    - 'deploy'<br>    - 'licenceiq'<br>    - '--image'<br>    - 'gcr.io/$PROJECT_ID/licenceiq:$COMMIT_SHA'<br>    - '--region'<br>    - 'us-central1'<br>    - '--platform'<br>    - 'managed'<br>    - '--allow-unauthenticated'<br></code></pre></p><h3>Azure Deployment</h3><p>#### Infrastructure Components<br><pre><code>bash<br><h1>Azure Services Required</h1><br><ul><li>Azure Container Instances or App Service</li></ul><br><ul><li>Azure Database for PostgreSQL</li></ul><br><ul><li>Azure Blob Storage for file storage</li></ul><br><ul><li>Azure CDN</li></ul><br><ul><li>Azure Load Balancer</li></ul><br><ul><li>Azure DNS</li></ul><br><ul><li>Azure Monitor</li></ul><br></code></pre></p><h2>Environment Variables Configuration</h2><h3>Production Environment Variables</h3><br><pre><code>bash<br><h1>Application Configuration</h1><br>NODE_ENV=production<br>PORT=5000<br>HOSTNAME=0.0.0.0</p><h1>Database Configuration</h1><br>DATABASE_URL=postgresql://user:password@host:5432/database<br>PGHOST=your-postgres-host<br>PGPORT=5432<br>PGUSER=your-postgres-user<br>PGPASSWORD=your-postgres-password<br>PGDATABASE=your-database-name</p><h1>AI Service Configuration</h1><br>GROQ_API_KEY=your-groq-api-key</p><h1>Security Configuration</h1><br>SESSION_SECRET=your-super-secure-session-secret-minimum-32-chars</p><h1>Storage Configuration (Cloud)</h1><br>AWS_ACCESS_KEY_ID=your-aws-access-key<br>AWS_SECRET_ACCESS_KEY=your-aws-secret-key<br>AWS_S3_BUCKET=your-s3-bucket-name<br>AWS_REGION=us-east-1</p><h1>Monitoring Configuration</h1><br>SENTRY_DSN=your-sentry-dsn<br>LOG_LEVEL=info<br></code></pre></p><h3>Environment Variable Security</h3><br><pre><code>bash<br><h1>Use AWS Secrets Manager</h1><br>aws secretsmanager create-secret \<br>  --name licenceiq/production/database \<br>  --description "Database credentials for Licence IQ" \<br>  --secret-string '{"username":"dbuser","password":"securepassword"}'</p><h1>Use Azure Key Vault</h1><br>az keyvault secret set \<br>  --vault-name licenceiq-keyvault \<br>  --name database-password \<br>  --value "securepassword"</p><h1>Use Google Secret Manager</h1><br>gcloud secrets create database-password --data-file=password.txt<br></code></pre></p><h2>Database Migration Strategy</h2><h3>Production Migration Process</h3><br><pre><code>bash<br><h1>1. Create database backup</h1><br>pg_dump $DATABASE_URL > backup_$(date +%Y%m%d_%H%M%S).sql</p><h1>2. Run migrations in transaction</h1><br>npm run db:push</p><h1>3. Verify migration success</h1><br>npm run db:verify</p><h1>4. Update application version</h1><br>git tag v1.0.0-production<br></code></pre></p><h3>Migration Rollback Plan</h3><br><pre><code>sql<br>-- Rollback script template<br>BEGIN;</p><p>-- Drop new columns/tables if needed<br>-- ALTER TABLE contracts DROP COLUMN IF EXISTS new_column;</p><p>-- Restore from backup if necessary<br>-- \i backup_20240101_120000.sql</p><p>COMMIT;<br></code></pre></p><h2>Monitoring and Observability</h2><h3>Application Monitoring</h3><br><pre><code>javascript<br>// monitoring/setup.js<br>const Sentry = require('@sentry/node');<br>const prometheus = require('prom-client');</p><p>// Initialize Sentry for error tracking<br>Sentry.init({<br>  dsn: process.env.SENTRY_DSN,<br>  environment: process.env.NODE_ENV,<br>});</p><p>// Prometheus metrics<br>const httpDuration = new prometheus.Histogram({<br>  name: 'http_request_duration_seconds',<br>  help: 'Duration of HTTP requests in seconds',<br>  labelNames: ['method', 'route', 'status_code'],<br>});</p><p>// Health check endpoint<br>app.get('/health', (req, res) => {<br>  res.status(200).json({<br>    status: 'healthy',<br>    timestamp: new Date().toISOString(),<br>    version: process.env.npm_package_version,<br>  });<br>});<br></code></pre></p><h3>Log Configuration</h3><br><pre><code>javascript<br>// logging/winston.js<br>const winston = require('winston');</p><p>const logger = winston.createLogger({<br>  level: process.env.LOG_LEVEL || 'info',<br>  format: winston.format.combine(<br>    winston.format.timestamp(),<br>    winston.format.errors({ stack: true }),<br>    winston.format.json()<br>  ),<br>  transports: [<br>    new winston.transports.File({ filename: 'error.log', level: 'error' }),<br>    new winston.transports.File({ filename: 'combined.log' }),<br>    new winston.transports.Console({<br>      format: winston.format.simple()<br>    })<br>  ],<br>});<br></code></pre></p><h2>SSL/TLS Configuration</h2><h3>Let's Encrypt Setup</h3><br><pre><code>bash<br><h1>Install Certbot</h1><br>sudo apt-get install certbot python3-certbot-nginx</p><h1>Obtain SSL certificate</h1><br>sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com</p><h1>Auto-renewal</h1><br>sudo crontab -e<br><h1>Add line: 0 12 <em> </em> * /usr/bin/certbot renew --quiet</h1><br></code></pre></p><h3>Nginx Configuration</h3><br><pre><code>nginx<br>server {<br>    listen 80;<br>    server_name yourdomain.com www.yourdomain.com;<br>    return 301 https://$server_name$request_uri;<br>}</p><p>server {<br>    listen 443 ssl http2;<br>    server_name yourdomain.com www.yourdomain.com;</p><p>    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;<br>    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;<br>    <br>    ssl_protocols TLSv1.2 TLSv1.3;<br>    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;<br>    ssl_prefer_server_ciphers off;<br>    ssl_session_cache shared:SSL:10m;</p><p>    location / {<br>        proxy_pass http://localhost:5000;<br>        proxy_http_version 1.1;<br>        proxy_set_header Upgrade $http_upgrade;<br>        proxy_set_header Connection 'upgrade';<br>        proxy_set_header Host $host;<br>        proxy_set_header X-Real-IP $remote_addr;<br>        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>        proxy_set_header X-Forwarded-Proto $scheme;<br>        proxy_cache_bypass $http_upgrade;<br>    }<br>}<br></code></pre></p><h2>Backup and Disaster Recovery</h2><h3>Database Backup Strategy</h3><br><pre><code>bash<br>#!/bin/bash<br><h1>backup_script.sh</h1><p>DATE=$(date +%Y%m%d_%H%M%S)<br>BACKUP_DIR="/backups/postgresql"<br>RETENTION_DAYS=30</p><h1>Create backup</h1><br>pg_dump $DATABASE_URL | gzip > $BACKUP_DIR/backup_$DATE.sql.gz</p><h1>Upload to cloud storage</h1><br>aws s3 cp $BACKUP_DIR/backup_$DATE.sql.gz s3://licenceiq-backups/</p><h1>Clean old backups</h1><br>find $BACKUP_DIR -name "backup_*.sql.gz" -mtime +$RETENTION_DAYS -delete</p><p>echo "Backup completed: backup_$DATE.sql.gz"<br></code></pre></p><h3>Disaster Recovery Plan</h3><br>1. <strong>Database Recovery:</strong> Restore from latest backup<br>2. <strong>Application Recovery:</strong> Deploy from version control<br>3. <strong>File Recovery:</strong> Restore from cloud storage backup<br>4. <strong>DNS Failover:</strong> Switch to backup infrastructure<br>5. <strong>Communication:</strong> Notify stakeholders of status</p><h2>Performance Optimization</h2><h3>Production Optimizations</h3><br><pre><code>javascript<br>// production optimizations<br>const compression = require('compression');<br>const helmet = require('helmet');<br>const rateLimit = require('express-rate-limit');</p><p>// Enable compression<br>app.use(compression());</p><p>// Security headers<br>app.use(helmet());</p><p>// Rate limiting<br>const limiter = rateLimit({<br>  windowMs: 15 <em> 60 </em> 1000, // 15 minutes<br>  max: 100 // limit each IP to 100 requests per windowMs<br>});<br>app.use('/api', limiter);</p><p>// Database connection pooling<br>const pool = new Pool({<br>  connectionString: process.env.DATABASE_URL,<br>  min: 2,<br>  max: 20,<br>  idleTimeoutMillis: 30000,<br>  connectionTimeoutMillis: 2000,<br>});<br></code></pre></p><h2>Deployment Checklist</h2><h3>Pre-Deployment</h3><br><li class="unchecked">⬜ Code review completed<br><li class="unchecked">⬜ All tests passing<br><li class="unchecked">⬜ Security scan completed<br><li class="unchecked">⬜ Performance testing done<br><li class="unchecked">⬜ Database migration prepared<br><li class="unchecked">⬜ Backup verified<br><li class="unchecked">⬜ Rollback plan ready</p><h3>During Deployment</h3><br><li class="unchecked">⬜ Maintenance mode enabled<br><li class="unchecked">⬜ Database migration executed<br><li class="unchecked">⬜ Application deployed<br><li class="unchecked">⬜ Health checks passing<br><li class="unchecked">⬜ SSL certificates valid<br><li class="unchecked">⬜ CDN cache cleared</p><h3>Post-Deployment</h3><br><li class="unchecked">⬜ Functionality testing completed<br><li class="unchecked">⬜ Performance monitoring active<br><li class="unchecked">⬜ Error rates within normal range<br><li class="unchecked">⬜ User acceptance testing passed<br><li class="unchecked">⬜ Documentation updated<br><li class="unchecked">⬜ Team notified of deployment</p>
+    </div>
+    
+    <div class="doc-footer no-print">
+        <p><strong>Licence IQ Research Platform</strong><br>
+        Professional Document Management & AI Analysis Solution<br>
+        <em>This document was automatically generated from Markdown source</em></p>
+    </div>
+</body>
+</html>

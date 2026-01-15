@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 6: Royalty Calculation Dashboard - License IQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(217, 91%, 60%)',
+                        background: 'hsl(210, 40%, 96%)',
+                        card: 'hsl(0, 0%, 100%)',
+                        border: 'hsl(210, 40%, 87%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-border flex-shrink-0">
+            <div class="p-6 border-b border-border">
+                <img src="cimpleit-logo.png" alt="CimpleIT" class="h-12 mb-1">
+                <p class="text-xs text-gray-600">License IQ Research Platform</p>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    Upload
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Contracts
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    AI Analysis
+                </a>
+                <a href="#" class="text-white bg-blue-600 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Royalty Calc
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    Ask Contract
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white border-b border-border px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Royalty Calculation Dashboard</h1>
+                        <p class="text-gray-600 mt-1">ABC Corp License Agreement 2024</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">
+                            Back to Contract
+                        </button>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            Calculate Royalties
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-8">
+                <!-- Metrics Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-blue-100 text-sm font-medium">Sales Transactions</p>
+                            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                        <p class="text-4xl font-bold">125</p>
+                        <p class="text-blue-100 text-sm mt-2">↑ 18% from last month</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-green-100 text-sm font-medium">Total Sales</p>
+                            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                        <p class="text-4xl font-bold">$1.2M</p>
+                        <p class="text-green-100 text-sm mt-2">Matched to contract</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-purple-100 text-sm font-medium">Total Royalty</p>
+                            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                        </div>
+                        <p class="text-4xl font-bold">$14,285</p>
+                        <p class="text-purple-100 text-sm mt-2">Ready to calculate</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-orange-100 text-sm font-medium">Calculation History</p>
+                            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                        <p class="text-4xl font-bold">8</p>
+                        <p class="text-orange-100 text-sm mt-2">Total calculations</p>
+                    </div>
+                </div>
+
+                <!-- Formula Preview -->
+                <div class="bg-white rounded-lg border border-border p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Formula Preview</h3>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">3 Rules Active</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Preview of which formulas will apply to your sales data</p>
+                    
+                    <div class="space-y-3">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-gray-900">Volume-Based Tiers</h4>
+                                <span class="px-2 py-1 bg-blue-600 text-white rounded text-xs font-bold">98 products</span>
+                            </div>
+                            <p class="text-sm text-gray-700">Applies to products with quantity data</p>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-gray-900">Seasonal Adjustments</h4>
+                                <span class="px-2 py-1 bg-green-600 text-white rounded text-xs font-bold">45 products</span>
+                            </div>
+                            <p class="text-sm text-gray-700">Applies to Spring & Summer sales (Mar-Aug)</p>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-gray-900">Territory Premiums</h4>
+                                <span class="px-2 py-1 bg-purple-600 text-white rounded text-xs font-bold">32 products</span>
+                            </div>
+                            <p class="text-sm text-gray-700">Applies to Secondary territory sales</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-lg border border-border p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Sales & Royalty Breakdown</h3>
+                        <canvas id="salesChart" height="200"></canvas>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg border border-border p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Revenue Distribution</h3>
+                        <canvas id="pieChart" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Calculations -->
+                <div class="bg-white rounded-lg border border-border p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Calculation History</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                            <div>
+                                <p class="font-medium text-gray-900">Q2 2024 Calculation</p>
+                                <p class="text-sm text-gray-600">125 items • Total: $14,285.00 • Jun 15, 2024</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Approved</span>
+                                <button class="px-3 py-1 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm font-medium">
+                                    Download Invoice
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                            <div>
+                                <p class="font-medium text-gray-900">Q1 2024 Calculation</p>
+                                <p class="text-sm text-gray-600">98 items • Total: $12,450.00 • Mar 20, 2024</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Approved</span>
+                                <button class="px-3 py-1 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm font-medium">
+                                    Download Invoice
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                            <div>
+                                <p class="font-medium text-gray-900">Q4 2023 Calculation</p>
+                                <p class="text-sm text-gray-600">110 items • Total: $13,200.00 • Dec 28, 2023</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Approved</span>
+                                <button class="px-3 py-1 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm font-medium">
+                                    Download Invoice
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sales Chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Sales ($K)',
+                    data: [180, 220, 280, 240, 310, 350],
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                }, {
+                    label: 'Royalty ($K)',
+                    data: [2.1, 2.5, 3.2, 2.8, 3.5, 4.0],
+                    backgroundColor: 'rgba(139, 92, 246, 0.8)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Organic Juice', 'Smoothies', 'Protein Shakes', 'Other'],
+                datasets: [{
+                    data: [35, 28, 22, 15],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(251, 146, 60, 0.8)',
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>

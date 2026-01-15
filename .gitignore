@@ -1,0 +1,20 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Uploaded contract files (sensitive user data)
+uploads/
+
+# Timestamped database backups (keep only the latest main backups)
+database/backups/*_202*.sql
+database/backups/*_202*.sql.gz
+
+# dependencies
+node_modules/
+
+# env files
+.env
+.env.local

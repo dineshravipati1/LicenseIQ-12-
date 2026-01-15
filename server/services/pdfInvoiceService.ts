@@ -1,0 +1,519 @@
+/**
+ * PDF Invoice Generation Service
+ * Generates royalty invoices and payment reports in PDF format
+ * Uses PDFKit for native PDF generation (no browser dependencies)
+ */
+
+import PDFDocument from 'pdfkit';
+
+export interface InvoiceData {
+  calculationId: string;
+  calculationName: string;
+  contractName: string;
+  vendorName: string;
+  licensee: string;
+  calculationDate: Date;
+  periodStart?: Date;
+  periodEnd?: Date;
+  totalRoyalty: number;
+  minimumGuarantee?: number;
+  finalRoyalty: number;
+  breakdown: Array<{
+    productName: string;
+    category: string;
+    quantity: number;
+    grossAmount: number;
+    ruleApplied: string;
+    calculatedRoyalty: number;
+    explanation: string;
+  }>;
+  currency: string;
+  paymentTerms?: string;
+}
+
+export class PDFInvoiceService {
+  /**
+   * Generate detailed invoice PDF with full breakdown
+   */
+  static async generateDetailedInvoice(data: InvoiceData): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+      try {
+        const doc = new PDFDocument({ margin: 50, size: 'A4' });
+        const buffers: Buffer[] = [];
+
+        doc.on('data', (buffer: Buffer) => buffers.push(buffer));
+        doc.on('end', () => resolve(Buffer.concat(buffers)));
+        doc.on('error', reject);
+
+        // Header with gradient effect (purple)
+        doc.rect(0, 0, doc.page.width, 120).fill('#7c3aed');
+        
+        doc.fillColor('#ffffff')
+          .fontSize(28)
+          .font('Helvetica-Bold')
+          .text('ROYALTY INVOICE', 50, 40);
+        
+        doc.fontSize(14)
+          .font('Helvetica')
+          .text('Detailed Payment Report', 50, 75);
+
+        // Move down after header
+        doc.y = 150;
+
+        // Calculation Details
+        doc.fillColor('#6b7280')
+          .fontSize(10)
+          .font('Helvetica-Bold')
+          .text('CALCULATION DETAILS', 50, doc.y);
+        
+        doc.y += 20;
+        doc.fillColor('#111827')
+          .fontSize(14)
+          .font('Helvetica-Bold')
+          .text(data.calculationName, 50, doc.y);
+        
+        doc.y += 20;
+        doc.fontSize(10)
+          .font('Helvetica')
+          .fillColor('#6b7280')
+          .text(`Calculation ID: ${data.calculationId}`, 50, doc.y);
+        
+        doc.y += 15;
+        doc.text(`Date: ${this.formatDate(data.calculationDate)}`, 50, doc.y);
+        
+        const periodText = data.periodStart && data.periodEnd
+          ? `${this.formatDate(data.periodStart)} - ${this.formatDate(data.periodEnd)}`
+          : 'All Time';
+        doc.y += 15;
+        doc.text(`Period: ${periodText}`, 50, doc.y);
+
+        // Contract Information (right side)
+        const rightX = 350;
+        doc.fillColor('#6b7280')
+          .fontSize(10)
+          .font('Helvetica-Bold')
+          .text('CONTRACT INFORMATION', rightX, 150);
+        
+        doc.fillColor('#111827')
+          .fontSize(14)
+          .font('Helvetica-Bold')
+          .text(data.contractName, rightX, 170, { width: 200 });
+        
+        doc.fontSize(10)
+          .font('Helvetica')
+          .fillColor('#6b7280')
+          .text(`Licensor: ${data.vendorName}`, rightX, 190, { width: 200 });
+        
+        doc.text(`Licensee: ${data.licensee}`, rightX, 205, { width: 200 });
+        
+        if (data.paymentTerms) {
+          doc.text(`Terms: ${data.paymentTerms}`, rightX, 220, { width: 200 });
+        }
+
+        // Line items table
+        doc.y = 280;
+        this.drawTable(doc, data.breakdown);
+
+        // Totals section
+        doc.y += 20;
+        const totalsY = doc.y;
+        doc.rect(50, totalsY, doc.page.width - 100, 100).fillAndStroke('#f9fafb', '#e5e7eb');
+
+        doc.fillColor('#111827')
+          .fontSize(12)
+          .font('Helvetica')
+          .text('Subtotal Royalty:', 70, totalsY + 20);
+        
+        doc.font('Helvetica-Bold')
+          .text(`$${data.totalRoyalty.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, doc.page.width - 200, totalsY + 20);
+
+        if (data.minimumGuarantee) {
+          doc.font('Helvetica')
+            .text('Minimum Guarantee:', 70, totalsY + 40);
+          
+          doc.font('Helvetica-Bold')
+            .text(`$${data.minimumGuarantee.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, doc.page.width - 200, totalsY + 40);
+        }
+
+        doc.fillColor('#7c3aed')
+          .fontSize(16)
+          .font('Helvetica-Bold')
+          .text('TOTAL AMOUNT DUE:', 70, totalsY + 70);
+        
+        doc.text(`$${data.finalRoyalty.toLocaleString('en-US', { minimumFractionDigits: 2 })} ${data.currency}`, doc.page.width - 250, totalsY + 70);
+
+        // Footer
+        doc.y = doc.page.height - 80;
+        doc.strokeColor('#e5e7eb').lineWidth(1).moveTo(50, doc.y).lineTo(doc.page.width - 50, doc.y).stroke();
+        
+        doc.y += 15;
+        doc.fillColor('#6b7280')
+          .fontSize(10)
+          .font('Helvetica')
+          .text('Generated by LicenseIQ - Agentic AI for Financial Contracts', 50, doc.y, { align: 'center', width: doc.page.width - 100 });
+        
+        doc.y += 15;
+        doc.text('This is a system-generated invoice. For questions, please contact your account manager.', 50, doc.y, { align: 'center', width: doc.page.width - 100 });
+
+        doc.end();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Generate summary invoice PDF with totals only
+   */
+  static async generateSummaryInvoice(data: InvoiceData): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+      try {
+        const doc = new PDFDocument({ margin: 50, size: 'A4' });
+        const buffers: Buffer[] = [];
+
+        doc.on('data', (buffer: Buffer) => buffers.push(buffer));
+        doc.on('end', () => resolve(Buffer.concat(buffers)));
+        doc.on('error', reject);
+
+        // Header
+        doc.rect(0, 0, doc.page.width, 140).fill('#7c3aed');
+        
+        doc.fillColor('#ffffff')
+          .fontSize(32)
+          .font('Helvetica-Bold')
+          .text('ROYALTY PAYMENT SUMMARY', 50, 50, { align: 'center', width: doc.page.width - 100 });
+        
+        doc.fontSize(16)
+          .font('Helvetica')
+          .text(data.calculationName, 50, 100, { align: 'center', width: doc.page.width - 100 });
+
+        doc.y = 180;
+
+        // Summary stats
+        const totalItems = data.breakdown.length;
+        const totalQuantity = data.breakdown.reduce((sum, item) => sum + item.quantity, 0);
+        const totalSales = data.breakdown.reduce((sum, item) => sum + item.grossAmount, 0);
+        const rulesApplied = Array.from(new Set(data.breakdown.map(item => item.ruleApplied)));
+
+        const statsY = doc.y;
+        const statWidth = (doc.page.width - 150) / 2;
+        
+        // Draw stat cards
+        this.drawStatCard(doc, 50, statsY, statWidth, 80, 'Total Items', totalItems.toLocaleString(), 'Products sold');
+        this.drawStatCard(doc, 50 + statWidth + 20, statsY, statWidth, 80, 'Total Units', totalQuantity.toLocaleString(), 'Quantity sold');
+        this.drawStatCard(doc, 50, statsY + 100, statWidth, 80, 'Gross Sales', `$${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 'Total revenue');
+        this.drawStatCard(doc, 50 + statWidth + 20, statsY + 100, statWidth, 80, 'Rules Applied', rulesApplied.length.toString(), 'Royalty rules used');
+
+        // Amount due box
+        doc.y = statsY + 220;
+        const amountBoxY = doc.y;
+        doc.rect(50, amountBoxY, doc.page.width - 100, 100).fill('#7c3aed');
+        
+        doc.fillColor('#ffffff')
+          .fontSize(14)
+          .font('Helvetica')
+          .text('TOTAL AMOUNT DUE', 50, amountBoxY + 20, { align: 'center', width: doc.page.width - 100 });
+        
+        doc.fontSize(32)
+          .font('Helvetica-Bold')
+          .text(`$${data.finalRoyalty.toLocaleString('en-US', { minimumFractionDigits: 2 })} ${data.currency}`, 50, amountBoxY + 48, { align: 'center', width: doc.page.width - 100 });
+        
+        doc.y = amountBoxY + 100;
+
+        // Contract info
+        doc.y += 140;
+        this.drawInfoSection(doc, data);
+
+        // Footer
+        doc.y = doc.page.height - 80;
+        doc.strokeColor('#e5e7eb').lineWidth(1).moveTo(50, doc.y).lineTo(doc.page.width - 50, doc.y).stroke();
+        
+        doc.y += 15;
+        doc.fillColor('#6b7280')
+          .fontSize(10)
+          .font('Helvetica')
+          .text('Generated by LicenseIQ - Agentic AI for Financial Contracts', 50, doc.y, { align: 'center', width: doc.page.width - 100 });
+        
+        doc.y += 15;
+        doc.text('This is a system-generated summary invoice. For detailed breakdown, please request the detailed invoice.', 50, doc.y, { align: 'center', width: doc.page.width - 100 });
+
+        doc.end();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Draw table for line items
+   */
+  private static drawTable(doc: typeof PDFDocument.prototype, breakdown: InvoiceData['breakdown']) {
+    const tableTop = doc.y;
+    const itemHeight = 35;
+    const headerHeight = 30;
+    
+    // Table headers
+    doc.rect(50, tableTop, doc.page.width - 100, headerHeight).fill('#f9fafb');
+    
+    doc.fillColor('#6b7280')
+      .fontSize(9)
+      .font('Helvetica-Bold')
+      .text('#', 55, tableTop + 10, { width: 25 })
+      .text('PRODUCT', 85, tableTop + 10, { width: 160 })
+      .text('QTY', 250, tableTop + 10, { width: 50, align: 'center' })
+      .text('GROSS SALES', 305, tableTop + 10, { width: 80, align: 'right' })
+      .text('RULE', 390, tableTop + 10, { width: 80 })
+      .text('ROYALTY', 475, tableTop + 10, { width: 70, align: 'right' });
+
+    doc.y = tableTop + headerHeight;
+
+    // Table rows
+    breakdown.forEach((item, index) => {
+      const rowY = doc.y;
+      
+      // Alternate row colors
+      if (index % 2 === 0) {
+        doc.rect(50, rowY, doc.page.width - 100, itemHeight).fillAndStroke('#fafafa', '#e5e7eb');
+      } else {
+        doc.rect(50, rowY, doc.page.width - 100, itemHeight).stroke('#e5e7eb');
+      }
+      
+      doc.fillColor('#111827')
+        .fontSize(9)
+        .font('Helvetica')
+        .text((index + 1).toString(), 55, rowY + 10, { width: 25 });
+      
+      doc.font('Helvetica-Bold')
+        .text(item.productName.substring(0, 25), 85, rowY + 8, { width: 160 });
+      
+      doc.font('Helvetica')
+        .fontSize(8)
+        .fillColor('#6b7280')
+        .text(item.category || 'N/A', 85, rowY + 22, { width: 160 });
+      
+      doc.fillColor('#111827')
+        .fontSize(9)
+        .text(item.quantity.toLocaleString(), 250, rowY + 12, { width: 50, align: 'center' });
+      
+      doc.text(`$${item.grossAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 305, rowY + 12, { width: 80, align: 'right' });
+      
+      doc.fontSize(8)
+        .text(item.ruleApplied.substring(0, 15), 390, rowY + 12, { width: 80 });
+      
+      doc.fontSize(9)
+        .font('Helvetica-Bold')
+        .text(`$${item.calculatedRoyalty.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 475, rowY + 12, { width: 70, align: 'right' });
+      
+      doc.y += itemHeight;
+      
+      // Add new page if needed
+      if (doc.y > doc.page.height - 150 && index < breakdown.length - 1) {
+        doc.addPage();
+        doc.y = 50;
+      }
+    });
+  }
+
+  /**
+   * Draw stat card
+   */
+  private static drawStatCard(doc: typeof PDFDocument.prototype, x: number, y: number, width: number, height: number, title: string, value: string, label: string) {
+    doc.rect(x, y, width, height).fillAndStroke('#f9fafb', '#e5e7eb');
+    
+    doc.fillColor('#6b7280')
+      .fontSize(9)
+      .font('Helvetica-Bold')
+      .text(title, x + 15, y + 12, { width: width - 30 });
+    
+    doc.fillColor('#111827')
+      .fontSize(20)
+      .font('Helvetica-Bold')
+      .text(value, x + 15, y + 30, { width: width - 30 });
+    
+    doc.fillColor('#6b7280')
+      .fontSize(9)
+      .font('Helvetica')
+      .text(label, x + 15, y + 58, { width: width - 30 });
+  }
+
+  /**
+   * Draw info section
+   */
+  private static drawInfoSection(doc: typeof PDFDocument.prototype, data: InvoiceData) {
+    const periodText = data.periodStart && data.periodEnd
+      ? `${this.formatDate(data.periodStart)} - ${this.formatDate(data.periodEnd)}`
+      : 'All Time';
+
+    const infoY = doc.y;
+    doc.rect(50, infoY, doc.page.width - 100, 150).fillAndStroke('#f9fafb', '#e5e7eb');
+    
+    const items = [
+      ['Contract:', data.contractName],
+      ['Licensor:', data.vendorName],
+      ['Licensee:', data.licensee],
+      ['Calculation Period:', periodText],
+      ['Calculation Date:', this.formatDate(data.calculationDate)],
+    ];
+
+    if (data.paymentTerms) {
+      items.push(['Payment Terms:', data.paymentTerms]);
+    }
+
+    let currentY = infoY + 15;
+    items.forEach(([label, value]) => {
+      doc.fillColor('#6b7280')
+        .fontSize(10)
+        .font('Helvetica')
+        .text(label, 70, currentY);
+      
+      doc.fillColor('#111827')
+        .font('Helvetica-Bold')
+        .text(value, 220, currentY, { width: 300 });
+      
+      currentY += 20;
+    });
+  }
+
+  /**
+   * Format date for display
+   */
+  private static formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  /**
+   * Generate dimension report PDF
+   */
+  static async generateDimensionReport(data: {
+    calculationName: string;
+    contractName: string;
+    dimensionName: string;
+    periodStart?: Date;
+    periodEnd?: Date;
+    totalSalesAmount: number;
+    totalFee: number;
+    transactionCount: number;
+    aggregatedData: Array<{
+      dimensionValue: string;
+      totalSalesAmount: number;
+      totalQuantity: number;
+      totalFee: number;
+      transactionCount: number;
+    }>;
+  }): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+      try {
+        const doc = new PDFDocument({ margin: 50, size: 'A4' });
+        const buffers: Buffer[] = [];
+
+        doc.on('data', (buffer: Buffer) => buffers.push(buffer));
+        doc.on('end', () => resolve(Buffer.concat(buffers)));
+        doc.on('error', reject);
+
+        // Header
+        doc.rect(0, 0, doc.page.width, 100).fill('#7c3aed');
+        
+        doc.fillColor('#ffffff')
+          .fontSize(24)
+          .font('Helvetica-Bold')
+          .text(`License Fee Report - ${data.dimensionName}`, 50, 35);
+        
+        doc.fontSize(12)
+          .font('Helvetica')
+          .text(data.contractName, 50, 65);
+
+        doc.y = 120;
+
+        // Summary section
+        doc.fillColor('#111827')
+          .fontSize(12)
+          .font('Helvetica-Bold')
+          .text('Report Summary', 50, doc.y);
+        
+        doc.y += 25;
+        
+        const periodText = data.periodStart && data.periodEnd
+          ? `${this.formatDate(data.periodStart)} - ${this.formatDate(data.periodEnd)}`
+          : 'All Time';
+        
+        doc.fontSize(10)
+          .font('Helvetica')
+          .fillColor('#6b7280')
+          .text(`Calculation: ${data.calculationName}`, 50, doc.y);
+        doc.y += 15;
+        doc.text(`Period: ${periodText}`, 50, doc.y);
+        doc.y += 15;
+        doc.text(`Total Sales: $${data.totalSalesAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 50, doc.y);
+        doc.y += 15;
+        doc.text(`Total License Fee: $${data.totalFee.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 50, doc.y);
+        doc.y += 15;
+        doc.text(`Total Transactions: ${data.transactionCount.toLocaleString()}`, 50, doc.y);
+        
+        doc.y += 30;
+
+        // Table header
+        const tableTop = doc.y;
+        doc.rect(50, tableTop, doc.page.width - 100, 30).fill('#f3f4f6');
+        
+        doc.fillColor('#374151')
+          .fontSize(9)
+          .font('Helvetica-Bold')
+          .text(data.dimensionName, 60, tableTop + 10, { width: 150 })
+          .text('Sales Amount', 220, tableTop + 10, { width: 80, align: 'right' })
+          .text('Quantity', 310, tableTop + 10, { width: 60, align: 'right' })
+          .text('License Fee', 380, tableTop + 10, { width: 80, align: 'right' })
+          .text('% of Total', 470, tableTop + 10, { width: 60, align: 'right' });
+
+        doc.y = tableTop + 35;
+
+        // Table rows
+        data.aggregatedData.forEach((row, index) => {
+          if (doc.y > doc.page.height - 80) {
+            doc.addPage();
+            doc.y = 50;
+          }
+
+          const rowY = doc.y;
+          const rowHeight = 25;
+
+          if (index % 2 === 0) {
+            doc.rect(50, rowY, doc.page.width - 100, rowHeight).fill('#fafafa');
+          }
+
+          const percentage = data.totalFee > 0 
+            ? ((row.totalFee / data.totalFee) * 100).toFixed(1) 
+            : '0.0';
+
+          doc.fillColor('#111827')
+            .fontSize(9)
+            .font('Helvetica')
+            .text(row.dimensionValue.substring(0, 30), 60, rowY + 8, { width: 150 })
+            .text(`$${row.totalSalesAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 220, rowY + 8, { width: 80, align: 'right' })
+            .text(row.totalQuantity.toLocaleString(), 310, rowY + 8, { width: 60, align: 'right' })
+            .text(`$${row.totalFee.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 380, rowY + 8, { width: 80, align: 'right' })
+            .text(`${percentage}%`, 470, rowY + 8, { width: 60, align: 'right' });
+
+          doc.y += rowHeight;
+        });
+
+        // Footer
+        doc.y += 20;
+        doc.rect(50, doc.y, doc.page.width - 100, 1).fill('#e5e7eb');
+        doc.y += 15;
+        
+        doc.fillColor('#6b7280')
+          .fontSize(8)
+          .font('Helvetica')
+          .text(`Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`, 50, doc.y);
+
+        doc.end();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+}

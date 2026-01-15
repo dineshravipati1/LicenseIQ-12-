@@ -1,0 +1,11 @@
+transactionDate,transactionId,productName,category,territory,grossAmount,quantity,unitPrice,productCode,notes
+2024-03-15,TXN-001,Aurora Flame Maple 5-gallon container,Ornamental Trees,Oregon,4500.00,1000,4.50,GIG-AF-5GAL,Spring season premium
+2024-03-20,TXN-002,Pacific Sunset Rose 6-inch pot,Premium Roses,Washington,1380.00,1200,1.15,GIG-PS-6IN,Spring season
+2024-04-10,TXN-003,Cascade Blue Hydrangea standard,Flowering Shrubs,Northern California,4500.00,2000,2.25,GIG-CB-STD,Primary territory
+2024-04-15,TXN-004,Emerald Crown Hosta 1-gallon,Perennials,Idaho,1850.00,1000,1.85,GIG-EC-1GAL,Specimen grade
+2024-05-01,TXN-005,Golden Spire Juniper 3-gallon,Ornamental Shrubs,Oregon,5700.00,2000,2.85,GIG-GS-3GAL,Volume discount eligible
+2024-09-12,TXN-006,Aurora Flame Maple 1-gallon,Ornamental Trees,Montana,1320.00,1200,1.10,GIG-AF-1GAL,Fall season - secondary territory
+2024-10-05,TXN-007,Pacific Sunset Rose 4-inch pot,Premium Roses,Nevada,900.00,1200,0.75,GIG-PS-4IN,Off-season rate
+2024-11-20,TXN-008,Cascade Blue Hydrangea standard,Flowering Shrubs,Wyoming,3900.00,2000,1.95,GIG-CB-STD,Secondary territory premium
+2024-12-10,TXN-009,Pacific Sunset Rose 2-gallon specimen,Premium Roses,Oregon,6500.00,2000,3.25,GIG-PS-2GAL,Holiday season +20% premium
+2024-06-15,TXN-010,Golden Spire Juniper 15-gallon specimen,Ornamental Trees,Washington,12750.00,1000,12.75,GIG-GS-15GAL,Large specimen off-season

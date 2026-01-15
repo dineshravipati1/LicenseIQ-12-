@@ -1,0 +1,26 @@
+item_id,item_name,category,unit_price,quantity,status,is_active,created_date,supplier,region
+ITM001,Widget Pro,Electronics,49.99,150,Available,Yes,2024-01-15,TechCorp,North
+ITM002,Basic Widget,Electronics,24.99,300,Available,Yes,2024-02-20,TechCorp,North
+ITM003,Premium Gadget,Electronics,149.99,75,Low Stock,Yes,2024-03-10,GadgetWorld,South
+ITM004,Standard Cable,Accessories,9.99,500,Available,Yes,2024-01-05,CableCo,East
+ITM005,Deluxe Cable,Accessories,19.99,200,Available,Yes,2024-02-28,CableCo,East
+ITM006,Power Adapter,Accessories,34.99,120,Available,Yes,2024-03-15,PowerSupply Inc,West
+ITM007,Wireless Mouse,Peripherals,29.99,180,Available,Yes,2024-04-01,PeripheralPro,North
+ITM008,Mechanical Keyboard,Peripherals,89.99,50,Low Stock,Yes,2024-04-10,PeripheralPro,North
+ITM009,USB Hub,Accessories,14.99,400,Available,Yes,2024-05-05,TechCorp,South
+ITM010,Monitor Stand,Furniture,59.99,80,Available,Yes,2024-05-15,OfficeFurn,West
+ITM011,Desk Lamp,Furniture,44.99,100,Available,Yes,2024-06-01,OfficeFurn,West
+ITM012,Headphones,Audio,79.99,60,Low Stock,Yes,2024-06-10,AudioMax,East
+ITM013,Speakers,Audio,129.99,45,Available,Yes,2024-07-01,AudioMax,East
+ITM014,Microphone,Audio,99.99,30,Out of Stock,No,2024-07-15,AudioMax,South
+ITM015,Webcam,Peripherals,69.99,90,Available,Yes,2024-08-01,PeripheralPro,North
+ITM016,Laptop Stand,Furniture,39.99,110,Available,Yes,2024-08-20,OfficeFurn,West
+ITM017,Cable Organizer,Accessories,12.99,250,Available,Yes,2024-09-01,CableCo,East
+ITM018,Surge Protector,Accessories,24.99,180,Available,Yes,2024-09-15,PowerSupply Inc,South
+ITM019,Wireless Charger,Electronics,44.99,70,Low Stock,Yes,2024-10-01,TechCorp,North
+ITM020,Bluetooth Adapter,Electronics,19.99,200,Available,Yes,2024-10-15,TechCorp,North
+ITM021,Screen Cleaner,Accessories,7.99,350,Available,Yes,2024-11-01,CleanTech,West
+ITM022,Ergonomic Chair,Furniture,299.99,25,Available,Yes,2024-11-10,OfficeFurn,West
+ITM023,Standing Desk,Furniture,449.99,15,Low Stock,Yes,2024-11-20,OfficeFurn,West
+ITM024,Discontinued Widget,Electronics,29.99,0,Discontinued,No,2023-06-15,TechCorp,North
+ITM025,Old Model Cable,Accessories,4.99,10,Discontinued,No,2023-08-01,CableCo,East

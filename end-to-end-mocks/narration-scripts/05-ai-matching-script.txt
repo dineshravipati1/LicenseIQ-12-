@@ -1,0 +1,27 @@
+SCREEN 5: AI MATCHING PROGRESS
+Duration: ~40 seconds
+
+[INTRO]
+Now the magic happens - AI-powered semantic matching.
+
+[STEP 1 - EMBEDDINGS]
+First, the system generates embeddings for both the contract rules and sales data using Hugging Face's free API.
+
+[STEP 2 - VECTOR SEARCH]
+Then it performs vector similarity search to find the best contract matches for each sale item.
+Watch the progress: analyzing 156 sales rows...
+
+[STEP 3 - LLM VALIDATION]
+For each potential match, Groq's LLaMA model validates the connection and provides a confidence score.
+
+[STEP 4 - RESULTS]
+Look at the results:
+- 142 high-confidence matches processed automatically
+- 14 low-confidence matches flagged for human review
+- Average confidence: 87%
+
+[STEP 5]
+All of this happens in seconds, using completely free AI services.
+
+[TRANSITION]
+Perfect! The sales are matched. Now let's calculate royalties.

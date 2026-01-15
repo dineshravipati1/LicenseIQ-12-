@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2: AI Analysis in Progress - License IQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(217, 91%, 60%)',
+                        background: 'hsl(210, 40%, 96%)',
+                        card: 'hsl(0, 0%, 100%)',
+                        border: 'hsl(210, 40%, 87%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-border flex-shrink-0">
+            <div class="p-6 border-b border-border">
+                <img src="cimpleit-logo.png" alt="CimpleIT" class="h-12 mb-1">
+                <p class="text-xs text-gray-600">License IQ Research Platform</p>
+            </div>
+            <nav class="p-4 space-y-2">
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    Upload
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Contracts
+                </a>
+                <a href="#" class="text-white bg-blue-600 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    AI Analysis
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Royalty Calc
+                </a>
+                <a href="#" class="text-gray-700 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    Ask Contract
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white border-b border-border px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">ABC Corp License Agreement 2024</h1>
+                        <p class="text-gray-600 mt-1">AI analysis in progress...</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg flex items-center font-medium">
+                            <svg class="animate-spin w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            Processing
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-8">
+                <!-- Processing Status Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-8 mb-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                            <svg class="animate-spin w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">Analyzing Contract with AI</h2>
+                            <p class="text-gray-700 mt-1">Powered by Groq LLaMA 3.1 8B Instant (100% FREE)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="bg-white rounded-lg p-4 mb-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="font-medium text-gray-700">Analysis Progress</span>
+                            <span class="font-bold text-blue-600">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="progress-bar bg-gradient-to-r from-blue-600 to-indigo-600 h-3 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600">This process typically takes 15-30 seconds</p>
+                </div>
+
+                <!-- AI Processing Steps -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-lg border border-border p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">AI Processing Steps</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">PDF Text Extraction</p>
+                                    <p class="text-sm text-gray-600">Extract all text from contract document</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Contract Summary Generation</p>
+                                    <p class="text-sm text-gray-600">AI creates comprehensive contract overview</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-pulse">
+                                    <svg class="animate-spin w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Key Terms Extraction</p>
+                                    <p class="text-sm text-gray-600">Identifying parties, products, territories...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start opacity-50">
+                                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Royalty Rules Extraction</p>
+                                    <p class="text-sm text-gray-600">Pending...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start opacity-50">
+                                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Embedding Generation</p>
+                                    <p class="text-sm text-gray-600">Pending...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-border p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">What's Being Analyzed?</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    <h4 class="font-semibold text-gray-900">Contract Summary</h4>
+                                </div>
+                                <p class="text-sm text-gray-700">AI generates a comprehensive overview of the contract's purpose and scope</p>
+                            </div>
+                            
+                            <div class="p-4 bg-purple-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                    <h4 class="font-semibold text-gray-900">Key Terms</h4>
+                                </div>
+                                <p class="text-sm text-gray-700">Parties, products, territories, payment terms, and compliance requirements</p>
+                            </div>
+                            
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                    <h4 class="font-semibold text-gray-900">Royalty Formulas</h4>
+                                </div>
+                                <p class="text-sm text-gray-700">Volume tiers, seasonal adjustments, territory premiums, and calculation rules</p>
+                            </div>
+                            
+                            <div class="p-4 bg-red-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <svg class="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    <h4 class="font-semibold text-gray-900">Risk Assessment</h4>
+                                </div>
+                                <p class="text-sm text-gray-700">Potential risks, compliance issues, and strategic insights</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Box -->
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">AI-Powered Analysis</h4>
+                            <p class="text-gray-700">Our AI system uses Groq's LLaMA 3.1 model to intelligently extract contract information, identify royalty formulas, and assess risks. This process is completely free and typically completes in under 30 seconds.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

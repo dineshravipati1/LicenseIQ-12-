@@ -1,0 +1,173 @@
+LICENSE IQ - MASTER NARRATION SCRIPT
+Complete End-to-End Demo
+Total Duration: ~5 minutes
+
+========================================
+INTRODUCTION (30 seconds)
+========================================
+
+Welcome to License IQ - the intelligent contract management platform that uses 100% free AI to analyze licensing agreements and calculate royalties automatically.
+
+In this demo, I'll show you the complete workflow:
+- Uploading and analyzing contracts with AI
+- Matching sales data automatically
+- Calculating royalties with complex rules
+- Generating professional invoices
+- And asking questions about your contracts
+
+Let's get started.
+
+========================================
+SCREEN 1: CONTRACT UPLOAD (~30 sec)
+========================================
+
+First, upload your licensing contract. Simply drag and drop a PDF file.
+Our system accepts documents up to 10 megabytes.
+For this demo, I'm uploading a plant licensing agreement.
+The file is uploading... and ready for AI analysis.
+
+========================================
+SCREEN 2: AI ANALYSIS (~35 sec)
+========================================
+
+Our AI analyzes the contract using Groq's LLaMA model - completely free.
+Watch as it extracts:
+- Contract parties and territories
+- Important dates and terms
+- Payment structures and royalty rules
+- Risk assessment and compliance checks
+
+This entire process happens in seconds, powered by advanced language models.
+The analysis is complete!
+
+========================================
+SCREEN 3: ANALYSIS RESULTS (~45 sec)
+========================================
+
+Here are the comprehensive results.
+
+KEY TERMS extracted:
+- Evergreen Nurseries as licensor, GreenThumb Retail as licensee
+- North American territory with exclusive rights
+- Three-year term with auto-renewal
+
+ROYALTY RULES found:
+- Volume-based tiered pricing for different products
+- Seasonal adjustments varying by quarter
+- Territory-specific premiums
+- Container size multipliers
+
+The system identified 11 automated royalty rules with 92% confidence.
+Now let's upload sales data.
+
+========================================
+SCREEN 4: SALES UPLOAD (~30 sec)
+========================================
+
+Upload your sales data in CSV or Excel format.
+I'm uploading a quarterly sales report with 156 transactions.
+The preview shows product names, quantities, amounts, and territories.
+
+Here's the powerful part: you don't need to manually match sales to contracts.
+Our AI does that automatically using semantic search.
+
+========================================
+SCREEN 5: AI MATCHING (~40 sec)
+========================================
+
+Watch the AI-powered semantic matching:
+
+First, it generates embeddings using Hugging Face's free API.
+Then performs vector similarity search to match sales to contract rules.
+Groq's LLaMA validates each match with confidence scoring.
+
+Results:
+- 142 high-confidence matches processed automatically
+- 14 low-confidence matches flagged for review
+- 87% average confidence
+
+All in seconds, using completely free AI services.
+
+========================================
+SCREEN 6: ROYALTY DASHBOARD (~50 sec)
+========================================
+
+The Royalty Dashboard - where calculations happen.
+
+FORMULA PREVIEW shows:
+- Which products match which rules
+- Cascade Blue Hydrangea: tiered at $2.25, $1.95, $1.70 per unit
+- All formulas displayed clearly
+
+METRICS show:
+- 156 sales transactions
+- $142,000 in total sales
+- 11 active royalty rules
+
+Click "Calculate Royalties" for Q1 2025...
+
+RESULTS:
+- Total royalty: $8,547
+- Detailed breakdown by product
+- Visual charts and explanations
+- Confidence scores for each line
+
+========================================
+SCREEN 7: INVOICES (~35 sec)
+========================================
+
+Generate professional PDF invoices with one click.
+
+DETAILED INVOICE includes:
+- Line-by-line breakdown
+- Applied rates and rules
+- Calculation explanations
+- Payment terms
+
+SUMMARY INVOICE shows:
+- Total royalty: $8,547
+- Key statistics
+- Confidence scores
+- Professional formatting
+
+Download and send to vendors immediately.
+
+========================================
+SCREEN 8: Q&A ASSISTANT (~45 sec)
+========================================
+
+Your AI contract assistant - ask anything.
+
+I'll ask: "What are the payment terms?"
+
+The system:
+- Searches contract embeddings
+- Finds relevant sections
+- Generates accurate answers
+
+Answer: "Royalties due quarterly within 30 days, with detailed reports."
+
+Source citations show which contract sections were used.
+94% confidence score ensures reliability.
+Every interaction is logged for compliance.
+
+========================================
+CONCLUSION (20 seconds)
+========================================
+
+That's License IQ - from contract upload to invoice generation, all powered by free AI.
+
+Key benefits:
+- Zero API costs - 100% free AI services
+- Automatic contract analysis
+- Semantic sales matching
+- Complex royalty calculations
+- Professional invoices
+- Intelligent Q&A
+
+Transform your contract management today with License IQ.
+
+========================================
+END OF MASTER SCRIPT
+Total Duration: ~5 minutes 20 seconds
+========================================

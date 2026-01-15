@@ -1,0 +1,16 @@
+transactionDate,transactionId,productCode,productName,category,territory,containerSize,season,currency,grossAmount,netAmount,quantity,unitPrice
+2024-03-15,TXN-2024-001,MAPLE-001,Aurora Flame Maple,Ornamental Trees,Primary,1-gallon,Spring,USD,30000,27000,6200,4.84
+2024-03-20,TXN-2024-002,MAPLE-001,Aurora Flame Maple,Ornamental Trees,Primary,5-gallon,Off-Season,USD,25000,22500,1100,22.73
+2024-10-05,TXN-2024-003,JUNIPER-001,Golden Spire Juniper,Ornamental Shrubs,Secondary,3-gallon,Fall,USD,28000,25200,1800,15.56
+2024-04-12,TXN-2024-004,ROSE-001,Pacific Sunset Rose,Flowering Shrubs,Primary,6-inch,Spring,USD,12000,10800,3000,4.00
+2024-09-18,TXN-2024-005,HOSTA-001,Emerald Crown Hosta,Perennials,Primary,2-gallon,Fall,USD,18000,16200,900,20.00
+2024-03-25,TXN-2024-006,HYDRANGEA-001,Cascade Blue Hydrangea,Flowering Shrubs,Primary,Mixed,Spring,USD,120000,108000,20000,6.00
+2024-12-15,TXN-2024-007,ROSE-001,Pacific Sunset Rose,Flowering Shrubs,Primary,1-gallon,Holiday,USD,5000,4500,250,20.00
+2024-05-10,TXN-2024-008,MAPLE-002,Crimson King Maple,Ornamental Trees,Primary,1-gallon,Spring,USD,15000,13500,3000,5.00
+2024-06-15,TXN-2024-009,JUNIPER-002,Blue Arrow Juniper,Ornamental Shrubs,Primary,5-gallon,Summer,USD,22000,19800,800,27.50
+2024-07-20,TXN-2024-010,HYDRANGEA-002,Pink Diamond Hydrangea,Flowering Shrubs,Secondary,3-gallon,Summer,USD,18000,16200,1200,15.00
+2024-08-10,TXN-2024-011,HOSTA-002,Royal Standard Hosta,Perennials,Secondary,1-gallon,Fall,USD,12000,10800,1500,8.00
+2024-09-05,TXN-2024-012,ROSE-002,Crimson Glory Rose,Flowering Shrubs,Primary,2-gallon,Fall,USD,16000,14400,1000,16.00
+2024-10-15,TXN-2024-013,AZALEA-001,Flame Azalea,Flowering Shrubs,Primary,3-gallon,Fall,USD,22000,19800,1300,16.92
+2024-11-20,TXN-2024-014,LILAC-001,Purple Majesty Lilac,Flowering Shrubs,Primary,1-gallon,Off-Season,USD,8000,7200,1600,5.00
+2024-12-10,TXN-2024-015,BOXWOOD-001,Green Mountain Boxwood,Evergreen Shrubs,Primary,3-gallon,Holiday,USD,20000,18000,1250,16.00

@@ -1,0 +1,156 @@
+We’ll use the royalty_detailed.csv file (row-level data).
+Columns:
+
+Variety, Size, Units, UnitPrice, Season, Territory, Organic → from sales data
+
+RoyaltyPerUnit, RoyaltyTotal, AppliedRules → computed dynamically
+
+🔹 Example 1 – Aurora Flame Maple, 1-gallon (6,200 units, Spring, Primary)
+
+Rule source: Tier 1 (Ornamental Trees & Shrubs)
+
+Base rate = $1.25/unit
+
+Discount threshold = 5,000 units
+
+Total annual units = 6,200 → exceeds threshold.
+✅ Discounted rate = $1.10/unit
+
+Season = Spring → Tier1 already handled in base/discount, no extra seasonal.
+
+Territory = Primary → no premium.
+
+Organic? → No.
+
+Final royalty: 6,200 × 1.10 = $6,820
+
+🔹 Example 2 – Aurora Flame Maple, 5-gallon (1,100 units, Off-Season, Primary)
+
+Rule source: Tier 1
+
+Base = $4.50/unit
+
+Threshold = 1,000 units
+
+Total annual units = 1,100 → exceeds threshold.
+✅ Discounted rate = $3.95/unit
+
+Off-Season → standard rate (no seasonal adjustment).
+
+Territory = Primary → no premium.
+
+Organic? → No.
+
+Final royalty: 1,100 × 3.95 = $4,345
+
+🔹 Example 3 – Golden Spire Juniper, 3-gallon (1,800 units, Fall, Secondary)
+
+Rule source: Tier 1
+
+Base = $2.85/unit
+
+Threshold = 2,000 units
+
+Annual units = 1,800 → below threshold.
+✅ Base rate applies = $2.85/unit
+
+Season = Fall → no discount in Tier1.
+
+Territory = Secondary → +10% premium assumed.
+Adjusted rate = 2.85 × 1.10 = $3.135/unit
+
+Organic? → No.
+
+Final royalty: 1,800 × 3.135 ≈ $5,643
+
+🔹 Example 4 – Pacific Sunset Rose, 6-inch (3,000 units, Spring, Primary)
+
+Rule source: Tier 2 (Perennials & Roses)
+
+Base = $1.15/unit
+
+Multiplier = 1.2
+
+Seasonal Spring adj = +10%
+Royalty per unit = 1.15 × 1.2 × (1 + 0.10) = $1.518
+
+Territory = Primary → no premium.
+
+Organic? → No.
+
+Final royalty: 3,000 × 1.518 = $4,554
+
+🔹 Example 5 – Emerald Crown Hosta, 2-gallon+ (900 units, Fall, Primary, Organic)
+
+Rule source: Tier 2
+
+Base = $3.25
+
+Multiplier = 1.5
+
+Fall adj = -5%
+Royalty per unit = 3.25 × 1.5 × (1 - 0.05) = 4.628
+
+Organic? Yes → +25% premium
+Adjusted = 4.628 × 1.25 = $5.785
+
+Final royalty: 900 × 5.785 = $5,207
+
+🔹 Example 6 & 7 – Cascade Blue Hydrangea (20,000 units total across Spring + Off-Season)
+
+Rule source: Tier 3 (sliding scale)
+
+Annual units = 4,000 + 16,000 = 20,000
+
+Falls into 15,001+ units band → $1.45/unit royalty.
+
+Minimum annual payment = $25,000.
+
+Compute royalty: 20,000 × 1.45 = $29,000
+
+Since $29,000 ≥ $25,000 → ✅ No shortfall.
+
+🔹 Example 8 – Pacific Sunset Rose, 1-gallon (250 units, Holiday, Primary)
+
+Rule source: Tier 2
+
+Base = $1.85
+
+Multiplier = 1.3
+
+Holiday adj = +20% (general seasonal rule).
+Royalty per unit = 1.85 × 1.3 × (1 + 0.20) = $2.886
+
+Territory = Primary → no premium.
+
+Organic? → No.
+
+Final royalty: 250 × 2.886 ≈ $722
+
+📌 Aggregated Totals (from royalty_summary_by_variety.csv)
+
+Aurora Flame Maple → $11,165
+
+Golden Spire Juniper → $5,643
+
+Pacific Sunset Rose → $5,276
+
+Emerald Crown Hosta → $5,207
+
+Cascade Blue Hydrangea → $29,000
+
+Total computed royalties = $56,291
+
+📌 Minimum Guarantee Check (from royalty_final_summary.csv)
+
+Contract requires $85,000 minimum annual.
+
+Computed = $56,291 → shortfall = $28,709.
+
+✅ Final payable = $85,000
+
+✅ So in practice:
+
+Even though royalties from actual sales = $56,291,
+
+Licensee must still pay the minimum guarantee $85,000 for the year.

@@ -1,0 +1,27 @@
+SCREEN 3: ANALYSIS RESULTS
+Duration: ~45 seconds
+
+[INTRO]
+Here are the comprehensive analysis results for our contract.
+
+[STEP 1 - KEY TERMS]
+The AI has extracted all key terms:
+- Contract parties: Evergreen Nurseries as licensor, GreenThumb Retail as licensee
+- Territory: North America with exclusive rights
+- Contract term: Three years with auto-renewal
+
+[STEP 2 - ROYALTY RULES]
+Most importantly, the AI found complex royalty calculation rules:
+- Volume-based tiered pricing for different products
+- Seasonal adjustments that vary by quarter
+- Territory-specific premiums
+- Container size multipliers
+
+[STEP 3 - INSIGHTS]
+The system has identified 11 automated royalty rules and flagged 2 medium-risk items for review.
+
+[STEP 4]
+Notice the confidence scores - 92% overall confidence gives us trust in the extraction accuracy.
+
+[TRANSITION]
+Now that we have the contract analyzed, let's upload sales data to calculate royalties.

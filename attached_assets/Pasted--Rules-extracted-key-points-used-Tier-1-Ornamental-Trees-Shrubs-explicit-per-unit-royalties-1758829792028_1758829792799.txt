@@ -1,0 +1,36 @@
+) Rules extracted (key points used)
+
+Tier 1 — Ornamental Trees & Shrubs: explicit per-unit royalties and discounted rates if annual volume thresholds are met (e.g. 1-gal $1.25 base, discounted to $1.10 if 5,000+ units annually). 
+
+Plant Variety License & Royalty…
+
+Tier 2 — Perennials & Roses: base royalty per container size * premium multiplier * seasonal adjustments. The PDF lists multipliers and seasonal adjustments next to sizes (e.g. 6-inch: base $1.15 × 1.2 multiplier, Spring +10%). 
+
+Plant Variety License & Royalty…
+
+Tier 3 — Flowering Shrubs (Cascade Blue Hydrangea): sliding per-unit rates depending on annual sales bands and minimum annual payments for each band (e.g. 1–2,500 units → $2.25/unit and $8,500 min annual payment). 
+
+Plant Variety License & Royalty…
+
+Seasonal adjustments: Spring +10–15% (peak), Fall -5% (clearance), Holiday +20%, Off-season standard. The PDF has specific seasonal figures for some sizes; those specific numbers were used when present. 
+
+Plant Variety License & Royalty…
+
+Minimum Annual Guarantee: Licensee guarantees $85,000 minimum annual royalty payments regardless of sales; payable quarterly. 
+
+Plant Variety License & Royalty…
+
+Organic premium: +25% premium for certified organic sales (section 8.3). 
+
+Plant Variety License & Royalty…
+
+2) Ambiguities & assumptions I applied (explicit)
+
+The PDF says Secondary Territory has a "royalty premium" but doesn’t state the percent. Assumed +10% secondary territory premium for calculations (kept this explicit so you can change it).
+
+For broad seasonal ranges like "Spring +10–15%", where a specific percent wasn’t assigned to a particular SKU I used the size-specific seasonal adjustment shown in the Tier2 table (e.g., 4-inch +15%, 6-inch +10%).
+
+Discounted rates (Tier1) apply when annual units for that variety+size exceed the threshold (we aggregate annual units across all sales lines for that SKU).
+
+Tier3 minimum annual payment enforcement: the computed per-unit royalties for Cascade Blue Hydrangea are summed for the year; if the annual royalty < that bracket's minimum, the shortfall becomes due.
+All assumptions are documented and are changeable in the code I ran.
