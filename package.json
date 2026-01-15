@@ -68,6 +68,7 @@
     "multer": "^2.0.2",
     "nanoid": "^5.1.5",
     "next-themes": "^0.4.6",
+    "nodemailer": "^7.0.12",
     "openid-client": "^6.7.1",
     "papaparse": "^5.5.3",
     "passport": "^0.7.0",
