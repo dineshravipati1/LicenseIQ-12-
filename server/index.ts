@@ -95,9 +95,18 @@ async function initializeDatabase() {
     serveStatic(app);
   }
 
-  // Use simple listen signature for Windows compatibility (NO reusePort)
-  const port = Number(process.env.PORT || 5000);
-  const host = process.env.HOST || "127.0.0.1";
+  /**
+   * ✅ Railway / Docker fix:
+   * Must listen on 0.0.0.0 so Railway can route traffic to the container.
+   * Listening on 127.0.0.1 (localhost) makes it "online" but unreachable publicly.
+   */
+  const port = Number(process.env.PORT) || 5000;
+
+  // In production, bind to 0.0.0.0 for Railway
+  const host =
+    process.env.NODE_ENV === "production"
+      ? "0.0.0.0"
+      : process.env.HOST || "127.0.0.1";
 
   server.listen(port, host, () => {
     log(`serving on http://${host}:${port}`);
